@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "latest",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/joy": "latest",
     "@types/node": "20.5.8",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
