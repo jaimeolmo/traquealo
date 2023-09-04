@@ -2,7 +2,7 @@
 import * as React from "react";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
-import NextAppDirEmotionCacheProvider from "./EmotionCache";
+import { NextAppDirEmotionCacheProvider } from "./EmotionCache";
 import theme from "./theme";
 
 export function ThemeRegistry({ children }: { children: React.ReactNode }) {

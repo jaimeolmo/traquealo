@@ -12,7 +12,7 @@ type SectionListProps = {
   arialLabelDescription: string;
 };
 
-export default function SectionList({
+export function SectionList({
   sectionTitle,
   sectionList,
   arialLabelDescription,
