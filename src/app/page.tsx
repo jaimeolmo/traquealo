@@ -5,6 +5,7 @@ import Stack from "@mui/joy/Stack";
 import { SimpleCard } from "@/components/SimpleCard/SimpleCard";
 import Sheet from "@mui/joy/Sheet";
 import { MailinglistSection } from "@/components/MailinglistSection/MailinglistSection";
+import { HeaderBar } from "@/components/HeaderBar/HeaderBar";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         minHeight: "100vh",
       }}
     >
+      <HeaderBar />
       <Typography level="h1">
         Monitoreo de incidentes y mejoras en tu comunidad.{" "}
       </Typography>
