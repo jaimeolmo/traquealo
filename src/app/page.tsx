@@ -1,11 +1,10 @@
 import Typography from "@mui/joy/Typography";
 import { Footer } from "@/components/Footer/Footer";
-import { SectionList } from "@/components/SectionList/SectionList";
-import Stack from "@mui/joy/Stack";
-import { SimpleCard } from "@/components/SimpleCard/SimpleCard";
 import Sheet from "@mui/joy/Sheet";
-import { MailinglistSection } from "@/components/MailinglistSection/MailinglistSection";
+import { MailingListSection } from "@/components/MailingListSection/MailingListSection";
 import { HeaderBar } from "@/components/HeaderBar/HeaderBar";
+import { StepsBar } from "@/components/StepsBar/StepsBar";
+import { LinksSection } from "@/components/LinksSection/LinksSections";
 
 export default function Home() {
   return (
@@ -13,15 +12,14 @@ export default function Home() {
       sx={{
         display: "flex",
         flexFlow: "column",
-        justifyContent: "center",
-        p: 6,
         alignItems: "center",
         minHeight: "100vh",
       }}
     >
       <HeaderBar />
       <Typography level="h1">
-        Monitoreo de incidentes y mejoras en tu comunidad.{" "}
+        Construyendo un Futuro Mejor: Monitoreo y Registro de Desafíos
+        Comunitarios.
       </Typography>
       <Typography>
         Estamos trabajando en crear una plataforma donde puedas reportar y
@@ -33,82 +31,9 @@ export default function Home() {
         Newsletter donde te mantendremos informados del progreso realizado.{" "}
       </Typography>
       <Typography level="h3">Déjanos saber tu dirección de email</Typography>
-      <MailinglistSection />
-      <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-        <SimpleCard
-          cardTitle={"Obsérvalo"}
-          cardContent={
-            "Identifica en tu área posibles problemas que afectan la comunidad."
-          }
-          arialLabelDescription={""}
-        />
-        <SimpleCard
-          cardTitle={"Repórtalo"}
-          cardContent={
-            "A través de nuestras cuentas sociales o accede a nuestro sistema para actualizar detalles del evento."
-          }
-          arialLabelDescription={""}
-        />
-        <SimpleCard
-          cardTitle={"Traquéalo"}
-          cardContent={
-            "Acá nos encargaremos de consolidar todos los reportes de tu comunidad. Identificaremos responsables y monitorearemos el evento hasta que pueda ser resuelto."
-          }
-          arialLabelDescription={""}
-        />
-      </Stack>
-      <Stack direction={{ xs: "column", sm: "row" }}>
-        <SectionList
-          sectionTitle="Links"
-          sectionList={[
-            {
-              sectionTitle: "FAQ",
-              sectionUrl: "#",
-            },
-            { sectionTitle: "Help", sectionUrl: "#" },
-            { sectionTitle: "Support", sectionUrl: "#" },
-          ]}
-          arialLabelDescription={"Links for the different support sections."}
-        />
-        <SectionList
-          sectionTitle="Legal"
-          sectionList={[
-            {
-              sectionTitle: "Terms",
-              sectionUrl: "#",
-            },
-            { sectionTitle: "Privacy", sectionUrl: "#" },
-          ]}
-          arialLabelDescription={"Links for legals information."}
-        />
-        <SectionList
-          sectionTitle="Social"
-          sectionList={[
-            {
-              sectionTitle: "Facebook",
-              sectionUrl: "#",
-            },
-            { sectionTitle: "Instagram", sectionUrl: "#" },
-            { sectionTitle: "X", sectionUrl: "#" },
-          ]}
-          arialLabelDescription={
-            "Links for the different social media outlets."
-          }
-        />
-        <SectionList
-          sectionTitle="Traquealo"
-          sectionList={[
-            {
-              sectionTitle: "About us",
-              sectionUrl: "#",
-            },
-            { sectionTitle: "Contact", sectionUrl: "#" },
-          ]}
-          arialLabelDescription={
-            "Links for getting more information about this web."
-          }
-        />
-      </Stack>
+      <MailingListSection />
+      <StepsBar />
+      <LinksSection />
       <Footer />
     </Sheet>
   );
