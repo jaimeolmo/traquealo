@@ -15,7 +15,6 @@ export function HeaderBar() {
         height: 80,
         px: 2,
         alignItem: "center",
-        border: "1px solid green",
       }}
     >
       <Stack
