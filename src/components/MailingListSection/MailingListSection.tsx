@@ -5,5 +5,10 @@ import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 
 export function MailingListSection() {
-  return <Sheet>Form here!</Sheet>;
+  return (
+    <Sheet>
+      <Typography level="h3">Déjanos saber tu dirección de email</Typography>
+      Form here!
+    </Sheet>
+  );
 }
