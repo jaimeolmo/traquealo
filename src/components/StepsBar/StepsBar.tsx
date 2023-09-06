@@ -11,7 +11,8 @@ export function StepsBar() {
     >
       <Stack
         direction={{ xs: "column", sm: "row" }}
-        sx={{ maxWidth: "1024px", margin: "auto" }}
+        sx={{ maxWidth: "1024px", margin: "auto", pb: 4, px: 4 }}
+        alignItems={{ xs: "center", sm: "unset" }}
         spacing={2}
       >
         <SimpleCard

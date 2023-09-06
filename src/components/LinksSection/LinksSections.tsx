@@ -11,6 +11,8 @@ export function LinksSection() {
     >
       <Stack
         direction={{ xs: "column", sm: "row" }}
+        justifyContent="space-evenly"
+        alignItems={{ xs: "center", sm: "stretch" }}
         sx={{ maxWidth: "1024px", margin: "auto" }}
         spacing={2}
       >
