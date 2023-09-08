@@ -8,6 +8,7 @@ export function LandingSection() {
       sx={{
         width: "100%",
         px: 2,
+        pt: 4,
       }}
     >
       <Stack

@@ -18,13 +18,15 @@ export function SectionList({
   arialLabelDescription,
 }: SectionListProps) {
   return (
-    <Stack>
+    <Stack sx={{ width: { xs: "50%", sm: "100%" } }}>
       <Typography textTransform="uppercase" level="title-md">
         {sectionTitle}
       </Typography>
       <List aria-labelledby="aria-label-description">
         {sectionList.map((item) => (
-          <ListItem key={item.sectionTitle}>{item.sectionTitle}</ListItem>
+          <ListItem sx={{ pl: 0 }} key={item.sectionTitle}>
+            {item.sectionTitle}
+          </ListItem>
         ))}
       </List>
     </Stack>
