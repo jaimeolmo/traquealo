@@ -2,6 +2,9 @@ import Sheet from "@mui/joy/Sheet";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Image from "next/image";
+import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
+import Box from "@mui/joy/Box";
 
 export function HeaderBar() {
   return (
@@ -40,6 +43,22 @@ export function HeaderBar() {
           width="120"
           height="32"
         />
+        <Stack sx={{ width: "100%" }} direction="row" justifyContent="flex-end">
+          <SignedOut>
+            <Box
+              sx={{
+                "& a": {
+                  color: "#fff",
+                },
+              }}
+            >
+              <Link href="/sign-in">Sign in</Link>
+            </Box>
+          </SignedOut>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+        </Stack>
       </Stack>
     </Sheet>
   );

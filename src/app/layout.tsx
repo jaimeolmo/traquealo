@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ThemeRegistry } from "@/components/ThemeRegistry/ThemeRegistry";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +20,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-        <ThemeRegistry>
-          {children}
-          <Analytics />
-        </ThemeRegistry>
+        <ClerkProvider>
+          <ThemeRegistry>
+            {children}
+            <Analytics />
+          </ThemeRegistry>
+        </ClerkProvider>
       </body>
       <Script src="../scripts/mailerlite.js" />
     </html>
