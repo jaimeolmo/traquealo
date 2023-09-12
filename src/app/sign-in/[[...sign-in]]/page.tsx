@@ -6,13 +6,7 @@ type SearchParams = {
   redirectUrl?: string;
 };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
-  const redirectUrl = searchParams?.redirectUrl || "/";
-
+export default async function Page() {
   return (
     <Sheet>
       <Stack
@@ -20,7 +14,7 @@ export default async function Page({
         alignItems="center"
         sx={{ minHeight: "100vh" }}
       >
-        <SignIn redirectUrl={redirectUrl} />
+        <SignIn />
       </Stack>
     </Sheet>
   );
