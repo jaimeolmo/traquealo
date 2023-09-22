@@ -1,6 +1,8 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
+import UserCosmosClient from '@/utilities/cosmosdb/UserCosmosClient'
+import { User } from '@/models/User'
  
 export async function POST(req: Request) {
  
@@ -46,14 +48,21 @@ export async function POST(req: Request) {
       status: 400
     })
   }
- 
+
   // Get the ID and type
   const { id } = evt.data;
   const eventType = evt.type;
- 
+
   console.log(`Webhook with an ID of ${id} and type of ${eventType}`)
   console.log('Webhook body:', body)
- 
+
+  const userCosmosClient = new UserCosmosClient()
+
+  const newUser = User.CreateNew(id as string)
+
+  const created = await userCosmosClient.createOrUpdate(newUser)
+  console.log(newUser)
+
   return new Response('', { status: 201 })
 }
  

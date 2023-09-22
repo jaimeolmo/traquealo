@@ -11,6 +11,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@azure/cosmos": "^4.0.0",
     "@clerk/nextjs": "^4.23.5",
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
@@ -26,7 +27,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "svix": "^1.12.0",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.1.2",
