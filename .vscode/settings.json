@@ -1,0 +1,13 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "launch": {
+    "configurations": [],
+    "compounds": []
+  },
+  // Sort imports and automatically remove
+  // unused imports when pressing CTRL + S
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
+}
