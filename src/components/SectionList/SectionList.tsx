@@ -1,16 +1,16 @@
-import Typography from "@mui/joy/Typography";
-import List from "@mui/joy/List";
-import ListItem from "@mui/joy/ListItem";
-import Stack from "@mui/joy/Stack";
+import Typography from '@mui/joy/Typography'
+import List from '@mui/joy/List'
+import ListItem from '@mui/joy/ListItem'
+import Stack from '@mui/joy/Stack'
 
 type SectionListProps = {
-  sectionTitle: string;
+  sectionTitle: string
   sectionList: Array<{
-    sectionTitle: string;
-    sectionUrl: string;
-  }>;
-  arialLabelDescription: string;
-};
+    sectionTitle: string
+    sectionUrl: string
+  }>
+  arialLabelDescription: string
+}
 
 export function SectionList({
   sectionTitle,
@@ -18,7 +18,7 @@ export function SectionList({
   arialLabelDescription,
 }: SectionListProps) {
   return (
-    <Stack sx={{ width: { xs: "50%", sm: "100%" } }}>
+    <Stack sx={{ width: { xs: '50%', sm: '100%' } }}>
       <Typography textTransform="uppercase" level="title-md">
         {sectionTitle}
       </Typography>
@@ -30,5 +30,5 @@ export function SectionList({
         ))}
       </List>
     </Stack>
-  );
+  )
 }

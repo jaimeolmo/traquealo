@@ -1,10 +1,10 @@
-import { SignIn } from "@clerk/nextjs";
-import Sheet from "@mui/joy/Sheet";
-import Stack from "@mui/joy/Stack";
+import { SignIn } from '@clerk/nextjs'
+import Sheet from '@mui/joy/Sheet'
+import Stack from '@mui/joy/Stack'
 
 type SearchParams = {
-  redirectUrl?: string;
-};
+  redirectUrl?: string
+}
 
 export default async function Page() {
   return (
@@ -12,10 +12,10 @@ export default async function Page() {
       <Stack
         justifyContent="center"
         alignItems="center"
-        sx={{ minHeight: "100vh" }}
+        sx={{ minHeight: '100vh' }}
       >
         <SignIn />
       </Stack>
     </Sheet>
-  );
+  )
 }

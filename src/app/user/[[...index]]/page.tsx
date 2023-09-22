@@ -1,6 +1,6 @@
-import { UserProfile } from "@clerk/nextjs";
-import Sheet from "@mui/joy/Sheet";
-import Stack from "@mui/joy/Stack";
+import { UserProfile } from '@clerk/nextjs'
+import Sheet from '@mui/joy/Sheet'
+import Stack from '@mui/joy/Stack'
 
 export default function Page() {
   return (
@@ -8,10 +8,10 @@ export default function Page() {
       <Stack
         justifyContent="center"
         alignItems="center"
-        sx={{ minHeight: "100vh" }}
+        sx={{ minHeight: '100vh' }}
       >
         <UserProfile />
       </Stack>
     </Sheet>
-  );
+  )
 }

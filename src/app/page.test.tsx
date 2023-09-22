@@ -1,19 +1,19 @@
 /**
  * @jest-environment jsdom
  */
-import { render, screen } from "@testing-library/react";
-import Home from "./page";
+import { render, screen } from '@testing-library/react'
+import Home from './page'
 
-it("App Router: Works with Server Components", () => {
-  render(<Home />);
+it('App Router: Works with Server Components', () => {
+  render(<Home />)
 
   expect(
     screen.getByText(
-      "Construyendo un Futuro Mejor: Monitoreo y Registro de Desafíos Comunitarios"
-    )
-  ).toBeInTheDocument();
+      'Construyendo un Futuro Mejor: Monitoreo y Registro de Desafíos Comunitarios',
+    ),
+  ).toBeInTheDocument()
 
   expect(
-    screen.getByText("© 2023 Traquéalo — Hecho en Puerto Rico")
-  ).toBeInTheDocument();
-});
+    screen.getByText('© 2023 Traquéalo — Hecho en Puerto Rico'),
+  ).toBeInTheDocument()
+})

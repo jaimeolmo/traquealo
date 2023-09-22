@@ -1,7 +1,6 @@
 import { User } from '@/models/User'
 import BaseCosmosClient from './BaseCosmosClient'
 
-
 export default class UserCosmosClient extends BaseCosmosClient<User> {
   protected containerName: string
 
@@ -18,11 +17,9 @@ export default class UserCosmosClient extends BaseCosmosClient<User> {
     return user
   }
 
-
-
   public async getByPropertyValue(
     propertyName: string,
-    value: string
+    value: string,
   ): Promise<User | null> {
     const user = await super.getByPropertyValue(propertyName, value)
     if (user === null) return null
@@ -31,19 +28,15 @@ export default class UserCosmosClient extends BaseCosmosClient<User> {
 
   public async getAllByPropertyValue(
     propertyName: string,
-    value: string
+    value: string,
   ): Promise<User[]> {
     return await Promise.all(
-      (
-        await super.getAllByPropertyValue(propertyName, value)
-      ).map((o) => (o))
+      (await super.getAllByPropertyValue(propertyName, value)).map((o) => o),
     )
   }
 
   public async getAll(): Promise<User[]> {
-    return await Promise.all(
-      (await super.getAll()).map((o) => (o))
-    )
+    return await Promise.all((await super.getAll()).map((o) => o))
   }
 
   public async getMultipleById(ids: string[]): Promise<User[]> {
@@ -61,8 +54,6 @@ export default class UserCosmosClient extends BaseCosmosClient<User> {
       .container(this.containerName)
       .items.query(querySpec)
       .fetchAll()
-    return await Promise.all(
-      results.map((o: any) => (o))
-    )
+    return await Promise.all(results.map((o: any) => o))
   }
 }

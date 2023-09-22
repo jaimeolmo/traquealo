@@ -1,24 +1,24 @@
-import Sheet from "@mui/joy/Sheet";
-import Stack from "@mui/joy/Stack";
-import Typography from "@mui/joy/Typography";
+import Sheet from '@mui/joy/Sheet'
+import Stack from '@mui/joy/Stack'
+import Typography from '@mui/joy/Typography'
 
 export function LandingSection() {
   return (
     <Sheet
       sx={{
-        width: "100%",
+        width: '100%',
         px: 2,
         pt: 4,
       }}
     >
       <Stack
-        direction={"column"}
+        direction={'column'}
         justifyContent="flex-start"
         alignItems="center"
         sx={{
-          maxWidth: "1024px",
-          margin: "auto",
-          height: "100%",
+          maxWidth: '1024px',
+          margin: 'auto',
+          height: '100%',
         }}
       >
         <Typography level="h1">
@@ -27,5 +27,5 @@ export function LandingSection() {
         </Typography>
       </Stack>
     </Sheet>
-  );
+  )
 }

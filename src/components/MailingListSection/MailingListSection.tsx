@@ -1,10 +1,10 @@
-import Sheet from "@mui/joy/Sheet";
-import Stack from "@mui/joy/Stack";
-import Typography from "@mui/joy/Typography";
+import Sheet from '@mui/joy/Sheet'
+import Stack from '@mui/joy/Stack'
+import Typography from '@mui/joy/Typography'
 
 export function MailingListSection() {
   return (
-    <Sheet sx={{ maxWidth: "1024px", width: "100%" }}>
+    <Sheet sx={{ maxWidth: '1024px', width: '100%' }}>
       <Stack spacing={2} sx={{ pt: 4, px: 2 }}>
         <Typography level="h2">Déjanos saber tu dirección de email</Typography>
         <Typography>
@@ -24,13 +24,13 @@ export function MailingListSection() {
           justifyContent="center"
           alignItems="center"
           sx={{
-            width: "100%",
+            width: '100%',
             pb: 4,
           }}
         >
           <Stack
             sx={{
-              maxWidth: "600px",
+              maxWidth: '600px',
             }}
           >
             <div className="ml-embedded" data-form="MCgcZF"></div>
@@ -38,5 +38,5 @@ export function MailingListSection() {
         </Stack>
       </Stack>
     </Sheet>
-  );
+  )
 }
