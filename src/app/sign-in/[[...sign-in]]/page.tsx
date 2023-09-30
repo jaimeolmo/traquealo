@@ -2,10 +2,6 @@ import { SignIn } from '@clerk/nextjs'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 
-type SearchParams = {
-  redirectUrl?: string
-}
-
 export default async function Page() {
   return (
     <Sheet>

@@ -1,11 +1,10 @@
-import Typography from '@mui/joy/Typography'
 import { Footer } from '@/components/Footer/Footer'
-import Sheet from '@mui/joy/Sheet'
-import { MailingListSection } from '@/components/MailingListSection/MailingListSection'
 import { HeaderBar } from '@/components/HeaderBar/HeaderBar'
-import { StepsBar } from '@/components/StepsBar/StepsBar'
-import { LinksSection } from '@/components/LinksSection/LinksSections'
 import { LandingSection } from '@/components/LandingSection/LandingSection'
+import { LinksSection } from '@/components/LinksSection/LinksSections'
+import { MailingListSection } from '@/components/MailingListSection/MailingListSection'
+import { StepsBar } from '@/components/StepsBar/StepsBar'
+import Sheet from '@mui/joy/Sheet'
 
 export default function Home() {
   return (
