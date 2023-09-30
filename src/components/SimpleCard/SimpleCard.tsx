@@ -15,9 +15,17 @@ export function SimpleCard({
   arialLabelDescription,
 }: SimpleCardProps) {
   return (
-    <Card sx={{ width: 320, zIndex: 0, background: '#fff' }}>
+    <Card
+      sx={{
+        width: 320,
+        zIndex: 0,
+        background: 'var(--joy-palette-common-white)',
+      }}
+    >
       <CardOverflow>
-        <Typography level="h3">{cardTitle}</Typography>
+        <Typography level="h3" sx={{ fontWeight: 700 }}>
+          {cardTitle}
+        </Typography>
       </CardOverflow>
       <CardContent>{cardContent}</CardContent>
     </Card>

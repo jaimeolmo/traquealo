@@ -1,0 +1,8 @@
+a.linkItem {
+  color: var(--joy-palette-common-softBlack);
+  text-decoration: none;
+}
+
+a:hover.linkItem {
+  color: var(--joy-palette-primary-600);
+}

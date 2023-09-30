@@ -1,7 +1,9 @@
-import Typography from '@mui/joy/Typography'
 import List from '@mui/joy/List'
 import ListItem from '@mui/joy/ListItem'
 import Stack from '@mui/joy/Stack'
+import Typography from '@mui/joy/Typography'
+import Link from 'next/link'
+import styles from '../../app/styles.module.css'
 
 type SectionListProps = {
   sectionTitle: string
@@ -24,8 +26,10 @@ export function SectionList({
       </Typography>
       <List aria-labelledby="aria-label-description">
         {sectionList.map((item) => (
-          <ListItem sx={{ pl: 0 }} key={item.sectionTitle}>
-            {item.sectionTitle}
+          <ListItem key={item.sectionTitle} sx={{ pl: 0 }}>
+            <Link className={styles.linkItem} href={item.sectionUrl} passHref>
+              {item.sectionTitle}
+            </Link>
           </ListItem>
         ))}
       </List>

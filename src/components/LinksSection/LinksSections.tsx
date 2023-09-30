@@ -21,7 +21,7 @@ export function LinksSection() {
           sectionList={[
             {
               sectionTitle: 'FAQ',
-              sectionUrl: '#',
+              sectionUrl: '/faq',
             },
             { sectionTitle: 'Help', sectionUrl: '#' },
             { sectionTitle: 'Support', sectionUrl: '#' },
@@ -44,10 +44,13 @@ export function LinksSection() {
           sectionList={[
             {
               sectionTitle: 'Facebook',
-              sectionUrl: '#',
+              sectionUrl: 'https://www.facebook.com/traquealopr',
             },
-            { sectionTitle: 'Instagram', sectionUrl: '#' },
-            { sectionTitle: 'X', sectionUrl: '#' },
+            {
+              sectionTitle: 'Instagram',
+              sectionUrl: 'https://www.instagram.com/traquealo/',
+            },
+            { sectionTitle: 'X', sectionUrl: 'https://twitter.com/traquealo' },
           ]}
           arialLabelDescription={
             'Links for the different social media outlets.'
@@ -58,9 +61,9 @@ export function LinksSection() {
           sectionList={[
             {
               sectionTitle: 'About us',
-              sectionUrl: '#',
+              sectionUrl: '/about-us',
             },
-            { sectionTitle: 'Contact', sectionUrl: '#' },
+            { sectionTitle: 'Contacts', sectionUrl: '/contacts' },
           ]}
           arialLabelDescription={
             'Links for getting more information about this web.'
