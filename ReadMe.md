@@ -2,7 +2,7 @@
 
 ## Clerk Setup
 
-Enviroment variables needed:
+Environment variables needed:
 
 ```bash
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_publishable_key
