@@ -14,7 +14,6 @@ export function Logo() {
         alt={'Logo for the traquealo brand.'}
         width="32"
         height="32"
-        style={{ marginLeft: '8px' }}
       />
       <Image
         src={'../images/logo_text.svg'}
