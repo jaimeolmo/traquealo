@@ -9,7 +9,7 @@ export default async function Contacts() {
       <Sheet>
         <Stack sx={{ p: 8 }}>
           <h1>Contáctenos</h1>
-          <p>Listado de los diferentes medios de comunicación</p>
+          <p>Listado de los diferentes canales de comunicación</p>
         </Stack>
       </Sheet>
     </>
