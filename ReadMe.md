@@ -176,6 +176,15 @@ COSMOSDB_DATABASE_NAME=traquealo
 
 - You can now create databases, containers, and insert test data into your local Cosmos DB emulator instance for development and testing purposes.
 
+### Authentication
+
+As mentioned earlier, this project relies on [Clerk](https://clerk.com/) for authentication and user management processes. Therefore, you will need a Clerk account. The free tier should be more than enough for development purposes. The two required keys are:
+
+```bash
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_••••
+CLERK_SECRET_KEY=sk_test_••••
+```
+
 ### Start the Development Server
 
 Start the Next.js development server to begin working on your project locally.
