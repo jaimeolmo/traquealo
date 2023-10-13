@@ -1,4 +1,5 @@
 'use client'
+import { UppyComponent } from '@/components/Uppy/Uppy'
 import Button from '@mui/joy/Button'
 import Input from '@mui/joy/Input'
 import Sheet from '@mui/joy/Sheet'
@@ -71,6 +72,9 @@ export default function Reportar() {
               }}
               onSubmit={log}
             />
+          </Stack>
+          <Stack>
+            <UppyComponent />
           </Stack>
           <Button type="submit">Save</Button>
         </Stack>
