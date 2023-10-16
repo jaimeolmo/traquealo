@@ -1,13 +1,25 @@
 'use client'
 import { UppyComponent } from '@/components/Uppy/Uppy'
+import { useAuth } from '@clerk/nextjs'
 import Button from '@mui/joy/Button'
 import Input from '@mui/joy/Input'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import { Editor } from '@tinymce/tinymce-react'
 import { useRef, useState } from 'react'
+import { v4 as uuid } from 'uuid'
 
 export default function Reportar() {
+  const { isLoaded, isSignedIn, userId } = useAuth()
+  if (!isLoaded || !isSignedIn) {
+    // You can handle the loading or signed state separately
+    return null
+  }
+
+  const userIdFromClerk = userId
+
+  const newUuid = uuid()
+
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -79,6 +91,9 @@ export default function Reportar() {
           <Button type="submit">Save</Button>
         </Stack>
       </form>
+      IssueId: {newUuid}
+      <br />
+      UserId: {userIdFromClerk}
     </Sheet>
   )
 }

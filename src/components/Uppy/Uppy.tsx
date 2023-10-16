@@ -21,5 +21,5 @@ const uppy = new Uppy().use(Webcam).use(Transloadit, {
 })
 
 export function UppyComponent() {
-  return <Dashboard uppy={uppy} plugins={['Webcam']} />
+  return <Dashboard uppy={uppy} plugins={['Webcam']} width="100%" />
 }
