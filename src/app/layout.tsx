@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import Sheet from '@mui/joy/Sheet'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
+import './global.css'
 
 export default function RootLayout({
   children,
