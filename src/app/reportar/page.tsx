@@ -6,6 +6,12 @@ import Input from '@mui/joy/Input'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import { Editor } from '@tinymce/tinymce-react'
+import Uppy from '@uppy/core'
+import '@uppy/core/dist/style.min.css'
+import '@uppy/dashboard/dist/style.min.css'
+import Transloadit from '@uppy/transloadit'
+import Webcam from '@uppy/webcam'
+import '@uppy/webcam/dist/style.min.css'
 import { useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
@@ -37,6 +43,20 @@ export default function Reportar() {
       console.log(editorRef.current.getContent())
     }
   }
+
+  const uppy = new Uppy().use(Webcam).use(Transloadit, {
+    assemblyOptions: {
+      params: {
+        auth: { key: 'd9dd878a03ef4c139564c92f66ce017e' },
+        template_id: '20f86a8910634331b9155c76e4b16e99',
+      },
+      fields: {
+        userId: userIdFromClerk,
+        issueId: newUuid,
+      },
+    },
+  })
+
   return (
     <Sheet sx={{ p: 8 }}>
       <form
@@ -60,7 +80,6 @@ export default function Reportar() {
                 process.env.NEXT_PUBLIC_URL + '/scripts/tinymce/tinymce.min.js'
               }
               onInit={(evt, editor) => (editorRef.current = editor)}
-              initialValue="<p>This is the initial content of the editor.</p>"
               init={{
                 branding: false,
                 elementpath: false,
@@ -86,7 +105,7 @@ export default function Reportar() {
             />
           </Stack>
           <Stack>
-            <UppyComponent />
+            <UppyComponent uppy={uppy} />
           </Stack>
           <Button type="submit">Save</Button>
         </Stack>
