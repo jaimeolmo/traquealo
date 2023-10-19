@@ -47,8 +47,8 @@ export default function Reportar() {
   const uppy = new Uppy().use(Webcam).use(Transloadit, {
     assemblyOptions: {
       params: {
-        auth: { key: 'd9dd878a03ef4c139564c92f66ce017e' },
-        template_id: '20f86a8910634331b9155c76e4b16e99',
+        auth: { key: process.env.NEXT_PUBLIC_TRANSLOADIT_AUTH_KEY as string },
+        template_id: process.env.NEXT_PUBLIC_TRANSLOADIT_TEMPLATE_ID,
       },
       fields: {
         userId: userIdFromClerk,
