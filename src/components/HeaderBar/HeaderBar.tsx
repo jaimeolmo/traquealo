@@ -1,6 +1,7 @@
 'use client'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import Box from '@mui/joy/Box'
+import Button from '@mui/joy/Button'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Link from 'next/link'
@@ -48,6 +49,9 @@ export function HeaderBar() {
           justifyContent="flex-end"
           alignItems="center"
         >
+          <Link href="/reportar" passHref>
+            <Button variant="soft">Reportar</Button>
+          </Link>
           <ButtonCreate />
           <SignedOut>
             <Box

@@ -13,37 +13,26 @@ import Transloadit from '@uppy/transloadit'
 import Webcam from '@uppy/webcam'
 import '@uppy/webcam/dist/style.min.css'
 import { useRef, useState } from 'react'
+import { Editor as TinyMCEEditor } from 'tinymce'
 import { v4 as uuid } from 'uuid'
+
+const newUuid = uuid()
 
 export default function Reportar() {
   const { isLoaded, isSignedIn, userId } = useAuth()
-  if (!isLoaded || !isSignedIn) {
-    // You can handle the loading or signed state separately
-    return null
-  }
-
-  const userIdFromClerk = userId
-
-  const newUuid = uuid()
-
   const [formData, setFormData] = useState({
     title: '',
     content: '',
   })
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+  const userIdFromClerk = userId
 
-  const editorRef = useRef(null)
+  const editorRef = useRef<TinyMCEEditor | null>(null)
   const log = () => {
     if (editorRef.current) {
       setFormData({ ...formData, ['content']: editorRef.current.getContent() })
-      console.log(editorRef.current.getContent())
     }
   }
-
   const uppy = new Uppy().use(Webcam).use(Transloadit, {
     assemblyOptions: {
       params: {
@@ -51,18 +40,53 @@ export default function Reportar() {
         template_id: process.env.NEXT_PUBLIC_TRANSLOADIT_TEMPLATE_ID,
       },
       fields: {
-        userId: userIdFromClerk,
+        userId: userIdFromClerk as string,
         issueId: newUuid,
       },
     },
   })
 
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
+
+  if (!isLoaded || !isSignedIn) {
+    return null
+  }
+
   return (
-    <Sheet sx={{ p: 8 }}>
+    <Sheet sx={{ maxWidth: '1024px', width: '100%', py: 8, px: 4 }}>
       <form
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           event.preventDefault()
           console.log(formData)
+          try {
+            const response = await fetch(
+              process.env.NEXT_PUBLIC_ISSUE_API_URL as string,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+              },
+            )
+
+            if (!response.ok) {
+              throw new Error(
+                `API request failed with status ${response.status}`,
+              )
+            }
+
+            const responseData = await response.json()
+            console.log(responseData)
+
+            // Handle successful submission e.g. navigate to another page or show success message
+          } catch (error) {
+            console.error('Error submitting form:', error)
+            // Handle errors e.g. show an error message to the user
+          }
         }}
       >
         <Stack spacing={2}>
