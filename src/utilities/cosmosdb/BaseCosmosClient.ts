@@ -27,14 +27,14 @@ export default abstract class BaseCosmosClient<TEntity> {
     return result as TEntity
   }
 
-  public async getById(id: string): Promise<TEntity | null> {
+  public async getById(id: string): Promise<TEntity | TEntity[] | null> {
     return this.getByPropertyValue('id', id)
   }
 
   public async getByPropertyValue(
     propertyName: string,
     value: string,
-  ): Promise<TEntity | null> {
+  ): Promise<TEntity | TEntity[] | null> {
     const querySpec = {
       query: `SELECT * FROM c WHERE c.${propertyName}=@val`,
       parameters: [{ name: '@val', value: value }],
@@ -46,7 +46,7 @@ export default abstract class BaseCosmosClient<TEntity> {
       .fetchAll()
 
     if (results.length > 0) {
-      return new this.c(results[0])
+      return results
     }
 
     return null

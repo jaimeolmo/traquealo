@@ -12,27 +12,40 @@ import '@uppy/dashboard/dist/style.min.css'
 import Transloadit from '@uppy/transloadit'
 import Webcam from '@uppy/webcam'
 import '@uppy/webcam/dist/style.min.css'
-import { useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 import { Editor as TinyMCEEditor } from 'tinymce'
 import { v4 as uuid } from 'uuid'
 
-const newUuid = uuid()
-
-export default function Reportar() {
+export default function IssueReportPage() {
+  const router = useRouter()
   const { isLoaded, isSignedIn, userId } = useAuth()
   const [formData, setFormData] = useState({
     title: '',
     content: '',
+    userId: userId as string,
+    issueId: '',
   })
+
+  useEffect(() => {
+    setFormData({ ...formData, ['issueId']: uuid() })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const userIdFromClerk = userId
 
   const editorRef = useRef<TinyMCEEditor | null>(null)
-  const log = () => {
+  const handleSubmit = () => {
     if (editorRef.current) {
       setFormData({ ...formData, ['content']: editorRef.current.getContent() })
     }
   }
+
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
+
   const uppy = new Uppy().use(Webcam).use(Transloadit, {
     assemblyOptions: {
       params: {
@@ -41,15 +54,10 @@ export default function Reportar() {
       },
       fields: {
         userId: userIdFromClerk as string,
-        issueId: newUuid,
+        issueId: formData['issueId'],
       },
     },
   })
-
-  const handleChange = (e: { target: { name: any; value: any } }) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
 
   if (!isLoaded || !isSignedIn) {
     return null
@@ -60,7 +68,7 @@ export default function Reportar() {
       <form
         onSubmit={async (event) => {
           event.preventDefault()
-          console.log(formData)
+
           try {
             const response = await fetch(
               process.env.NEXT_PUBLIC_ISSUE_API_URL as string,
@@ -75,17 +83,13 @@ export default function Reportar() {
 
             if (!response.ok) {
               throw new Error(
-                `API request failed with status ${response.status}`,
+                `API request failed with status ${response.status} ${response.statusText}`,
               )
             }
 
-            const responseData = await response.json()
-            console.log(responseData)
-
-            // Handle successful submission e.g. navigate to another page or show success message
+            router.push('/dashboard')
           } catch (error) {
             console.error('Error submitting form:', error)
-            // Handle errors e.g. show an error message to the user
           }
         }}
       >
@@ -125,7 +129,7 @@ export default function Reportar() {
                 content_style:
                   'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
               }}
-              onSubmit={log}
+              onSubmit={handleSubmit}
             />
           </Stack>
           <Stack>
@@ -134,7 +138,7 @@ export default function Reportar() {
           <Button type="submit">Save</Button>
         </Stack>
       </form>
-      IssueId: {newUuid}
+      IssueId: {formData['issueId']}
       <br />
       UserId: {userIdFromClerk}
     </Sheet>

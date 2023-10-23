@@ -49,9 +49,11 @@ export function HeaderBar() {
           justifyContent="flex-end"
           alignItems="center"
         >
-          <Link href="/reportar" passHref>
-            <Button variant="soft">Reportar</Button>
-          </Link>
+          <SignedIn>
+            <Link href="/reportar" passHref>
+              <Button variant="soft">Reportar</Button>
+            </Link>
+          </SignedIn>
           <ButtonCreate />
           <SignedOut>
             <Box
