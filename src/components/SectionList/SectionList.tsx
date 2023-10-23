@@ -3,6 +3,7 @@ import ListItem from '@mui/joy/ListItem'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import Link from 'next/link'
+import { UrlObject } from 'url'
 import styles from '../../app/styles.module.css'
 
 type SectionListProps = {
@@ -27,7 +28,11 @@ export function SectionList({
       <List aria-labelledby="aria-label-description">
         {sectionList.map((item) => (
           <ListItem key={item.sectionTitle} sx={{ pl: 0 }}>
-            <Link className={styles.linkItem} href={item.sectionUrl} passHref>
+            <Link
+              className={styles.linkItem}
+              href={item.sectionUrl as unknown as UrlObject}
+              passHref
+            >
               {item.sectionTitle}
             </Link>
           </ListItem>

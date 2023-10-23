@@ -13,9 +13,6 @@ import { Logo } from '../Logo'
 export function HeaderBar() {
   const pathname = usePathname()
 
-  // Horrible workaround hack to make Nextjs and Typescript happy
-  const href = '/sign-in' as unknown as UrlObject
-
   return (
     <Sheet
       sx={{
@@ -69,7 +66,7 @@ export function HeaderBar() {
                 },
               }}
             >
-              <Link href={href}>Sign in</Link>
+              <Link href={'/sign-in' as unknown as UrlObject}>Sign in</Link>
             </Box>
           </SignedOut>
           <SignedIn>
