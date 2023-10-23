@@ -1,7 +1,11 @@
+import { Footer } from '@/components/Footer/Footer'
+import { HeaderBar } from '@/components/HeaderBar/HeaderBar'
 import { ThemeRegistry } from '@/components/ThemeRegistry/ThemeRegistry'
 import { ClerkProvider } from '@clerk/nextjs'
+import Sheet from '@mui/joy/Sheet'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
+import './global.css'
 
 export default function RootLayout({
   children,
@@ -9,16 +13,27 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es">
-      <body>
-        <ClerkProvider>
-          <ThemeRegistry>
-            {children}
-            <Analytics />
-          </ThemeRegistry>
-        </ClerkProvider>
-      </body>
-      <Script src="../scripts/mailerlite.js" />
-    </html>
+    <ClerkProvider>
+      <ThemeRegistry>
+        <html lang="es">
+          <body>
+            <Sheet
+              sx={{
+                display: 'flex',
+                flexFlow: 'column',
+                alignItems: 'center',
+                minHeight: '100vh',
+              }}
+            >
+              <HeaderBar />
+              {children}
+              <Footer />
+              <Analytics />
+            </Sheet>
+          </body>
+          <Script src="../scripts/mailerlite.js" />
+        </html>
+      </ThemeRegistry>
+    </ClerkProvider>
   )
 }

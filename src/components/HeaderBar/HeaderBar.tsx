@@ -1,10 +1,12 @@
 'use client'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import Box from '@mui/joy/Box'
+import Button from '@mui/joy/Button'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { UrlObject } from 'url'
 import { ButtonCreate } from '../ButtonCreate'
 import { Logo } from '../Logo'
 
@@ -48,7 +50,14 @@ export function HeaderBar() {
           justifyContent="flex-end"
           alignItems="center"
         >
-          <ButtonCreate />
+          <SignedIn>
+            {pathname !== '/reportar' ? (
+              <Link href="/reportar" passHref>
+                <Button variant="soft">Reportar</Button>
+              </Link>
+            ) : null}
+          </SignedIn>
+          {pathname !== '/dashboard' ? <ButtonCreate /> : null}
           <SignedOut>
             <Box
               sx={{
@@ -57,7 +66,7 @@ export function HeaderBar() {
                 },
               }}
             >
-              <Link href="/sign-in">Sign in</Link>
+              <Link href={'/sign-in' as unknown as UrlObject}>Sign in</Link>
             </Box>
           </SignedOut>
           <SignedIn>
