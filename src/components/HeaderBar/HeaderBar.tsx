@@ -6,11 +6,15 @@ import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { UrlObject } from 'url'
 import { ButtonCreate } from '../ButtonCreate'
 import { Logo } from '../Logo'
 
 export function HeaderBar() {
   const pathname = usePathname()
+
+  // Horrible workaround hack to make Nextjs and Typescript happy
+  const href = '/sign-in' as unknown as UrlObject
 
   return (
     <Sheet
@@ -65,7 +69,7 @@ export function HeaderBar() {
                 },
               }}
             >
-              <Link href="/sign-in">Sign in</Link>
+              <Link href={href}>Sign in</Link>
             </Box>
           </SignedOut>
           <SignedIn>
