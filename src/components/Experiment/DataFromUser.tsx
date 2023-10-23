@@ -12,9 +12,7 @@ export default function DataFromUser() {
     <div>
       {data.map((issue: any) => (
         <div key={issue.id}>
-          <p>
-            {issue.id} : {issue.title}
-          </p>
+          {issue.id} : {issue.title}
         </div>
       ))}
     </div>

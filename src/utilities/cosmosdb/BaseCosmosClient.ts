@@ -34,7 +34,7 @@ export default abstract class BaseCosmosClient<TEntity> {
   public async getByPropertyValue(
     propertyName: string,
     value: string,
-  ): Promise<TEntity | TEntity[] | null> {
+  ): Promise<TEntity[] | null> {
     const querySpec = {
       query: `SELECT * FROM c WHERE c.${propertyName}=@val`,
       parameters: [{ name: '@val', value: value }],

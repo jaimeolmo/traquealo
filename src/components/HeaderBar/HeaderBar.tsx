@@ -50,11 +50,13 @@ export function HeaderBar() {
           alignItems="center"
         >
           <SignedIn>
-            <Link href="/reportar" passHref>
-              <Button variant="soft">Reportar</Button>
-            </Link>
+            {pathname !== '/reportar' ? (
+              <Link href="/reportar" passHref>
+                <Button variant="soft">Reportar</Button>
+              </Link>
+            ) : null}
           </SignedIn>
-          <ButtonCreate />
+          {pathname !== '/dashboard' ? <ButtonCreate /> : null}
           <SignedOut>
             <Box
               sx={{
