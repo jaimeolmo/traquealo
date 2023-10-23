@@ -11,7 +11,7 @@ export default class UserCosmosClient extends BaseCosmosClient<User> {
     this.containerName = process.env.COSMOSDB_USERS_CONTAINER
   }
 
-  public async getById(id: string): Promise<User | null> {
+  public async getById(id: string): Promise<User | User[] | null> {
     const user = await super.getById(id)
     if (user === null) return null
     return user
@@ -20,7 +20,7 @@ export default class UserCosmosClient extends BaseCosmosClient<User> {
   public async getByPropertyValue(
     propertyName: string,
     value: string,
-  ): Promise<User | null> {
+  ): Promise<User[] | null> {
     const user = await super.getByPropertyValue(propertyName, value)
     if (user === null) return null
     return user
