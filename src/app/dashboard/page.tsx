@@ -22,8 +22,7 @@ export default async function Dashboard() {
   return (
     <>
       <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!</p>
-      <Stack direction="row">
+      <Stack direction="row" spacing={2}>
         <Stack>
           <h3>Data render on server</h3>
           {typeof issues !== 'undefined' && Array.isArray(issues) ? (
@@ -33,7 +32,7 @@ export default async function Dashboard() {
               </div>
             ))
           ) : (
-            <p>Error: Invalid data format.</p>
+            <p>There&apos;s currently no data available.</p>
           )}
         </Stack>
         <Stack>

@@ -61,8 +61,7 @@ export async function POST(req: Request) {
 
   const newUser = User.CreateNew(id as string)
 
-  const created = await userCosmosClient.createOrUpdate(newUser)
-  console.log(newUser)
+  await userCosmosClient.createOrUpdate(newUser)
 
   return new Response('', { status: 201 })
 }
