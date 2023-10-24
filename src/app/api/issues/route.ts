@@ -19,9 +19,6 @@ export async function POST(request: Request) {
     }
 
     const created = await issueCosmosClient.createOrUpdate(fullIssue)
-
-    console.log(`created in cosmos`)
-    console.log(created)
   } catch (error) {
     console.error('Error handling POST request:', error)
     return new Response('Internal Server Error', { status: 500 })
