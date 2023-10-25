@@ -5,7 +5,7 @@ type MediaProperties = {
   id: string
   mime: string
   type: string
-  url: string
+  ssl_url: string
 }
 
 type MediaFiles = {
@@ -113,9 +113,9 @@ function extractUrls(payload: any) {
   }[] = []
 
   Object.keys(payload).forEach((key) => {
-    payload[key].forEach((item: { url: any }) => {
-      if (item.url) {
-        result.push({ op: 'add', path: `/media/${key}/-`, value: item.url })
+    payload[key].forEach((item: { ssl_url: any }) => {
+      if (item.ssl_url) {
+        result.push({ op: 'add', path: `/media/${key}/-`, value: item.ssl_url })
       }
     })
   })

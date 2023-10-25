@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@azure/cosmos": "^4.0.0",
+    "@azure/storage-blob": "^12.16.0",
     "@clerk/nextjs": "^4.23.5",
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
