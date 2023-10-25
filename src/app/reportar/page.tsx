@@ -13,7 +13,7 @@ import Transloadit from '@uppy/transloadit'
 import Webcam from '@uppy/webcam'
 import '@uppy/webcam/dist/style.min.css'
 import { useRouter } from 'next/navigation'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Editor as TinyMCEEditor } from 'tinymce'
 import { v4 as uuid } from 'uuid'
 
@@ -24,12 +24,12 @@ export default function IssueReportPage() {
     title: '',
     content: '',
     userId: userId as string,
-    issueId: '',
+    issueId: uuid(),
   })
-  useEffect(() => {
-    setFormData({ ...formData, ['issueId']: uuid() })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   setFormData({ ...formData, ['issueId']: uuid() })
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   const uppy = useMemo(() => {
     const uppyInstance = new Uppy().use(Webcam).use(Transloadit, {

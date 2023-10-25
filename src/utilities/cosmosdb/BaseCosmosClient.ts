@@ -1,5 +1,15 @@
-import { CosmosClient } from '@azure/cosmos'
+import { CosmosClient, ItemResponse } from '@azure/cosmos'
 import { appCosmosClient } from './AppCosmosClient'
+
+type UpdatePayload = {
+  id: string // The id of the document to update
+  partitionKey: string // The partition key of the document to update (if your container has one)
+  operations: Array<{
+    op: 'add' | 'replace' | 'remove' | 'set' | 'incr'
+    path: string
+    value: string
+  }>
+}
 
 export default abstract class BaseCosmosClient<TEntity> {
   protected databaseId: string
@@ -88,5 +98,28 @@ export default abstract class BaseCosmosClient<TEntity> {
       .container(this.containerName)
       .item(id, partitionKey)
       .delete()
+  }
+
+  public async partialUpdate(
+    payload: UpdatePayload,
+  ): Promise<ItemResponse<any>> {
+    try {
+      const response = await this.client
+        .database(this.databaseId)
+        .container(this.containerName)
+        .item(payload.id, payload.partitionKey)
+        .patch(payload.operations)
+
+      if (response.statusCode !== 200 && response.statusCode !== 204) {
+        throw new Error(
+          `Failed to update document with id ${payload.id}. Status code: ${response.statusCode}.`,
+        )
+      }
+
+      return response
+    } catch (error) {
+      console.error('Error while updating document:', error)
+      throw error
+    }
   }
 }
