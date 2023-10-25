@@ -1,4 +1,6 @@
 import Uppy from '@uppy/core'
+import '@uppy/core/dist/style.css'
+import '@uppy/dashboard/dist/style.css'
 import { Dashboard } from '@uppy/react'
 
 type ComponentProps = {
@@ -11,8 +13,8 @@ export function UppyComponent({ uppy }: ComponentProps) {
       uppy={uppy}
       plugins={['Webcam']}
       width="100%"
-      hideProgressAfterFinish
       waitForThumbnailsBeforeUpload
+      hideUploadButton
     />
   )
 }

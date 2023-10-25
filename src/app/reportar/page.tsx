@@ -13,7 +13,7 @@ import Transloadit from '@uppy/transloadit'
 import Webcam from '@uppy/webcam'
 import '@uppy/webcam/dist/style.min.css'
 import { useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Editor as TinyMCEEditor } from 'tinymce'
 import { v4 as uuid } from 'uuid'
 
@@ -24,15 +24,30 @@ export default function IssueReportPage() {
     title: '',
     content: '',
     userId: userId as string,
-    issueId: '',
+    issueId: uuid(),
   })
+  // useEffect(() => {
+  //   setFormData({ ...formData, ['issueId']: uuid() })
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
-  useEffect(() => {
-    setFormData({ ...formData, ['issueId']: uuid() })
+  const uppy = useMemo(() => {
+    const uppyInstance = new Uppy().use(Webcam).use(Transloadit, {
+      assemblyOptions: {
+        params: {
+          auth: { key: process.env.NEXT_PUBLIC_TRANSLOADIT_AUTH_KEY as string },
+          template_id: process.env.NEXT_PUBLIC_TRANSLOADIT_TEMPLATE_ID,
+        },
+        fields: {
+          userId: userId as string,
+          issueId: formData['issueId'],
+        },
+      },
+    })
+
+    return uppyInstance
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const userIdFromClerk = userId
 
   const editorRef = useRef<TinyMCEEditor | null>(null)
   const handleSubmit = () => {
@@ -46,19 +61,6 @@ export default function IssueReportPage() {
     setFormData({ ...formData, [name]: value })
   }
 
-  const uppy = new Uppy().use(Webcam).use(Transloadit, {
-    assemblyOptions: {
-      params: {
-        auth: { key: process.env.NEXT_PUBLIC_TRANSLOADIT_AUTH_KEY as string },
-        template_id: process.env.NEXT_PUBLIC_TRANSLOADIT_TEMPLATE_ID,
-      },
-      fields: {
-        userId: userIdFromClerk as string,
-        issueId: formData['issueId'],
-      },
-    },
-  })
-
   if (!isLoaded || !isSignedIn) {
     return null
   }
@@ -70,6 +72,19 @@ export default function IssueReportPage() {
           event.preventDefault()
 
           try {
+            const uploadResult = await uppy.upload()
+
+            if (uploadResult.failed.length > 0) {
+              uploadResult.failed.forEach((file) => {
+                console.error(file.error)
+              })
+
+              // Good place to notify user of errors during uploading
+              return
+            }
+
+            console.log(uploadResult)
+
             const response = await fetch(
               process.env.NEXT_PUBLIC_ISSUE_API_URL as string,
               {
@@ -140,7 +155,7 @@ export default function IssueReportPage() {
       </form>
       IssueId: {formData['issueId']}
       <br />
-      UserId: {userIdFromClerk}
+      UserId: {userId}
     </Sheet>
   )
 }
