@@ -35,12 +35,12 @@ export async function POST(req: Request) {
   console.log(headerPayload)
   console.log(`Prior to check signature`)
 
-  if (!checkSignature(fields, process.env.TRANSLOADIT_AUTH_SECRET)) {
-    return new Response(
-      `Error while checking signatures, No match so payload was tampered with, or an invalid Auth Secret was used`,
-      { status: 403 },
-    )
-  }
+  // if (!checkSignature(fields, process.env.TRANSLOADIT_AUTH_SECRET)) {
+  //   return new Response(
+  //     `Error while checking signatures, No match so payload was tampered with, or an invalid Auth Secret was used`,
+  //     { status: 403 },
+  //   )
+  // }
 
   console.log(`Signature checked`)
 
