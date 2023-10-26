@@ -83,8 +83,6 @@ export default function IssueReportPage() {
               return
             }
 
-            console.log(uploadResult)
-
             const response = await fetch(
               process.env.NEXT_PUBLIC_ISSUE_API_URL as string,
               {

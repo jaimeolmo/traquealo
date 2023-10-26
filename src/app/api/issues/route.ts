@@ -28,10 +28,6 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const param = searchParams.get('userId')
-  console.log(param)
-
   const { userId } = auth()
   if (!userId) {
     return new Response('Unauthorized', { status: 401 })
