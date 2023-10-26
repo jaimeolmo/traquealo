@@ -32,18 +32,22 @@ export default function IssueReportPage() {
   // }, [])
 
   const uppy = useMemo(() => {
-    const uppyInstance = new Uppy().use(Webcam).use(Transloadit, {
-      assemblyOptions: {
-        params: {
-          auth: { key: process.env.NEXT_PUBLIC_TRANSLOADIT_AUTH_KEY as string },
-          template_id: process.env.NEXT_PUBLIC_TRANSLOADIT_TEMPLATE_ID,
+    const uppyInstance = new Uppy()
+      .use(Webcam, { showVideoSourceDropdown: true, showRecordingLength: true })
+      .use(Transloadit, {
+        assemblyOptions: {
+          params: {
+            auth: {
+              key: process.env.NEXT_PUBLIC_TRANSLOADIT_AUTH_KEY as string,
+            },
+            template_id: process.env.NEXT_PUBLIC_TRANSLOADIT_TEMPLATE_ID,
+          },
+          fields: {
+            userId: userId as string,
+            issueId: formData['issueId'],
+          },
         },
-        fields: {
-          userId: userId as string,
-          issueId: formData['issueId'],
-        },
-      },
-    })
+      })
 
     return uppyInstance
     // eslint-disable-next-line react-hooks/exhaustive-deps
