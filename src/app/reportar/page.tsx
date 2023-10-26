@@ -7,11 +7,10 @@ import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import { Editor } from '@tinymce/tinymce-react'
 import Uppy from '@uppy/core'
-import '@uppy/core/dist/style.min.css'
-import '@uppy/dashboard/dist/style.min.css'
+import ImageEditor from '@uppy/image-editor'
 import Transloadit from '@uppy/transloadit'
 import Webcam from '@uppy/webcam'
-import '@uppy/webcam/dist/style.min.css'
+
 import { useRouter } from 'next/navigation'
 import { useMemo, useRef, useState } from 'react'
 import { Editor as TinyMCEEditor } from 'tinymce'
@@ -33,6 +32,19 @@ export default function IssueReportPage() {
 
   const uppy = useMemo(() => {
     const uppyInstance = new Uppy()
+      .use(ImageEditor, {
+        actions: {
+          revert: true,
+          rotate: true,
+          granularRotate: true,
+          flip: false,
+          zoomIn: false,
+          zoomOut: false,
+          cropSquare: false,
+          cropWidescreen: false,
+          cropWidescreenVertical: false,
+        },
+      })
       .use(Webcam, {
         showVideoSourceDropdown: true,
         showRecordingLength: true,
