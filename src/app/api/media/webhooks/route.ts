@@ -1,5 +1,6 @@
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
 import crypto from 'crypto'
+import { headers } from 'next/headers'
 
 type MediaProperties = {
   id: string
@@ -29,7 +30,9 @@ type TransloaditPayload = {
 
 export async function POST(req: Request) {
   const fields = await req.formData()
+  const headerPayload = headers()
 
+  console.log(headerPayload)
   console.log(`Prior to check signature`)
 
   if (!checkSignature(fields, process.env.TRANSLOADIT_AUTH_SECRET)) {
