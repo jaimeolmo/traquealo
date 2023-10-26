@@ -8,7 +8,7 @@ export default authMiddleware({
     '/',
     '/api/auth/webhooks',
     '/api/media/webhooks',
-    `${process.env.TRANSLOADIT_WEBHOOK_URL}/api/media/webhooks`,
+    `/^(.*\/api\/media\/webhooks)$/`,
   ],
 })
 
