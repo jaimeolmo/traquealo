@@ -33,7 +33,13 @@ export default function IssueReportPage() {
 
   const uppy = useMemo(() => {
     const uppyInstance = new Uppy()
-      .use(Webcam, { showVideoSourceDropdown: true, showRecordingLength: true })
+      .use(Webcam, {
+        showVideoSourceDropdown: true,
+        showRecordingLength: true,
+        videoConstraints: {
+          facingMode: { ideal: 'environment' },
+        },
+      })
       .use(Transloadit, {
         assemblyOptions: {
           params: {
