@@ -1,7 +1,11 @@
 'use client'
 import { UppyComponent } from '@/components/Uppy/Uppy'
+import municipalities from '@/utilities/municipalities.json'
 import { useAuth } from '@clerk/nextjs'
+import Autocomplete, { AutocompleteChangeReason } from '@mui/joy/Autocomplete'
 import Button from '@mui/joy/Button'
+import FormControl from '@mui/joy/FormControl'
+import FormLabel from '@mui/joy/FormLabel'
 import Input from '@mui/joy/Input'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
@@ -10,25 +14,22 @@ import Uppy from '@uppy/core'
 import ImageEditor from '@uppy/image-editor'
 import Transloadit from '@uppy/transloadit'
 import Webcam from '@uppy/webcam'
-
 import { useRouter } from 'next/navigation'
-import { useMemo, useRef, useState } from 'react'
+import { SyntheticEvent, useMemo, useRef, useState } from 'react'
 import { Editor as TinyMCEEditor } from 'tinymce'
 import { v4 as uuid } from 'uuid'
 
 export default function IssueReportPage() {
   const router = useRouter()
   const { isLoaded, isSignedIn, userId } = useAuth()
+  const [formIsSubmitting, setFormIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     title: '',
     content: '',
+    municipality: '',
     userId: userId as string,
     issueId: uuid(),
   })
-  // useEffect(() => {
-  //   setFormData({ ...formData, ['issueId']: uuid() })
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
 
   const uppy = useMemo(() => {
     const uppyInstance = new Uppy()
@@ -78,9 +79,23 @@ export default function IssueReportPage() {
     }
   }
 
-  const handleChange = (e: { target: { name: any; value: any } }) => {
+  const handleTitleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
+  }
+
+  const handleMunicipalityChange = (
+    event: SyntheticEvent<Element, Event>,
+    value: {
+      id: string
+      name: string
+    } | null,
+    reason: AutocompleteChangeReason,
+  ) => {
+    if (value) {
+      setFormData({ ...formData, ['municipality']: value.name })
+    }
+    if (reason === 'clear') setFormData({ ...formData, ['municipality']: '' })
   }
 
   if (!isLoaded || !isSignedIn) {
@@ -91,6 +106,7 @@ export default function IssueReportPage() {
     <Sheet sx={{ maxWidth: '1024px', width: '100%', py: 8, px: 4 }}>
       <form
         onSubmit={async (event) => {
+          setFormIsSubmitting(true)
           event.preventDefault()
 
           try {
@@ -125,57 +141,76 @@ export default function IssueReportPage() {
             router.push('/dashboard')
           } catch (error) {
             console.error('Error submitting form:', error)
+          } finally {
+            setFormIsSubmitting(false)
           }
         }}
       >
         <Stack spacing={2}>
           <Stack>
-            <Input
-              placeholder="Título"
-              name="title"
-              required
-              onChange={handleChange}
-            />
+            <FormControl id="add-title">
+              <FormLabel>Añadir un título</FormLabel>
+              <Input
+                placeholder="Título"
+                name="title"
+                required
+                onChange={handleTitleChange}
+              />
+            </FormControl>
           </Stack>
           <Stack>
-            <Editor
-              tinymceScriptSrc={
-                process.env.NEXT_PUBLIC_URL + '/scripts/tinymce/tinymce.min.js'
-              }
-              onInit={(evt, editor) => (editorRef.current = editor)}
-              init={{
-                branding: false,
-                elementpath: false,
-                height: 500,
-                menubar: false,
-                plugins: [
-                  'advlist',
-                  'autolink',
-                  'lists',
-                  'link',
-                  'image',
-                  'charmap',
-                  'anchor',
-                  'wordcount',
-                ],
-                toolbar:
-                  'bold italic forecolor | ' +
-                  'bullist numlist outdent indent | removeformat ',
-                content_style:
-                  'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-              }}
-              onSubmit={handleSubmit}
-            />
+            <FormControl id="select-municipality">
+              <FormLabel>Municipio impactado</FormLabel>
+              <Autocomplete
+                placeholder="Municipio"
+                name="municipality"
+                options={municipalities}
+                autoSelect
+                getOptionLabel={(option) => option.name}
+                autoHighlight
+                onChange={handleMunicipalityChange}
+              />
+            </FormControl>
           </Stack>
           <Stack>
+            <FormControl id="add-description">
+              <FormLabel>Añadir una descripción</FormLabel>
+              <Editor
+                tinymceScriptSrc={`${process.env.NEXT_PUBLIC_URL}/scripts/tinymce/tinymce.min.js`}
+                onInit={(evt, editor) => (editorRef.current = editor)}
+                init={{
+                  branding: false,
+                  elementpath: false,
+                  height: 360,
+                  menubar: false,
+                  plugins: [
+                    'advlist',
+                    'autolink',
+                    'lists',
+                    'link',
+                    'image',
+                    'charmap',
+                    'anchor',
+                    'wordcount',
+                  ],
+                  toolbar:
+                    'bold italic forecolor | ' +
+                    'bullist numlist outdent indent | removeformat ',
+                  content_style:
+                    'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                }}
+                onSubmit={handleSubmit}
+              />
+            </FormControl>
+          </Stack>
+          <Stack height={360}>
             <UppyComponent uppy={uppy} />
           </Stack>
-          <Button type="submit">Save</Button>
+          <Button loading={formIsSubmitting} type="submit" size="lg">
+            Save
+          </Button>
         </Stack>
       </form>
-      IssueId: {formData['issueId']}
-      <br />
-      UserId: {userId}
     </Sheet>
   )
 }
