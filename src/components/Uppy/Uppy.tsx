@@ -17,6 +17,8 @@ export function UppyComponent({ uppy }: ComponentProps) {
       uppy={uppy}
       plugins={['Webcam', 'ImageEditor']}
       width="100%"
+      height={360}
+      proudlyDisplayPoweredByUppy={false}
       waitForThumbnailsBeforeUpload
       hideUploadButton
     />
