@@ -11,7 +11,11 @@ export async function POST(request: Request) {
   const fromClient = await request.json()
   const issueCosmosClient = new IssueCosmosClient()
   try {
-    const newIssue = Issue.CreateNew(fromClient.issueId, fromClient.userId)
+    const newIssue = Issue.CreateNew(
+      fromClient.issueId,
+      fromClient.userId,
+      fromClient.municipality,
+    )
 
     const fullIssue = {
       ...newIssue,
