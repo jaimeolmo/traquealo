@@ -11,7 +11,7 @@ export default function DataFromUser({ sasToken }: { sasToken: string }) {
   if (isLoading) return <div>Loading...</div>
   return (
     <div>
-      {Array.isArray(data) ? (
+      {data && Array.isArray(data) ? (
         data.map((issue: any) => (
           <>
             <h3>{issue.title}</h3>
