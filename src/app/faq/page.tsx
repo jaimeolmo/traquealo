@@ -68,42 +68,47 @@ export default async function Faq() {
       summary:
         'Sí, puedes compartir los reportes en redes sociales para aumentar la visibilidad y fomentar una rápida resolución.',
     },
+    {
+      title: '¿Cómo puedo seguir a Traquealo en redes sociales?',
+      summary:
+        'Puedes seguirnos en nuestras redes sociales a través de los enlaces proporcionados en nuestra página web.',
+    },
+    {
+      title: '¿Cómo puedo borrar mi cuenta?',
+      summary:
+        'Si deseas borrar tu cuenta, por favor contacta al soporte para obtener ayuda.',
+    },
+    {
+      title: '¿Cómo puedo sugerir mejoras o nuevas funciones para Traquealo?',
+      summary:
+        'Valoramos tus sugerencias y comentarios. Puedes enviarnos tus ideas a través de nuestro formulario de contacto o correo electrónico.',
+    },
+    {
+      title: '',
+      summary: '',
+    },
+    {
+      title: '',
+      summary: '',
+    },
+    {
+      title: '',
+      summary: '',
+    },
+    {
+      title: '',
+      summary: '',
+    },
+    {
+      title: '',
+      summary: '',
+    },
   ]
 
   return (
     <Stack sx={{ maxWidth: '1024px', width: '100%', py: 8, px: 4 }}>
       <h1>FAQ</h1>
       <BasicAccordion questions={questions} />
-      {/*
-        
-        
-       
-        X. **¿Puedo reportar un problema de forma anónima?**
-           - Respuesta: Sí, ofrecemos la opción de reportar problemas de forma anónima, aunque te animamos a crear una cuenta para un mejor seguimiento.
-
-        
-   
-        14. ****
-            - Respuesta: 
-        
-        15. **¿Cómo puedo seguir a [Nombre de la Plataforma] en redes sociales?**
-            - Respuesta: Puedes seguirnos en nuestras redes sociales a través de los enlaces proporcionados en nuestra página web.
-        
-        16. **¿Qué hago si olvidé mi contraseña?**
-            - Respuesta: Puedes restablecer tu contraseña haciendo clic en “Olvidé mi contraseña” en la página de inicio de sesión y siguiendo las instrucciones.
-        
-        17. **¿Cómo puedo cambiar mi dirección de correo electrónico o contraseña?**
-            - Respuesta: Puedes cambiar tu dirección de correo electrónico o contraseña iniciando sesión, accediendo a tu perfil y seleccionando la opción de editar.
-        
-        18. **¿Cómo puedo borrar mi cuenta?**
-            - Respuesta: Si deseas borrar tu cuenta, por favor contacta al soporte para obtener ayuda.
-        
-        
-        20. **¿Cómo puedo sugerir mejoras o nuevas funciones para [Nombre de la Plataforma]?**
-            - Respuesta: Valoramos tus sugerencias y comentarios. Puedes enviarnos tus ideas a través de nuestro formulario de contacto o correo electrónico.
-        
-        
-        */}
     </Stack>
   )
 }
