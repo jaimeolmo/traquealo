@@ -17,16 +17,21 @@ export function LinksSection() {
         spacing={2}
       >
         <SectionList
-          sectionTitle="Links"
+          sectionTitle="Traquealo"
           sectionList={[
             {
               sectionTitle: 'FAQ',
               sectionUrl: '/faq',
             },
-            { sectionTitle: 'Help', sectionUrl: '#' },
-            { sectionTitle: 'Support', sectionUrl: '#' },
+            {
+              sectionTitle: 'About us',
+              sectionUrl: '/about-us',
+            },
+            { sectionTitle: 'Contacts', sectionUrl: '/contacts' },
           ]}
-          arialLabelDescription={'Links for the different support sections.'}
+          arialLabelDescription={
+            'Links for getting more information about this web.'
+          }
         />
         <SectionList
           sectionTitle="Legal"
@@ -54,19 +59,6 @@ export function LinksSection() {
           ]}
           arialLabelDescription={
             'Links for the different social media outlets.'
-          }
-        />
-        <SectionList
-          sectionTitle="Traquealo"
-          sectionList={[
-            {
-              sectionTitle: 'About us',
-              sectionUrl: '/about-us',
-            },
-            { sectionTitle: 'Contacts', sectionUrl: '/contacts' },
-          ]}
-          arialLabelDescription={
-            'Links for getting more information about this web.'
           }
         />
       </Stack>
