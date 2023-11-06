@@ -2,11 +2,12 @@ import Accordion from '@mui/joy/Accordion'
 import AccordionDetails from '@mui/joy/AccordionDetails'
 import AccordionGroup from '@mui/joy/AccordionGroup'
 import AccordionSummary from '@mui/joy/AccordionSummary'
+import { ReactNode } from 'react'
 
 type ComponentProps = {
   questions: Array<{
     title: string
-    summary: string
+    summary: ReactNode
   }>
 }
 

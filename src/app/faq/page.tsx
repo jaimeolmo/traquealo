@@ -1,4 +1,5 @@
 import BasicAccordion from '@/components/BasicAccordion/BasicAccordion'
+import { LinksSection } from '@/components/LinksSection/LinksSections'
 import Stack from '@mui/joy/Stack'
 
 export default async function Faq() {
@@ -6,7 +7,7 @@ export default async function Faq() {
     {
       title: '¿Qué es Traquealo?',
       summary:
-        'Respuesta: Traquealo es una plataforma digital diseñada para reportar y monitorear problemas en tu comunidad, como la falta de energía eléctrica, estorbos públicos, daños a carreteras y pavimento, basureros clandestinos, entre otros.',
+        'Traquealo es una plataforma digital diseñada para reportar y monitorear problemas en tu comunidad, como la falta de energía eléctrica, estorbos públicos, daños a carreteras y pavimento, basureros clandestinos, entre otros.',
     },
     {
       title: '¿Cómo puedo reportar un problema?',
@@ -20,13 +21,18 @@ export default async function Faq() {
     },
     {
       title: '¿Cómo creo una cuenta?',
-      summary:
-        'Puedes crear una cuenta haciendo clic en la opción de Sign in y completando el formulario ques básicamente un email o una cuenta activa Facebook, Google o Microsoft.',
+      summary: (
+        <div>
+          Puedes crear una cuenta haciendo clic en{' '}
+          <a href="/sign-in">Sign in</a>, completas el formulario o utilizando
+          una cuenta activa de Facebook, Google o Microsoft.
+        </div>
+      ),
     },
     {
       title: '¿Qué tipo de problemas puedo reportar?',
       summary:
-        'Puedes reportar cualquier problema que afecte a tu comunidad, como falta de energía eléctrica, estorbos públicos, daños a carreteras y pavimento, basureros clandestinos, entre otros.',
+        'Puedes reportar cualquier problema que afecte tu comunidad, como falta de energía eléctrica, estorbos públicos, daños a carreteras y pavimento, basureros clandestinos, entre otros.',
     },
     {
       title: '¿Puedo agregar fotos o videos a mi reporte?',
@@ -36,18 +42,18 @@ export default async function Faq() {
     {
       title: '¿Cómo puedo monitorear el estado de mi reporte?',
       summary:
-        'Puedes monitorear el estado de tu reporte iniciando sesión en tu cuenta y accediendo a la sección de “Mis Reportes”',
+        'Puedes monitorear el estado de tu reporte iniciando sesión en tu cuenta y accediendo la sección de “Mis Reportes”',
     },
     {
       title: '¿Puedo editar o cancelar un reporte después de haberlo enviado?',
       summary:
-        'Sí, puedes editar o cancelar tu reporte iniciando sesión, yendo a “Mis Reportes” y seleccionando la opción correspondiente (TBD).',
+        'Sí, puedes editar o cancelar tu reporte iniciando sesión, yendo a “Mis Reportes” y seleccionando la opción correspondiente.',
     },
-    {
-      title: '¿Cómo sé si mi reporte fue resuelto?',
-      summary:
-        '(Aclarar que la comunidad puede ayudar al monitoreo) Recibirás una notificación cuando tu reporte haya sido resuelto, y podrás verificar el estado en la sección de “Mis Reportes”.',
-    },
+    // {
+    //   title: '¿Cómo sé si mi reporte fue resuelto?',
+    //   summary:
+    //     '(Aclarar que la comunidad puede ayudar al monitoreo) Recibirás una notificación cuando tu reporte haya sido resuelto, y podrás verificar el estado en la sección de “Mis Reportes”.',
+    // },
     {
       title: '¿Qué hago si veo un reporte falso o inapropiado?',
       summary:
@@ -61,7 +67,7 @@ export default async function Faq() {
 
     {
       title: '¿Cómo puedo asegurarme de que mi reporte sea atendido?',
-      summary: '(AQUI TENEMOS QUE ACLARAR PARTE DE LA VISION',
+      summary: '(AQUI TENEMOS QUE ACLARAR PARTE DE LA VISION)',
     },
     {
       title: '¿Puedo compartir los reportes en redes sociales?',
@@ -70,8 +76,13 @@ export default async function Faq() {
     },
     {
       title: '¿Cómo puedo seguir a Traquealo en redes sociales?',
-      summary:
-        'Puedes seguirnos en nuestras redes sociales a través de los enlaces proporcionados en nuestra página web.',
+      summary: (
+        <div>
+          Puedes seguirnos en nuestras redes sociales a través de los enlaces
+          proporcionados en{' '}
+          <a href="/contacts">nuestra página web de contactos</a>.
+        </div>
+      ),
     },
     {
       title: '¿Cómo puedo borrar mi cuenta?',
@@ -80,35 +91,22 @@ export default async function Faq() {
     },
     {
       title: '¿Cómo puedo sugerir mejoras o nuevas funciones para Traquealo?',
-      summary:
-        'Valoramos tus sugerencias y comentarios. Puedes enviarnos tus ideas a través de nuestro formulario de contacto o correo electrónico.',
-    },
-    {
-      title: '',
-      summary: '',
-    },
-    {
-      title: '',
-      summary: '',
-    },
-    {
-      title: '',
-      summary: '',
-    },
-    {
-      title: '',
-      summary: '',
-    },
-    {
-      title: '',
-      summary: '',
+      summary: (
+        <div>
+          Valoramos tus sugerencias y comentarios. Puedes enviarnos tus ideas a
+          través de las opciones disponibles en{' '}
+          <a href="/contacts">nuestra página web de contactos</a>.
+        </div>
+      ),
     },
   ]
 
   return (
-    <Stack sx={{ maxWidth: '1024px', width: '100%', py: 8, px: 4 }}>
+    <Stack sx={{ maxWidth: '1024px', width: '100%', px: 4 }}>
       <h1>FAQ</h1>
       <BasicAccordion questions={questions} />
+      <div style={{ height: '6rem' }}></div>
+      <LinksSection />
     </Stack>
   )
 }
