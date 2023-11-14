@@ -1,314 +1,470 @@
 [
     {
         "id": "PR-AJ",
-        "name": "Adjuntas"
+        "name": "Adjuntas",
+        "population": 17905,
+        "slug": "adjuntas"
     },
     {
         "id": "PR-AD",
-        "name": "Aguada"
+        "name": "Aguada",
+        "population": 37666,
+        "slug": "aguada"
     },
     {
         "id": "PR-AL",
-        "name": "Aguadilla"
+        "name": "Aguadilla",
+        "population": 53931,
+        "slug": "aguadilla"
     },
     {
         "id": "PR-AB",
-        "name": "Aguas Buenas"
+        "name": "Aguas Buenas",
+        "population": 23538,
+        "slug": "aguas_buenas"
     },
     {
         "id": "PR-AI",
-        "name": "Aibonito"
+        "name": "Aibonito",
+        "population": 24555,
+        "slug": "aibonito"
     },
     {
         "id": "PR-AN",
-        "name": "Añasco"
+        "name": "Añasco",
+        "population": 25026,
+        "slug": "anasco"
     },
     {
         "id": "PR-AC",
-        "name": "Arecibo"
+        "name": "Arecibo",
+        "population": 86090,
+        "slug": "arecibo"
     },
     {
         "id": "PR-AR",
-        "name": "Arroyo"
+        "name": "Arroyo",
+        "population": 15289,
+        "slug": "arroyo"
     },
     {
         "id": "PR-BC",
-        "name": "Barceloneta"
+        "name": "Barceloneta",
+        "population": 22416,
+        "slug": "barceloneta"
     },
     {
         "id": "PR-BQ",
-        "name": "Barranquitas"
+        "name": "Barranquitas",
+        "population": 28944,
+        "slug": "barranquitas"
     },
     {
         "id": "PR-BY",
-        "name": "Bayamón"
+        "name": "Bayamón",
+        "population": 181577,
+        "slug": "bayamon"
     },
     {
         "id": "PR-CR",
-        "name": "Cabo Rojo"
+        "name": "Cabo Rojo",
+        "population": 46718,
+        "slug": "cabo_rojo"
     },
     {
         "id": "PR-CG",
-        "name": "Caguas"
+        "name": "Caguas",
+        "population": 125136,
+        "slug": "caguas"
     },
     {
         "id": "PR-CA",
-        "name": "Camuy"
+        "name": "Camuy",
+        "population": 32620,
+        "slug": "camuy"
     },
     {
         "id": "PR-CV",
-        "name": "Canóvanas"
+        "name": "Canóvanas",
+        "population": 41637,
+        "slug": "canovanas"
     },
     {
         "id": "PR-CN",
-        "name": "Carolina"
+        "name": "Carolina",
+        "population": 151571,
+        "slug": "carolina"
     },
     {
         "id": "PR-CT",
-        "name": "Cataño"
+        "name": "Cataño",
+        "population": 22364,
+        "slug": "catano"
     },
     {
         "id": "PR-CY",
-        "name": "Cayey"
+        "name": "Cayey",
+        "population": 40782,
+        "slug": "cayey"
     },
     {
         "id": "PR-CB",
-        "name": "Ceiba"
+        "name": "Ceiba",
+        "population": 10931,
+        "slug": "ceiba"
     },
     {
         "id": "PR-CL",
-        "name": "Ciales"
+        "name": "Ciales",
+        "population": 16742,
+        "slug": "ciales"
     },
     {
         "id": "PR-CD",
-        "name": "Cidra"
+        "name": "Cidra",
+        "population": 39515,
+        "slug": "cidra"
     },
     {
         "id": "PR-CO",
-        "name": "Coamo"
+        "name": "Coamo",
+        "population": 33887,
+        "slug": "coamo"
     },
     {
         "id": "PR-CM",
-        "name": "Comerío"
+        "name": "Comerío",
+        "population": 18619,
+        "slug": "comerio"
     },
     {
         "id": "PR-CZ",
-        "name": "Corozal"
+        "name": "Corozal",
+        "population": 34322,
+        "slug": "corozal"
     },
     {
         "id": "PR-CU",
-        "name": "Culebra"
+        "name": "Culebra",
+        "population": 1769,
+        "slug": "culebra"
     },
     {
         "id": "PR-DO",
-        "name": "Dorado"
+        "name": "Dorado",
+        "population": 35663,
+        "slug": "dorado"
     },
     {
         "id": "PR-FJ",
-        "name": "Fajardo"
+        "name": "Fajardo",
+        "population": 31375,
+        "slug": "fajardo"
     },
     {
         "id": "PR-FL",
-        "name": "Florida"
+        "name": "Florida",
+        "population": 11538,
+        "slug": "florida"
     },
     {
         "id": "PR-GC",
-        "name": "Guánica"
+        "name": "Guánica",
+        "population": 12800,
+        "slug": "guanica"
     },
     {
         "id": "PR-GM",
-        "name": "Guayama"
+        "name": "Guayama",
+        "population": 35262,
+        "slug": "guayama"
     },
     {
         "id": "PR-GL",
-        "name": "Guayanilla"
+        "name": "Guayanilla",
+        "population": 17064,
+        "slug": "guayanilla"
     },
     {
         "id": "PR-GB",
-        "name": "Guaynabo"
+        "name": "Guaynabo",
+        "population": 89057,
+        "slug": "guaynabo"
     },
     {
         "id": "PR-GR",
-        "name": "Gurabo"
+        "name": "Gurabo",
+        "population": 40061,
+        "slug": "gurabo"
     },
     {
         "id": "PR-HA",
-        "name": "Hatillo"
+        "name": "Hatillo",
+        "population": 38021,
+        "slug": "hatillo"
     },
     {
         "id": "PR-HO",
-        "name": "Hormigueros"
+        "name": "Hormigueros",
+        "population": 15413,
+        "slug": "hormigueros"
     },
     {
         "id": "PR-HU",
-        "name": "Humacao"
+        "name": "Humacao",
+        "population": 49924,
+        "slug": "humacao"
     },
     {
         "id": "PR-IS",
-        "name": "Isabela"
+        "name": "Isabela",
+        "population": 42754,
+        "slug": "isabela"
     },
     {
         "id": "PR-JY",
-        "name": "Jayuya"
+        "name": "Jayuya",
+        "population": 14495,
+        "slug": "jayuya"
     },
     {
         "id": "PR-JD",
-        "name": "Juana Díaz"
+        "name": "Juana Díaz",
+        "population": 45923,
+        "slug": "juana_diaz"
     },
     {
         "id": "PR-JC",
-        "name": "Juncos"
+        "name": "Juncos",
+        "population": 36672,
+        "slug": "juncos"
     },
     {
         "id": "PR-LJ",
-        "name": "Lajas"
+        "name": "Lajas",
+        "population": 22936,
+        "slug": "lajas"
     },
     {
         "id": "PR-LR",
-        "name": "Lares"
+        "name": "Lares",
+        "population": 27774,
+        "slug": "lares"
     },
     {
         "id": "PR-LM",
-        "name": "Las Marías"
+        "name": "Las Marías",
+        "population": 8705,
+        "slug": "las_marias"
     },
     {
         "id": "PR-LP",
-        "name": "Las Piedras"
+        "name": "Las Piedras",
+        "population": 34814,
+        "slug": "las_piedras"
     },
     {
         "id": "PR-LZ",
-        "name": "Loíza"
+        "name": "Loíza",
+        "population": 22657,
+        "slug": "loiza"
     },
     {
         "id": "PR-LQ",
-        "name": "Luquillo"
+        "name": "Luquillo",
+        "population": 17449,
+        "slug": "luquillo"
     },
     {
         "id": "PR-MT",
-        "name": "Manatí"
+        "name": "Manatí",
+        "population": 38751,
+        "slug": "manati"
     },
     {
         "id": "PR-MR",
-        "name": "Maricao"
+        "name": "Maricao",
+        "population": 4575,
+        "slug": "maricao"
     },
     {
         "id": "PR-MB",
-        "name": "Maunabo"
+        "name": "Maunabo",
+        "population": 10368,
+        "slug": "maunabo"
     },
     {
         "id": "PR-MG",
-        "name": "Mayagüez"
+        "name": "Mayagüez",
+        "population": 70609,
+        "slug": "mayaguez"
     },
     {
         "id": "PR-MC",
-        "name": "Moca"
+        "name": "Moca",
+        "population": 37279,
+        "slug": "moca"
     },
     {
         "id": "PR-MV",
-        "name": "Morovis"
+        "name": "Morovis",
+        "population": 28277,
+        "slug": "morovis"
     },
     {
         "id": "PR-NG",
-        "name": "Naguabo"
+        "name": "Naguabo",
+        "population": 22964,
+        "slug": "naguabo"
     },
     {
         "id": "PR-NR",
-        "name": "Naranjito"
+        "name": "Naranjito",
+        "population": 29208,
+        "slug": "naranjito"
     },
     {
         "id": "PR-OR",
-        "name": "Orocovis"
+        "name": "Orocovis",
+        "population": 21229,
+        "slug": "orocovis"
     },
     {
         "id": "PR-PT",
-        "name": "Patillas"
+        "name": "Patillas",
+        "population": 15524,
+        "slug": "patillas"
     },
     {
         "id": "PR-PN",
-        "name": "Peñuelas"
+        "name": "Peñuelas",
+        "population": 19763,
+        "slug": "penuelas"
     },
     {
         "id": "PR-PO",
-        "name": "Ponce"
+        "name": "Ponce",
+        "population": 132138,
+        "slug": "ponce"
     },
     {
         "id": "PR-QB",
-        "name": "Quebradillas"
+        "name": "Quebradillas",
+        "population": 23332,
+        "slug": "quebradillas"
     },
     {
         "id": "PR-RC",
-        "name": "Rincón"
+        "name": "Rincón",
+        "population": 15316,
+        "slug": "rincon"
     },
     {
         "id": "PR-RG",
-        "name": "Río Grande"
+        "name": "Río Grande",
+        "population": 45840,
+        "slug": "rio_grande"
     },
     {
         "id": "PR-SB",
-        "name": "Sabana Grande"
+        "name": "Sabana Grande",
+        "population": 22351,
+        "slug": "sabana_grande"
     },
     {
         "id": "PR-SA",
-        "name": "Salinas"
+        "name": "Salinas",
+        "population": 25000,
+        "slug": "salinas"
     },
     {
         "id": "PR-SG",
-        "name": "San Germán"
+        "name": "San Germán",
+        "population": 31174,
+        "slug": "san_german"
     },
     {
         "id": "PR-SJ",
-        "name": "San Juan"
+        "name": "San Juan",
+        "population": 334776,
+        "slug": "san_juan"
     },
     {
         "id": "PR-SL",
-        "name": "San Lorenzo"
+        "name": "San Lorenzo",
+        "population": 37260,
+        "slug": "san_lorenzo"
     },
     {
         "id": "PR-SS",
-        "name": "San Sebastián"
+        "name": "San Sebastián",
+        "population": 38969,
+        "slug": "san_sebastian"
     },
     {
         "id": "PR-SI",
-        "name": "Santa Isabel"
+        "name": "Santa Isabel",
+        "population": 19822,
+        "slug": "santa_isabel"
     },
     {
         "id": "PR-TA",
-        "name": "Toa Alta"
+        "name": "Toa Alta",
+        "population": 66041,
+        "slug": "toa_alta"
     },
     {
         "id": "PR-TB",
-        "name": "Toa Baja"
+        "name": "Toa Baja",
+        "population": 72783,
+        "slug": "toa_baja"
     },
     {
         "id": "PR-TJ",
-        "name": "Trujillo Alto"
+        "name": "Trujillo Alto",
+        "population": 66810,
+        "slug": "trujillo_alto"
     },
     {
         "id": "PR-UT",
-        "name": "Utuado"
+        "name": "Utuado",
+        "population": 27535,
+        "slug": "utuado"
     },
     {
         "id": "PR-VA",
-        "name": "Vega Alta"
+        "name": "Vega Alta",
+        "population": 34786,
+        "slug": "vega_alta"
     },
     {
         "id": "PR-VB",
-        "name": "Vega Baja"
+        "name": "Vega Baja",
+        "population": 53684,
+        "slug": "vega_baja"
     },
     {
         "id": "PR-VQ",
-        "name": "Vieques"
+        "name": "Vieques",
+        "population": 8043,
+        "slug": "vieques"
     },
     {
         "id": "PR-VL",
-        "name": "Villalba"
+        "name": "Villalba",
+        "population": 21466,
+        "slug": "villalba"
     },
     {
         "id": "PR-YB",
-        "name": "Yabucoa"
+        "name": "Yabucoa",
+        "population": 29305,
+        "slug": "yabucoa"
     },
     {
         "id": "PR-YU",
-        "name": "Yauco"
+        "name": "Yauco",
+        "population": 32904,
+        "slug": "yauco"
     }
 ]
