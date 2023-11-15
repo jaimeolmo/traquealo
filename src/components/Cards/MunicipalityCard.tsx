@@ -19,6 +19,7 @@ export default function MunicipalityCard({ municipality }: ComponentProps) {
       variant="outlined"
       orientation="horizontal"
       sx={{
+        zIndex: 0,
         '&:hover': {
           boxShadow: 'md',
           borderColor: 'neutral.outlinedHoverBorder',

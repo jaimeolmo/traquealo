@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { Key } from 'react'
 import useSWR from 'swr'
 
@@ -14,7 +15,11 @@ export default function DataFromUser({ sasToken }: { sasToken: string }) {
       {data && Array.isArray(data) ? (
         data.map((issue: any) => (
           <>
-            <h3>{issue.title}</h3>
+            <h3>
+              <Link href={`/dashboard/reports/${issue.reportSlug}`}>
+                {issue.title}
+              </Link>
+            </h3>
             <div>
               {issue.media?.thumb === undefined
                 ? null

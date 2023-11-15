@@ -2,6 +2,7 @@
 import MunicipalityCard from '@/components/Cards/MunicipalityCard'
 import Grid from '@mui/joy/Grid'
 import Input from '@mui/joy/Input'
+import Link from 'next/link'
 import { useState } from 'react'
 
 type Municipality = {
@@ -42,7 +43,12 @@ export default function MunicipalitiesList({ municipalities }: ComponentProps) {
       <Grid container spacing={2}>
         {filteredMunicipalities.map((municipality) => (
           <Grid xs={12} md={6} lg={4} key={municipality.id}>
-            <MunicipalityCard municipality={municipality} />
+            <Link
+              href={`/dashboard/municipalities/${municipality.slug}`}
+              style={{ textDecoration: 'none' }}
+            >
+              <MunicipalityCard municipality={municipality} />
+            </Link>
           </Grid>
         ))}
       </Grid>

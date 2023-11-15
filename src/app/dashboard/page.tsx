@@ -9,6 +9,7 @@ import {
 } from '@azure/storage-blob'
 import { auth } from '@clerk/nextjs'
 import Stack from '@mui/joy/Stack'
+import Link from 'next/link'
 import { Key } from 'react'
 
 async function generateSasToken() {
@@ -60,7 +61,11 @@ export default async function Dashboard() {
           {typeof issues !== 'undefined' && Array.isArray(issues) ? (
             issues.map((issue: any) => (
               <>
-                <h3 key={issue.id}>{issue.title}</h3>
+                <h3 key={issue.id}>
+                  <Link href={`/dashboard/reports/${issue.reportSlug}`}>
+                    {issue.title}
+                  </Link>
+                </h3>
                 <div>
                   {issue.media?.thumb === undefined
                     ? null
