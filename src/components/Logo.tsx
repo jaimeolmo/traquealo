@@ -10,14 +10,14 @@ export function Logo() {
       alignItems="center"
     >
       <Image
-        src={'../images/traquealo_logo_.svg'}
-        alt={'Logo for the traquealo brand.'}
+        src={`${process.env.NEXT_PUBLIC_URL}/images/traquealo_logo_.svg`}
+        alt={'Logo for the Traquealo brand'}
         width="32"
         height="32"
       />
       <Image
-        src={'../images/logo_text.svg'}
-        alt={'Text for the traquealo brand.'}
+        src={`${process.env.NEXT_PUBLIC_URL}/images/logo_text.svg`}
+        alt={'Text for the Traquealo brand'}
         width="120"
         height="32"
       />

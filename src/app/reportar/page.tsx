@@ -94,9 +94,13 @@ export default function IssueReportPage() {
     reason: AutocompleteChangeReason,
   ) => {
     if (value) {
-      setFormData({ ...formData, ['municipality']: value.name })
-      setFormData({ ...formData, ['municipalityId']: value.id })
+      setFormData({
+        ...formData,
+        ['municipalityId']: value.id,
+        ['municipality']: value.name,
+      })
     }
+
     if (reason === 'clear') setFormData({ ...formData, ['municipality']: '' })
   }
 
