@@ -20,7 +20,7 @@ export default class IssueCosmosClient extends BaseCosmosClient<Issue> {
   public async getByPropertyValue(
     propertyName: string,
     value: string,
-  ): Promise<Issue[] | null> {
+  ): Promise<Array<Issue> | null> {
     const issue = await super.getByPropertyValue(propertyName, value)
     if (issue === null) return null
     return issue

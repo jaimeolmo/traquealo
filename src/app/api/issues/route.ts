@@ -1,7 +1,7 @@
 import { Issue } from '@/models/Issue'
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
 import { generateReportSlug } from '@/utilities/generateReportSlug'
-import { auth } from '@clerk/nextjs'
+import { auth, clerkClient } from '@clerk/nextjs'
 
 export async function POST(request: Request) {
   const { userId } = auth()
@@ -48,6 +48,8 @@ export async function GET(request: Request) {
       'userId',
       userId,
     )
+
+    const issueOwner = await clerkClient.users.getUser(userId)
 
     return Response.json(issuesByUserId)
   } catch (error) {
