@@ -1,7 +1,14 @@
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
 import { auth } from '@clerk/nextjs'
 
-export async function GET(request: Request, { params }) {
+type ParamsOptions = {
+  userId: string
+}
+
+export async function GET(
+  request: Request,
+  { params }: { params: ParamsOptions },
+) {
   const { userId } = auth()
 
   if (!userId) {

@@ -19,6 +19,10 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Key } from 'react'
 
+interface ParamsOptions {
+  userId: string
+}
+
 async function generateSasToken() {
   const blobServiceClient = BlobServiceClient.fromConnectionString(
     process.env.AZURE_STORAGE_CONNECTION_STRING as string,
@@ -62,7 +66,11 @@ async function getIssuesByUserId(): Promise<Issue[] | null> {
   return issues || null
 }
 
-export default async function UserReports({ params }) {
+export default async function UserReports({
+  params,
+}: {
+  params: ParamsOptions
+}) {
   const issuesFromUser = await getIssuesByUserId()
   const sasToken = await generateSasToken()
   const userId = await getAuthenticatedUserId()
