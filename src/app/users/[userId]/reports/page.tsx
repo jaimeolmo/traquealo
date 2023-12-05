@@ -1,4 +1,3 @@
-import DataFromUser from '@/components/Experiment/DataFromUser'
 import { Issue } from '@/models/Issue'
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
 import {
@@ -10,7 +9,6 @@ import {
 import { auth } from '@clerk/nextjs'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded'
-import Person2RoundedIcon from '@mui/icons-material/Person2Rounded'
 import Card from '@mui/joy/Card'
 import CardContent from '@mui/joy/CardContent'
 import Grid from '@mui/joy/Grid'
@@ -18,6 +16,7 @@ import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import { Key } from 'react'
 
 async function generateSasToken() {
@@ -43,20 +42,6 @@ async function generateSasToken() {
   return sasToken
 }
 
-async function getAllIssues(): Promise<Issue[] | null> {
-  const { userId } = auth()
-
-  if (!userId) {
-    return null
-  }
-
-  const issueCosmosClient = new IssueCosmosClient()
-
-  const issues = await issueCosmosClient.getAll()
-
-  return issues || null
-}
-
 async function getAuthenticatedUserId() {
   const { userId } = auth()
 
@@ -77,19 +62,15 @@ async function getIssuesByUserId(): Promise<Issue[] | null> {
   return issues || null
 }
 
-export default async function Dashboard() {
-  const issues = await getAllIssues()
+export default async function UserReports({ params }) {
   const issuesFromUser = await getIssuesByUserId()
   const sasToken = await generateSasToken()
   const userId = await getAuthenticatedUserId()
 
+  if (!params.userId || !(params.userId === userId)) return notFound()
+
   return (
     <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4, py: 2 }}>
-      <Typography level="h2" sx={{ py: 4 }} textColor={'primary.900'}>
-        Construyendo un Futuro Mejor: Monitoreo y Registro de Desafíos
-        Comunitarios
-      </Typography>
-
       <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
         <Stack sx={{ width: '100%' }}>
           <Typography
@@ -99,12 +80,19 @@ export default async function Dashboard() {
             }
             textColor={'primary.700'}
           >
-            Reportes de la Comunidad
+            Mis Reportes
           </Typography>
           <Grid container justifyContent="flex-start">
-            {typeof issues !== 'undefined' && Array.isArray(issues) ? (
-              issues.map((issue: any) => (
-                <Grid key={issue.id} sm={6} xs={12} sx={{ flexGrow: 1, p: 1 }}>
+            {typeof issuesFromUser !== 'undefined' &&
+            Array.isArray(issuesFromUser) ? (
+              issuesFromUser.map((issue: any) => (
+                <Grid
+                  key={issue.id}
+                  sm={6}
+                  md={4}
+                  xs={12}
+                  sx={{ flexGrow: 1, p: 1 }}
+                >
                   <Card
                     sx={{
                       height: '100%',
@@ -151,17 +139,12 @@ export default async function Dashboard() {
                             )
                           : null}
                       </Stack>
-                      <Link
-                        href={`/dashboard/municipalities`}
-                        style={{ textDecoration: 'none' }}
+                      <Typography
+                        startDecorator={<LocationOnRoundedIcon />}
+                        textColor="neutral.400"
                       >
-                        <Typography
-                          startDecorator={<LocationOnRoundedIcon />}
-                          textColor="neutral.400"
-                        >
-                          {issue.municipality}
-                        </Typography>
-                      </Link>
+                        {issue.municipality}
+                      </Typography>
                     </CardContent>
                   </Card>
                 </Grid>
@@ -170,18 +153,6 @@ export default async function Dashboard() {
               <p>There&apos;s currently no data available.</p>
             )}
           </Grid>
-        </Stack>
-        <Stack spacing={2} sx={{ width: '290px' }}>
-          <Typography
-            level="h3"
-            startDecorator={
-              <Person2RoundedIcon sx={{ color: 'secondary.600' }} />
-            }
-            textColor={'primary.700'}
-          >
-            Mis Reportes
-          </Typography>
-          <DataFromUser sasToken={sasToken} userId={userId} />
         </Stack>
       </Stack>
     </Sheet>

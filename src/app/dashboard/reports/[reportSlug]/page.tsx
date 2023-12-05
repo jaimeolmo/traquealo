@@ -49,7 +49,7 @@ export default async function ReportDetails({
           Municipio de {report[0].municipality}
         </Typography>
 
-        <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
           <Grid sm={8} xs={12}>
             <Stack spacing={2}>
               <Stack sx={{ width: '100%' }}>

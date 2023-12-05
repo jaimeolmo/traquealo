@@ -1,7 +1,7 @@
 import { Issue } from '@/models/Issue'
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
 import { generateReportSlug } from '@/utilities/generateReportSlug'
-import { auth, clerkClient } from '@clerk/nextjs'
+import { auth } from '@clerk/nextjs'
 
 export async function POST(request: Request) {
   const { userId } = auth()
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   return new Response('', { status: 201 })
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   const { userId } = auth()
   if (!userId) {
     return new Response('Unauthorized', { status: 401 })
@@ -44,16 +44,11 @@ export async function GET(request: Request) {
 
   const issueCosmosClient = new IssueCosmosClient()
   try {
-    const issuesByUserId = await issueCosmosClient.getByPropertyValue(
-      'userId',
-      userId,
-    )
+    const issues = await issueCosmosClient.getAll()
 
-    const issueOwner = await clerkClient.users.getUser(userId)
-
-    return Response.json(issuesByUserId)
+    return Response.json(issues)
   } catch (error) {
-    console.error('Error handling POST request:', error)
+    console.error('Error handling GET request:', error)
     return new Response('Internal Server Error', { status: 500 })
   }
 }
