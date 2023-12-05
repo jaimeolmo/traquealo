@@ -76,7 +76,7 @@ export default abstract class BaseCosmosClient<TEntity> {
       .items.query(querySpec)
       .fetchAll()
 
-    return results.map((i) => new this.c(i))
+    return results.map((i) => i)
   }
 
   public async getAll(): Promise<TEntity[]> {
@@ -89,7 +89,7 @@ export default abstract class BaseCosmosClient<TEntity> {
       .items.query(querySpec)
       .fetchAll()
 
-    return results.map((i) => new this.c(i))
+    return results.map((i) => i)
   }
 
   public async deleteById(id: string, partitionKey: string): Promise<void> {

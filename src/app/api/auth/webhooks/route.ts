@@ -54,9 +54,6 @@ export async function POST(req: Request) {
   const { id } = evt.data
   const eventType = evt.type
 
-  console.log(`Webhook with an ID of ${id} and type of ${eventType}`)
-  console.log('Webhook body:', body)
-
   const userCosmosClient = new UserCosmosClient()
 
   const newUser = User.CreateNew(id as string)

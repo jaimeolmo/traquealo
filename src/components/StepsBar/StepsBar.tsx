@@ -1,6 +1,6 @@
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
-import { SimpleCard } from '../SimpleCard/SimpleCard'
+import { SimpleCard } from '../Cards/SimpleCard'
 
 export function StepsBar() {
   return (

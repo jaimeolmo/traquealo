@@ -27,6 +27,7 @@ export default function IssueReportPage() {
     title: '',
     content: '',
     municipality: '',
+    municipalityId: '',
     userId: userId as string,
     issueId: uuid(),
   })
@@ -93,8 +94,13 @@ export default function IssueReportPage() {
     reason: AutocompleteChangeReason,
   ) => {
     if (value) {
-      setFormData({ ...formData, ['municipality']: value.name })
+      setFormData({
+        ...formData,
+        ['municipalityId']: value.id,
+        ['municipality']: value.name,
+      })
     }
+
     if (reason === 'clear') setFormData({ ...formData, ['municipality']: '' })
   }
 
@@ -165,6 +171,7 @@ export default function IssueReportPage() {
                 placeholder="Municipio"
                 name="municipality"
                 options={municipalities}
+                required
                 autoSelect
                 getOptionLabel={(option) => option.name}
                 autoHighlight

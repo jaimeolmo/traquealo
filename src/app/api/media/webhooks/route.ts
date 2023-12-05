@@ -32,7 +32,6 @@ export async function POST(req: Request) {
   const fields = await req.formData()
   const headerPayload = headers()
 
-  console.log(headerPayload)
   console.log(`Prior to check signature`)
 
   // if (!checkSignature(fields, process.env.TRANSLOADIT_AUTH_SECRET)) {
@@ -67,7 +66,7 @@ export async function POST(req: Request) {
 
   try {
     const urlsArray = extractUrls(payload.results)
-    console.log(urlsArray)
+
     while (urlsArray.length > 0) {
       const operations = urlsArray.splice(0, 10)
       await issueCosmosClient.partialUpdate({
