@@ -41,10 +41,18 @@ export default async function ReportDetails({
 
   if (!report) return notFound()
 
+  const reportCategories: string[] =
+    report[0].categories &&
+    Object.entries(report[0].categories)
+      .filter(([key, value]) => value)
+      .map(([key, value]) => key)
+
   return (
     <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4, py: 2 }}>
       <Stack spacing={1}>
-        <Typography level="h2">{report[0].title}</Typography>
+        <Typography level="h2" textColor={'primary.900'}>
+          {report[0].title}
+        </Typography>
         <Typography startDecorator={<PlaceIcon />}>
           Municipio de {report[0].municipality}
         </Typography>
@@ -73,7 +81,9 @@ export default async function ReportDetails({
           <Grid sm={4} xs={12}>
             <TrackingSideBar
               createdOn={new Date(report[0].createdOn)}
-              reportSlug={params.reportSlug}
+              reportId={report[0].id}
+              categories={reportCategories}
+              reportOwner={report[0].userId}
             />
           </Grid>
         </Grid>

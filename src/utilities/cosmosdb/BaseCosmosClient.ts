@@ -7,7 +7,7 @@ type UpdatePayload = {
   operations: Array<{
     op: 'add' | 'replace' | 'remove' | 'set' | 'incr'
     path: string
-    value: string
+    value: string | boolean
   }>
 }
 
@@ -46,7 +46,7 @@ export default abstract class BaseCosmosClient<TEntity> {
     value: string,
   ): Promise<TEntity[] | null> {
     const querySpec = {
-      query: `SELECT * FROM c WHERE c.${propertyName}=@val`,
+      query: `SELECT * FROM c WHERE c.${propertyName}=@val order by c.updatedOn desc`,
       parameters: [{ name: '@val', value: value }],
     }
     const { resources: results } = await this.client
@@ -67,7 +67,7 @@ export default abstract class BaseCosmosClient<TEntity> {
     value: string,
   ): Promise<TEntity[]> {
     const querySpec = {
-      query: `SELECT * FROM c WHERE c.${propertyName}=@val`,
+      query: `SELECT * FROM c WHERE c.${propertyName}=@val order by c.updatedOn desc`,
       parameters: [{ name: '@val', value: value }],
     }
     const { resources: results } = await this.client
@@ -81,7 +81,7 @@ export default abstract class BaseCosmosClient<TEntity> {
 
   public async getAll(): Promise<TEntity[]> {
     const querySpec = {
-      query: `SELECT * FROM c`,
+      query: `Select * from c order by c.updatedOn desc`,
     }
     const { resources: results } = await this.client
       .database(this.databaseId)

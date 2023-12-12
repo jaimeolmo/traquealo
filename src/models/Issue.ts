@@ -19,7 +19,7 @@ export class Issue {
     '720_h264_encoded': [],
   }
   public responsables = []
-  public categories = []
+  public categories = {}
   public createdOn!: Date
   public updatedOn!: Date
 
