@@ -1,4 +1,5 @@
 import ReportStatusIndicator from '@/components/ReportStatusIndicator'
+import { auth } from '@clerk/nextjs'
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
 import CategoryIcon from '@mui/icons-material/Category'
 import ConnectWithoutContactRoundedIcon from '@mui/icons-material/ConnectWithoutContactRounded'
@@ -20,13 +21,17 @@ type ComponentProps = {
   createdOn: Date
   reportId: string
   categories: Array<string>
+  reportOwner: string
 }
 
 export default function TrackingSideBar({
   createdOn,
   reportId,
   categories,
+  reportOwner,
 }: ComponentProps) {
+  const { userId } = auth()
+
   return (
     <Box>
       <Stack spacing={1}>
@@ -62,7 +67,9 @@ export default function TrackingSideBar({
             Categorías
           </Typography>
 
-          <CategoriesMenu reportId={reportId} reportCategories={categories} />
+          {reportOwner === userId ? (
+            <CategoriesMenu reportId={reportId} reportCategories={categories} />
+          ) : null}
         </Stack>
         {categories !== null && !Array.isArray(categories) && (
           <Stack

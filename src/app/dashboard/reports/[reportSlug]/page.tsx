@@ -83,6 +83,7 @@ export default async function ReportDetails({
               createdOn={new Date(report[0].createdOn)}
               reportId={report[0].id}
               categories={reportCategories}
+              reportOwner={report[0].userId}
             />
           </Grid>
         </Grid>
