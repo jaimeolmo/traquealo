@@ -1,61 +1,132 @@
-import AgenciesMenu from '@/components/AgenciesMenu'
-import CategoriesMenu from '@/components/CategoriesMenu'
 import ReportStatusIndicator from '@/components/ReportStatusIndicator'
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
 import CategoryIcon from '@mui/icons-material/Category'
 import ConnectWithoutContactRoundedIcon from '@mui/icons-material/ConnectWithoutContactRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import FactCheckRoundedIcon from '@mui/icons-material/FactCheckRounded'
 import FlagRoundedIcon from '@mui/icons-material/FlagRounded'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
-import Groups3Icon from '@mui/icons-material/Groups3'
 import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded'
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import Box from '@mui/joy/Box'
 import Button from '@mui/joy/Button'
+import Chip from '@mui/joy/Chip'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
+import CategoriesMenu from '../CategoriesMenu'
 
 type ComponentProps = {
   createdOn: Date
-  reportSlug: string
+  reportId: string
+  categories: Array<string>
 }
 
 export default function TrackingSideBar({
   createdOn,
-  reportSlug,
+  reportId,
+  categories,
 }: ComponentProps) {
   return (
     <Box>
       <Stack spacing={1}>
         <ReportStatusIndicator createdOn={createdOn} />
+        {/* TODO: This will be implemented during Season 2.
         <Stack direction={'row'}>
           <Typography
             level="title-md"
-            startDecorator={<Groups3Icon />}
+            startDecorator={<Groups3Icon sx={{ color: 'secondary.600' }} />}
             sx={{ flex: 1 }}
+            textColor={'primary.700'}
           >
             Responsables
           </Typography>
+          <Box>
+            <IconButton variant="plain">
+              <AddBoxRoundedIcon sx={{ color: 'primary.700' }} />
+            </IconButton>
+          </Box>
           <AgenciesMenu />
+        </Stack> 
+        <Stack direction="row" spacing={2}>
+          Familia
         </Stack>
-        <Typography>Lista de agencias responsables</Typography>
+        */}
         <Stack direction={'row'}>
           <Typography
             level="title-md"
-            startDecorator={<CategoryIcon />}
+            startDecorator={<CategoryIcon sx={{ color: 'secondary.600' }} />}
             sx={{ flex: 1 }}
+            textColor={'primary.700'}
           >
             Categorías
           </Typography>
-          <CategoriesMenu />
+
+          <CategoriesMenu reportId={reportId} reportCategories={categories} />
         </Stack>
-        <Stack>Lista de categorías</Stack>
+        {categories !== null && !Array.isArray(categories) && (
+          <Stack
+            spacing={1}
+            direction={'row'}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Box>
+              <Typography
+                startDecorator={
+                  <ErrorOutlineRoundedIcon sx={{ color: 'neutral.500' }} />
+                }
+                sx={{ flex: 1 }}
+                textColor={'neutral.500'}
+              >
+                Aún sin categorías
+              </Typography>
+            </Box>
+          </Stack>
+        )}
+        {Array.isArray(categories) && categories.length === 0 && (
+          <Stack
+            spacing={1}
+            direction={'row'}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Box>
+              <Typography
+                startDecorator={
+                  <ErrorOutlineRoundedIcon sx={{ color: 'neutral.500' }} />
+                }
+                sx={{ flex: 1 }}
+                textColor={'neutral.500'}
+              >
+                Aún sin categorías
+              </Typography>
+            </Box>
+          </Stack>
+        )}
+        {Array.isArray(categories) && (
+          <Box
+            sx={{
+              display: 'inline',
+              gap: 1,
+              alignItems: 'center',
+            }}
+          >
+            {categories.map((item) => (
+              <Chip key={item} sx={{ m: '4px' }} size="lg">
+                {item}
+              </Chip>
+            ))}
+          </Box>
+        )}
         <Stack direction={'row'}>
           <Typography
             level="title-md"
-            startDecorator={<FactCheckRoundedIcon />}
+            startDecorator={
+              <FactCheckRoundedIcon sx={{ color: 'secondary.600' }} />
+            }
             sx={{ flex: 1 }}
+            textColor={'primary.700'}
           >
             Traquealo
           </Typography>
@@ -113,7 +184,7 @@ export default function TrackingSideBar({
             startDecorator={<FlagRoundedIcon />}
             aria-label="flag this report"
             color="warning"
-            variant="outlined"
+            variant="plain"
           >
             Reportar como abusivo
           </Button>
@@ -123,7 +194,7 @@ export default function TrackingSideBar({
             startDecorator={<DeleteRoundedIcon />}
             aria-label="borrar reporte"
             color="danger"
-            variant="outlined"
+            variant="plain"
           >
             Borrar
           </Button>

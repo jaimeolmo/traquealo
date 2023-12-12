@@ -50,11 +50,13 @@ async function getAllIssues(): Promise<Issue[] | null> {
     return null
   }
 
-  const issueCosmosClient = new IssueCosmosClient()
-
-  const issues = await issueCosmosClient.getAll()
-
-  return issues || null
+  try {
+    const issueCosmosClient = new IssueCosmosClient()
+    const issues = await issueCosmosClient.getAll()
+    return issues || null
+  } catch (error) {
+    return null
+  }
 }
 
 async function getAuthenticatedUserId() {
@@ -70,11 +72,13 @@ async function getIssuesByUserId(): Promise<Issue[] | null> {
     return null
   }
 
-  const issueCosmosClient = new IssueCosmosClient()
-
-  const issues = await issueCosmosClient.getByPropertyValue('userId', userId)
-
-  return issues || null
+  try {
+    const issueCosmosClient = new IssueCosmosClient()
+    const issues = await issueCosmosClient.getByPropertyValue('userId', userId)
+    return issues || null
+  } catch (error) {
+    return null
+  }
 }
 
 export default async function Dashboard() {

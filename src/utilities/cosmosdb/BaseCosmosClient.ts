@@ -7,7 +7,7 @@ type UpdatePayload = {
   operations: Array<{
     op: 'add' | 'replace' | 'remove' | 'set' | 'incr'
     path: string
-    value: string
+    value: string | boolean
   }>
 }
 
