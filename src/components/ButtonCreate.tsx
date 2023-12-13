@@ -11,7 +11,7 @@ export function ButtonCreate() {
   }
 
   return (
-    <Link href="/dashboard" passHref>
+    <Link prefetch={false} href="/dashboard" passHref>
       <Button color="secondary">Dashboard</Button>
     </Link>
   )

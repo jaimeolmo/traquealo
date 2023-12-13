@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation'
 import { UrlObject } from 'url'
 import { ButtonCreate } from '../ButtonCreate'
 import { Logo } from '../Logo'
+import MobileMenu from './MobileMenu'
 
 export function HeaderBar() {
   const pathname = usePathname()
@@ -36,23 +37,40 @@ export function HeaderBar() {
           height: '100%',
         }}
       >
-        {pathname === '/' ? (
-          <Logo />
-        ) : (
-          <Link href="/">
+        <Stack alignItems="flex-start" sx={{ width: '50%' }}>
+          {pathname === '/' ? (
             <Logo />
-          </Link>
-        )}
+          ) : (
+            <Link prefetch={false} href="/">
+              <Logo />
+            </Link>
+          )}
+        </Stack>
+        <Stack
+          justifyContent="flex-end"
+          textAlign={'right'}
+          sx={{
+            width: '50%',
+            display: { xs: 'block', sm: 'none' },
+          }}
+        >
+          <Box>
+            <MobileMenu />
+          </Box>
+        </Stack>
         <Stack
           spacing={2}
-          sx={{ width: '100%' }}
+          sx={{
+            width: '50%',
+            display: { xs: 'none', sm: 'flex' },
+          }}
           direction="row"
           justifyContent="flex-end"
           alignItems="center"
         >
           <SignedIn>
             {pathname !== '/reportar' ? (
-              <Link href="/reportar" passHref>
+              <Link prefetch={false} href="/reportar" passHref>
                 <Button variant="soft">Reportar</Button>
               </Link>
             ) : null}
@@ -66,7 +84,9 @@ export function HeaderBar() {
                 },
               }}
             >
-              <Link href={'/sign-in' as unknown as UrlObject}>Sign in</Link>
+              <Link prefetch={false} href={'/sign-in' as unknown as UrlObject}>
+                Sign in
+              </Link>
             </Box>
           </SignedOut>
           <SignedIn>
