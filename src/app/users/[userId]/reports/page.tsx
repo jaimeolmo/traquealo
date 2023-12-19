@@ -147,12 +147,17 @@ export default async function UserReports({
                             )
                           : null}
                       </Stack>
-                      <Typography
-                        startDecorator={<LocationOnRoundedIcon />}
-                        textColor="neutral.400"
+                      <Link
+                        href={`/dashboard/municipalities/${issue.municipalitySlug}`}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
                       >
-                        {issue.municipality}
-                      </Typography>
+                        <Typography
+                          startDecorator={<LocationOnRoundedIcon />}
+                          textColor="neutral.400"
+                        >
+                          {issue.municipality}
+                        </Typography>
+                      </Link>
                     </CardContent>
                   </Card>
                 </Grid>

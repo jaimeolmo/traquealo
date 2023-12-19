@@ -9,6 +9,7 @@ import Grid from '@mui/joy/Grid'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 type Report = {
@@ -54,9 +55,13 @@ export default async function ReportDetails({
           {report[0].title}
         </Typography>
         <Typography startDecorator={<PlaceIcon />}>
-          Municipio de {report[0].municipality}
+          <Link
+            href={`/dashboard/municipalities/${report[0].municipalitySlug}`}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            Municipio de {report[0].municipality}
+          </Link>
         </Typography>
-
         <Grid container spacing={2}>
           <Grid sm={8} xs={12}>
             <Stack spacing={2}>

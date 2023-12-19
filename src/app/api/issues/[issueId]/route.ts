@@ -61,6 +61,5 @@ export async function PATCH(
 
   const res = await request.json()
 
-  console.log(res)
   return Response.json({ hello: res })
 }

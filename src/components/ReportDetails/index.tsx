@@ -21,6 +21,8 @@ async function getReportOwnerName(
     return null
   }
 
+  if (ownerUserId === 'user_system') return 'Sistema Interno'
+
   const user = await clerkClient.users.getUser(ownerUserId)
 
   if (!user.username && !user.firstName && !user.lastName) {

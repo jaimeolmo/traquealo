@@ -1,4 +1,3 @@
-import DataFromUser from '@/components/Experiment/DataFromUser'
 import { Issue } from '@/models/Issue'
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
 import {
@@ -10,7 +9,6 @@ import {
 import { auth } from '@clerk/nextjs'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded'
-import Person2RoundedIcon from '@mui/icons-material/Person2Rounded'
 import Card from '@mui/joy/Card'
 import CardContent from '@mui/joy/CardContent'
 import Grid from '@mui/joy/Grid'
@@ -43,7 +41,9 @@ async function generateSasToken() {
   return sasToken
 }
 
-async function getAllIssues(): Promise<Issue[] | null> {
+async function getIssuesByMunicipality(
+  municipality: string,
+): Promise<Issue[] | null> {
   const { userId } = auth()
 
   if (!userId) {
@@ -52,7 +52,10 @@ async function getAllIssues(): Promise<Issue[] | null> {
 
   try {
     const issueCosmosClient = new IssueCosmosClient()
-    const issues = await issueCosmosClient.getAll()
+    const issues = await issueCosmosClient.getAllByPropertyValue(
+      'municipalitySlug',
+      municipality,
+    )
     return issues || null
   } catch (error) {
     return null
@@ -65,35 +68,18 @@ async function getAuthenticatedUserId() {
   return userId
 }
 
-// TODO: This could be removed soon
-// async function getIssuesByUserId(): Promise<Issue[] | null> {
-//   const { userId } = auth()
-
-//   if (!userId) {
-//     return null
-//   }
-
-//   try {
-//     const issueCosmosClient = new IssueCosmosClient()
-//     const issues = await issueCosmosClient.getByPropertyValue('userId', userId)
-//     return issues || null
-//   } catch (error) {
-//     return null
-//   }
-// }
-
-export default async function Dashboard() {
-  const issues = await getAllIssues()
+export default async function MunicipalityDashboard({
+  params,
+}: {
+  params: { municipalitySlug: string }
+}) {
+  const issues = await getIssuesByMunicipality(params.municipalitySlug)
   const sasToken = await generateSasToken()
   const userId = await getAuthenticatedUserId()
 
   return (
-    <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4, py: 2 }}>
-      <Typography level="h2" sx={{ py: 4 }} textColor={'primary.900'}>
-        Construyendo un Futuro Mejor: Monitoreo y Registro de Desafíos
-        Comunitarios
-      </Typography>
-
+    <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4 }}>
+      <h1>Reportes por Municipio</h1>
       <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
         <Stack sx={{ width: '100%' }}>
           <Typography
@@ -103,7 +89,7 @@ export default async function Dashboard() {
             }
             textColor={'primary.700'}
           >
-            Reportes de la Comunidad
+            {getMunicipalityDisplay(issues)}
           </Typography>
           <Grid container justifyContent="flex-start">
             {typeof issues !== 'undefined' && Array.isArray(issues) ? (
@@ -156,7 +142,7 @@ export default async function Dashboard() {
                           : null}
                       </Stack>
                       <Link
-                        href={`/dashboard/municipalities/${issue.municipalitySlug}`}
+                        href={`/dashboard/municipalities`}
                         style={{ textDecoration: 'none' }}
                       >
                         <Typography
@@ -175,7 +161,7 @@ export default async function Dashboard() {
             )}
           </Grid>
         </Stack>
-        <Stack spacing={2} sx={{ width: '290px' }}>
+        {/* <Stack spacing={2} sx={{ width: '290px' }}>
           <Typography
             level="h3"
             startDecorator={
@@ -186,8 +172,16 @@ export default async function Dashboard() {
             Mis Reportes
           </Typography>
           <DataFromUser sasToken={sasToken} userId={userId} />
-        </Stack>
+        </Stack> */}
       </Stack>
     </Sheet>
   )
+}
+
+function getMunicipalityDisplay(issues: { municipality: string }[] | null) {
+  if (!issues || !issues[0]) {
+    return 'No reportes disponibles'
+  }
+
+  return `Municipio de ${issues[0].municipality || '...?'}`
 }
