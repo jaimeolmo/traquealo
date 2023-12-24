@@ -23,7 +23,7 @@ export default function DataFromUser({
   if (error) return <div>Problemas descargando los datos.</div>
   if (isLoading) return <div>Loading...</div>
 
-  const reportsToDisplay = data.slice(0, 10)
+  const reportsToDisplay = data?.slice(0, 10)
 
   return (
     <>
@@ -57,14 +57,16 @@ export default function DataFromUser({
       ) : (
         <p>There&apos;s currently no data available.</p>
       )}
-      <Link
-        href={`/users/${userId}/reports`}
-        style={{ textDecoration: 'none', color: 'inherit' }}
-      >
-        <Button color="secondary" size="sm" variant="outlined" fullWidth>
-          Todos mis reportes
-        </Button>
-      </Link>
+      {reportsToDisplay.length > 9 && (
+        <Link
+          href={`/users/${userId}/reports`}
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          <Button color="secondary" size="sm" variant="outlined" fullWidth>
+            Todos mis reportes
+          </Button>
+        </Link>
+      )}
     </>
   )
 }
