@@ -22,6 +22,7 @@ export class Issue {
   public categories = {}
   public createdOn!: Date
   public updatedOn!: Date
+  public municipalitySlug = ''
 
   public static CreateNew(
     id: string,

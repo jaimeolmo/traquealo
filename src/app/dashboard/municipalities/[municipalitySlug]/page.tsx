@@ -16,12 +16,7 @@ import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
 import { Key } from 'react'
-
-interface ParamsOptions {
-  userId: string
-}
 
 async function generateSasToken() {
   const blobServiceClient = BlobServiceClient.fromConnectionString(
@@ -46,39 +41,45 @@ async function generateSasToken() {
   return sasToken
 }
 
-async function getAuthenticatedUserId() {
-  const { userId } = auth()
-
-  return userId
-}
-
-async function getIssuesByUserId(): Promise<Issue[] | null> {
+async function getIssuesByMunicipality(
+  municipality: string,
+): Promise<Issue[] | null> {
   const { userId } = auth()
 
   if (!userId) {
     return null
   }
 
-  const issueCosmosClient = new IssueCosmosClient()
-
-  const issues = await issueCosmosClient.getByPropertyValue('userId', userId)
-
-  return issues || null
+  try {
+    const issueCosmosClient = new IssueCosmosClient()
+    const issues = await issueCosmosClient.getAllByPropertyValue(
+      'municipalitySlug',
+      municipality,
+    )
+    return issues || null
+  } catch (error) {
+    return null
+  }
 }
 
-export default async function UserReports({
+async function getAuthenticatedUserId() {
+  const { userId } = auth()
+
+  return userId
+}
+
+export default async function MunicipalityDashboard({
   params,
 }: {
-  params: ParamsOptions
+  params: { municipalitySlug: string }
 }) {
-  const issuesFromUser = await getIssuesByUserId()
+  const issues = await getIssuesByMunicipality(params.municipalitySlug)
   const sasToken = await generateSasToken()
   const userId = await getAuthenticatedUserId()
 
-  if (!params.userId || !(params.userId === userId)) return notFound()
-
   return (
-    <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4, py: 2 }}>
+    <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4 }}>
+      <h1>Reportes por Municipio</h1>
       <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
         <Stack sx={{ width: '100%' }}>
           <Typography
@@ -88,19 +89,12 @@ export default async function UserReports({
             }
             textColor={'primary.700'}
           >
-            Mis Reportes
+            {getMunicipalityDisplay(issues)}
           </Typography>
           <Grid container justifyContent="flex-start">
-            {typeof issuesFromUser !== 'undefined' &&
-            Array.isArray(issuesFromUser) ? (
-              issuesFromUser.map((issue: any) => (
-                <Grid
-                  key={issue.id}
-                  sm={6}
-                  md={4}
-                  xs={12}
-                  sx={{ flexGrow: 1, p: 1 }}
-                >
+            {typeof issues !== 'undefined' && Array.isArray(issues) ? (
+              issues.map((issue: any) => (
+                <Grid key={issue.id} sm={6} xs={12} sx={{ flexGrow: 1, p: 1 }}>
                   <Card
                     sx={{
                       height: '100%',
@@ -148,8 +142,8 @@ export default async function UserReports({
                           : null}
                       </Stack>
                       <Link
-                        href={`/dashboard/municipalities/${issue.municipalitySlug}`}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
+                        href={`/dashboard/municipalities`}
+                        style={{ textDecoration: 'none' }}
                       >
                         <Typography
                           startDecorator={<LocationOnRoundedIcon />}
@@ -167,7 +161,27 @@ export default async function UserReports({
             )}
           </Grid>
         </Stack>
+        {/* <Stack spacing={2} sx={{ width: '290px' }}>
+          <Typography
+            level="h3"
+            startDecorator={
+              <Person2RoundedIcon sx={{ color: 'secondary.600' }} />
+            }
+            textColor={'primary.700'}
+          >
+            Mis Reportes
+          </Typography>
+          <DataFromUser sasToken={sasToken} userId={userId} />
+        </Stack> */}
       </Stack>
     </Sheet>
   )
+}
+
+function getMunicipalityDisplay(issues: { municipality: string }[] | null) {
+  if (!issues || !issues[0]) {
+    return 'No reportes disponibles'
+  }
+
+  return `Municipio de ${issues[0].municipality || '...?'}`
 }

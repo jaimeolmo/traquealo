@@ -1,5 +1,5 @@
 import DataFromUser from '@/components/Experiment/DataFromUser'
-import { Issue } from '@/models/Issue'
+import { Pagination } from '@/components/Pagination/Pagination'
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
 import {
   BlobServiceClient,
@@ -43,17 +43,24 @@ async function generateSasToken() {
   return sasToken
 }
 
-async function getAllIssues(): Promise<Issue[] | null> {
+async function getAllIssues(pageNumber: number) {
   const { userId } = auth()
 
   if (!userId) {
     return null
   }
 
+  if (pageNumber) {
+    if (pageNumber <= 0) return null
+  }
+
   try {
     const issueCosmosClient = new IssueCosmosClient()
-    const issues = await issueCosmosClient.getAll()
-    return issues || null
+    // const issues = await issueCosmosClient.getAll()
+
+    const response = await issueCosmosClient.pagination(pageNumber)
+
+    return response || null
   } catch (error) {
     return null
   }
@@ -82,8 +89,14 @@ async function getAuthenticatedUserId() {
 //   }
 // }
 
-export default async function Dashboard() {
-  const issues = await getAllIssues()
+export default async function Dashboard({
+  searchParams,
+}: {
+  searchParams: {
+    p: number
+  }
+}) {
+  const response = await getAllIssues(searchParams.p as number)
   const sasToken = await generateSasToken()
   const userId = await getAuthenticatedUserId()
 
@@ -106,9 +119,10 @@ export default async function Dashboard() {
             Reportes de la Comunidad
           </Typography>
           <Grid container justifyContent="flex-start">
-            {typeof issues !== 'undefined' && Array.isArray(issues) ? (
-              issues.map((issue: any) => (
-                <Grid key={issue.id} sm={6} xs={12} sx={{ flexGrow: 1, p: 1 }}>
+            {typeof response?.reports !== 'undefined' &&
+            Array.isArray(response?.reports) ? (
+              response?.reports.map((report: any) => (
+                <Grid key={report.id} sm={6} xs={12} sx={{ flexGrow: 1, p: 1 }}>
                   <Card
                     sx={{
                       height: '100%',
@@ -128,25 +142,25 @@ export default async function Dashboard() {
                       textColor={'primary.900'}
                     >
                       <Link
-                        href={`/dashboard/reports/${issue.reportSlug}`}
+                        href={`/dashboard/reports/${report.reportSlug}`}
                         style={{ textDecoration: 'none', color: 'inherit' }}
                       >
-                        {issue.title}
+                        {report.title}
                       </Link>
                     </Typography>
                     <CardContent sx={{ justifyContent: 'flex-end' }}>
                       <Stack sx={{ height: '100px' }}>
-                        {issue.media?.thumb === undefined
+                        {report.media?.thumb === undefined
                           ? null
-                          : Array.isArray(issue.media?.thumb)
-                          ? issue.media?.thumb.map(
+                          : Array.isArray(report.media?.thumb)
+                          ? report.media?.thumb.map(
                               (i: Key | null | undefined) => {
                                 return (
                                   <>
                                     <img
                                       key={i}
                                       src={`${i}?${sasToken}`}
-                                      alt={issue.title}
+                                      alt={report.title}
                                       style={{ height: '75px', width: '75px' }}
                                     />
                                   </>
@@ -156,14 +170,14 @@ export default async function Dashboard() {
                           : null}
                       </Stack>
                       <Link
-                        href={`/dashboard/municipalities`}
+                        href={`/dashboard/municipalities/${report.municipalitySlug}`}
                         style={{ textDecoration: 'none' }}
                       >
                         <Typography
                           startDecorator={<LocationOnRoundedIcon />}
                           textColor="neutral.400"
                         >
-                          {issue.municipality}
+                          {report.municipality}
                         </Typography>
                       </Link>
                     </CardContent>
@@ -174,6 +188,7 @@ export default async function Dashboard() {
               <p>There&apos;s currently no data available.</p>
             )}
           </Grid>
+          {response && <Pagination totalPages={response?.totalPages} />}
         </Stack>
         <Stack spacing={2} sx={{ width: '290px' }}>
           <Typography

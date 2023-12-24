@@ -1,3 +1,4 @@
+import { PaginationTypes } from '@/components/Pagination/paginationTypes'
 import { Issue } from '@/models/Issue'
 import BaseCosmosClient from './BaseCosmosClient'
 
@@ -55,5 +56,57 @@ export default class IssueCosmosClient extends BaseCosmosClient<Issue> {
       .items.query(querySpec)
       .fetchAll()
     return await Promise.all(results.map((o: any) => o))
+  }
+
+  public async pagination(pageNumber = 1): Promise<PaginationTypes | null> {
+    // TODO: This should be a constant and an app setting
+    const pageSize = 20
+    const offset = (pageNumber - 1) * pageSize
+
+    let totalItemCount = 0
+    // TODO: Introduce an option to cache this value to avoid calling for all reports count.
+    // Fetch total count if needed (adjust query if already stored)
+    if (true /*pageNumber === 1*/) {
+      const { resources: countResult } = await this.client
+        .database(this.databaseId)
+        .container(this.containerName)
+        .items.query({ query: 'SELECT VALUE COUNT(1) FROM c' })
+        .fetchAll()
+      totalItemCount = countResult[0]
+    }
+
+    const querySpec = {
+      query:
+        'SELECT * FROM c order by c.updatedOn desc OFFSET @offset LIMIT @pageSize ',
+      parameters: [
+        { name: '@offset', value: offset },
+        { name: '@pageSize', value: pageSize },
+      ],
+    }
+
+    if (offset > totalItemCount) return null
+
+    try {
+      const { resources: reports } = await this.client
+        .database(this.databaseId)
+        .container(this.containerName)
+        .items.query(querySpec)
+        .fetchAll()
+
+      const totalPages = Math.ceil(totalItemCount / pageSize)
+
+      const response = {
+        reports,
+        totalItemCount,
+        currentPage: pageNumber,
+        pageSize,
+        totalPages,
+      } as unknown as PaginationTypes
+
+      return response
+    } catch (error) {
+      console.error(error)
+      return null
+    }
   }
 }

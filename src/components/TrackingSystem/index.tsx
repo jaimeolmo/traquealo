@@ -2,11 +2,11 @@ import ReportStatusIndicator from '@/components/ReportStatusIndicator'
 import { auth } from '@clerk/nextjs'
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
 import CategoryIcon from '@mui/icons-material/Category'
-import ConnectWithoutContactRoundedIcon from '@mui/icons-material/ConnectWithoutContactRounded'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import FactCheckRoundedIcon from '@mui/icons-material/FactCheckRounded'
-import FlagRoundedIcon from '@mui/icons-material/FlagRounded'
+import FeedbackIcon from '@mui/icons-material/Feedback'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
 import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded'
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
@@ -159,7 +159,7 @@ export default function TrackingSideBar({
         </Stack>
         <Stack>
           <Button
-            startDecorator={<ConnectWithoutContactRoundedIcon />}
+            startDecorator={<EngineeringRoundedIcon />}
             aria-label="resuelto"
             color="secondary"
           >
@@ -173,7 +173,7 @@ export default function TrackingSideBar({
             color="neutral"
             variant="soft"
           >
-            ¿Desde cuándo?
+            ¿Inicio del problema?
           </Button>
         </Stack>
         <Stack>
@@ -188,24 +188,26 @@ export default function TrackingSideBar({
         </Stack>
         <Stack>
           <Button
-            startDecorator={<FlagRoundedIcon />}
+            startDecorator={<FeedbackIcon />}
             aria-label="flag this report"
-            color="warning"
+            color="neutral"
             variant="plain"
           >
-            Reportar como abusivo
+            Sugerir Cambios
           </Button>
         </Stack>
-        <Stack>
-          <Button
-            startDecorator={<DeleteRoundedIcon />}
-            aria-label="borrar reporte"
-            color="danger"
-            variant="plain"
-          >
-            Borrar
-          </Button>
-        </Stack>
+        {reportOwner === userId ? (
+          <Stack>
+            <Button
+              startDecorator={<DeleteRoundedIcon />}
+              aria-label="borrar reporte"
+              color="danger"
+              variant="plain"
+            >
+              Borrar
+            </Button>
+          </Stack>
+        ) : null}
       </Stack>
     </Box>
   )
