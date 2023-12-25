@@ -4,6 +4,7 @@ import { ThemeRegistry } from '@/components/ThemeRegistry/ThemeRegistry'
 import { ClerkProvider } from '@clerk/nextjs'
 import Sheet from '@mui/joy/Sheet'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import Script from 'next/script'
 import './global.css'
 
@@ -27,6 +28,7 @@ export default function RootLayout({
             >
               <HeaderBar />
               {children}
+              <SpeedInsights />
               <Footer />
               <Analytics />
             </Sheet>
