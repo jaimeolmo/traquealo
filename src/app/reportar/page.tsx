@@ -28,6 +28,7 @@ export default function IssueReportPage() {
     content: '',
     municipality: '',
     municipalityId: '',
+    municipalitySlug: '',
     userId: userId as string,
     issueId: uuid(),
   })
@@ -90,6 +91,7 @@ export default function IssueReportPage() {
     value: {
       id: string
       name: string
+      slug: string
     } | null,
     reason: AutocompleteChangeReason,
   ) => {
@@ -98,6 +100,7 @@ export default function IssueReportPage() {
         ...formData,
         ['municipalityId']: value.id,
         ['municipality']: value.name,
+        ['municipalitySlug']: value.slug,
       })
     }
 

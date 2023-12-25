@@ -20,6 +20,7 @@ export async function POST(request: Request) {
       fromClient.userId,
       reportSlug,
       fromClient.municipality,
+      fromClient.municipalitySlug
     )
 
     const fullIssue = {

@@ -29,12 +29,14 @@ export class Issue {
     userId: string,
     reportSlug: string,
     municipality = '',
+    municipalitySlug: string,
   ): Issue {
     const issue = new Issue()
     issue.id = id
     issue.userId = userId
     issue.reportSlug = reportSlug
     issue.municipality = municipality
+    issue.municipalitySlug = municipalitySlug
     issue.state = IssueState.Draft
     const now = new Date()
     issue.createdOn = now
