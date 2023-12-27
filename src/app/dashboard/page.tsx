@@ -1,3 +1,4 @@
+import { ImageAvatarsGroup } from '@/components/Avatar/ImageAvatarsGroup'
 import DataFromUser from '@/components/Experiment/DataFromUser'
 import { Pagination } from '@/components/Pagination/Pagination'
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
@@ -11,8 +12,6 @@ import { auth } from '@clerk/nextjs'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded'
 import Person2RoundedIcon from '@mui/icons-material/Person2Rounded'
-import Avatar from '@mui/joy/Avatar'
-import AvatarGroup from '@mui/joy/AvatarGroup'
 import Card from '@mui/joy/Card'
 import CardContent from '@mui/joy/CardContent'
 import Grid from '@mui/joy/Grid'
@@ -20,7 +19,6 @@ import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import Link from 'next/link'
-import { Key } from 'react'
 
 async function generateSasToken() {
   const blobServiceClient = BlobServiceClient.fromConnectionString(
@@ -151,31 +149,10 @@ export default async function Dashboard({
                       </Link>
                     </Typography>
                     <CardContent sx={{ justifyContent: 'flex-end' }}>
-                      <Stack direction={'row'} sx={{ height: '100px' }}>
-                        <AvatarGroup>
-                          {report.media?.thumb === undefined
-                            ? null
-                            : Array.isArray(report.media?.thumb)
-                            ? report.media?.thumb.map(
-                                (i: Key | null | undefined) => {
-                                  return (
-                                    <>
-                                      <Avatar
-                                        key={i}
-                                        src={`${i}?${sasToken}`}
-                                        alt={report.title}
-                                        style={{
-                                          height: '60px',
-                                          width: '60px',
-                                        }}
-                                      />
-                                    </>
-                                  )
-                                },
-                              )
-                            : null}
-                        </AvatarGroup>
-                      </Stack>
+                      <ImageAvatarsGroup
+                        media={report.media.thumb}
+                        sasToken={sasToken}
+                      />
                       <Link
                         href={`/dashboard/municipalities/${report.municipalitySlug}`}
                         style={{ textDecoration: 'none' }}
