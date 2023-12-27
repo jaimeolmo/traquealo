@@ -199,6 +199,19 @@ npm run dev
 
 - When ready, proceed to upload changes.
 
+## Webhooks Configuration
+
+### Transloadit
+
+Transloadit is a service that helps us handle file uploads, image, and video processing. Testing webhooks in your local development environment typically involves setting up a server to receive and handle webhook notifications.
+
+- Ensure you have a Transloadit account.
+- You'll need the local development server running to receive webhook notifications. You can use tools like ngrok or localtunnel to expose your local server to the internet. For this guide we are going to use ngrok.
+- Install and use ngrok to expose your local server to the internet. This is necessary for Transloadit to send webhook notifications to your local machine.
+- Once ngrok is installed and configured run the following command in the terminal: `ngrok http 3000`
+- In the terminal you should have a panel with different options. Copy the link located on the `Forwarding`.
+- Paste that link in the `notify_url` property on the Transloadit template used for processing. Save the change.
+
 ## Additional Resources
 
 For more detailed information and specific configurations, refer to the project's documentation and the documentation for Next.js, Vercel, and Azure Cosmos DB.

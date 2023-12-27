@@ -1,7 +1,6 @@
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { SignedIn, UserButton } from '@clerk/nextjs'
 import { ClickAwayListener } from '@mui/base/ClickAwayListener'
 import { Popper } from '@mui/base/Popper'
-import Box from '@mui/joy/Box'
 import Button from '@mui/joy/Button'
 import IconButton from '@mui/joy/IconButton'
 import MenuList from '@mui/joy/MenuList'
@@ -10,7 +9,6 @@ import { styled } from '@mui/joy/styles'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRef, useState } from 'react'
-import { UrlObject } from 'url'
 import { ButtonCreate } from '../ButtonCreate'
 
 const Popup = styled(Popper)({
@@ -28,7 +26,7 @@ export default function MobileMenu() {
 
   return (
     <Stack direction={'row-reverse'} alignItems={'center'} spacing={1}>
-      <Stack>
+      <SignedIn>
         <IconButton
           ref={buttonRef}
           id="composition-button"
@@ -84,27 +82,8 @@ export default function MobileMenu() {
             </MenuList>
           </ClickAwayListener>
         </Popup>
-      </Stack>
-      <Stack>
-        <SignedOut>
-          <Box
-            sx={{
-              '& a': {
-                color: 'var(--joy-palette-common-white)',
-              },
-            }}
-          >
-            <Link prefetch={false} href={'/sign-in' as unknown as UrlObject}>
-              Sign in
-            </Link>
-          </Box>
-        </SignedOut>
-      </Stack>
-      <Stack>
-        <SignedIn>
-          <UserButton afterSignOutUrl="/" />
-        </SignedIn>
-      </Stack>
+        <UserButton afterSignOutUrl="/" />
+      </SignedIn>
     </Stack>
   )
 }

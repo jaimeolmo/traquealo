@@ -11,6 +11,8 @@ import { auth } from '@clerk/nextjs'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded'
 import Person2RoundedIcon from '@mui/icons-material/Person2Rounded'
+import Avatar from '@mui/joy/Avatar'
+import AvatarGroup from '@mui/joy/AvatarGroup'
 import Card from '@mui/joy/Card'
 import CardContent from '@mui/joy/CardContent'
 import Grid from '@mui/joy/Grid'
@@ -108,7 +110,7 @@ export default async function Dashboard({
       </Typography>
 
       <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
-        <Stack sx={{ width: '100%' }}>
+        <Stack sx={{ width: '100%', zIndex: 0 }}>
           <Typography
             level="h3"
             startDecorator={
@@ -149,25 +151,30 @@ export default async function Dashboard({
                       </Link>
                     </Typography>
                     <CardContent sx={{ justifyContent: 'flex-end' }}>
-                      <Stack sx={{ height: '100px' }}>
-                        {report.media?.thumb === undefined
-                          ? null
-                          : Array.isArray(report.media?.thumb)
-                          ? report.media?.thumb.map(
-                              (i: Key | null | undefined) => {
-                                return (
-                                  <>
-                                    <img
-                                      key={i}
-                                      src={`${i}?${sasToken}`}
-                                      alt={report.title}
-                                      style={{ height: '75px', width: '75px' }}
-                                    />
-                                  </>
-                                )
-                              },
-                            )
-                          : null}
+                      <Stack direction={'row'} sx={{ height: '100px' }}>
+                        <AvatarGroup>
+                          {report.media?.thumb === undefined
+                            ? null
+                            : Array.isArray(report.media?.thumb)
+                            ? report.media?.thumb.map(
+                                (i: Key | null | undefined) => {
+                                  return (
+                                    <>
+                                      <Avatar
+                                        key={i}
+                                        src={`${i}?${sasToken}`}
+                                        alt={report.title}
+                                        style={{
+                                          height: '60px',
+                                          width: '60px',
+                                        }}
+                                      />
+                                    </>
+                                  )
+                                },
+                              )
+                            : null}
+                        </AvatarGroup>
                       </Stack>
                       <Link
                         href={`/dashboard/municipalities/${report.municipalitySlug}`}

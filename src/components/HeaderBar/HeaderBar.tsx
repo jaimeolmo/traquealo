@@ -1,15 +1,15 @@
 'use client'
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { SignedIn, UserButton } from '@clerk/nextjs'
 import Box from '@mui/joy/Box'
 import Button from '@mui/joy/Button'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { UrlObject } from 'url'
 import { ButtonCreate } from '../ButtonCreate'
 import { Logo } from '../Logo'
 import MobileMenu from './MobileMenu'
+import SignInButton from './SignInButton'
 
 export function HeaderBar() {
   const pathname = usePathname()
@@ -28,6 +28,7 @@ export function HeaderBar() {
       }}
     >
       <Stack
+        id="HeaderContainer"
         direction={'row'}
         justifyContent="flex-start"
         alignItems="center"
@@ -37,7 +38,7 @@ export function HeaderBar() {
           height: '100%',
         }}
       >
-        <Stack alignItems="flex-start" sx={{ width: '50%' }}>
+        <Stack id="LogoArea" alignItems="flex-start" sx={{ width: '50%' }}>
           {pathname === '/' ? (
             <Logo />
           ) : (
@@ -47,6 +48,7 @@ export function HeaderBar() {
           )}
         </Stack>
         <Stack
+          id="MobileNavigationArea"
           justifyContent="flex-end"
           textAlign={'right'}
           sx={{
@@ -54,11 +56,13 @@ export function HeaderBar() {
             display: { xs: 'block', sm: 'none' },
           }}
         >
+          <SignInButton />
           <Box>
             <MobileMenu />
           </Box>
         </Stack>
         <Stack
+          id="DesktopNavigationArea"
           spacing={2}
           sx={{
             width: '50%',
@@ -76,19 +80,7 @@ export function HeaderBar() {
             ) : null}
           </SignedIn>
           {pathname !== '/dashboard' ? <ButtonCreate /> : null}
-          <SignedOut>
-            <Box
-              sx={{
-                '& a': {
-                  color: 'var(--joy-palette-common-white)',
-                },
-              }}
-            >
-              <Link prefetch={false} href={'/sign-in' as unknown as UrlObject}>
-                Sign in
-              </Link>
-            </Box>
-          </SignedOut>
+          <SignInButton />
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
