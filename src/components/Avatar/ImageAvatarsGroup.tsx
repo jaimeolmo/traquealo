@@ -4,7 +4,7 @@ import Stack from '@mui/joy/Stack'
 import { Key } from 'react'
 
 type ComponentProps = {
-  media: []
+  media: [] | never[]
   sasToken: string
 }
 

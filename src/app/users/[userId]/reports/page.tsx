@@ -1,3 +1,4 @@
+import ReportCard from '@/components/Cards/ReportCard'
 import { Issue } from '@/models/Issue'
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
 import {
@@ -8,16 +9,11 @@ import {
 } from '@azure/storage-blob'
 import { auth } from '@clerk/nextjs'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
-import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded'
-import Card from '@mui/joy/Card'
-import CardContent from '@mui/joy/CardContent'
 import Grid from '@mui/joy/Grid'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { Key } from 'react'
 
 interface ParamsOptions {
   userId: string
@@ -80,7 +76,7 @@ export default async function UserReports({
   return (
     <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4, py: 2 }}>
       <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
-        <Stack sx={{ width: '100%' }}>
+        <Stack sx={{ width: '100%', zIndex: 0 }}>
           <Typography
             level="h3"
             startDecorator={
@@ -101,65 +97,7 @@ export default async function UserReports({
                   xs={12}
                   sx={{ flexGrow: 1, p: 1 }}
                 >
-                  <Card
-                    sx={{
-                      height: '100%',
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        height: '3rem',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        lineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        width: '80%',
-                      }}
-                      textColor={'primary.900'}
-                    >
-                      <Link
-                        href={`/dashboard/reports/${issue.reportSlug}`}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
-                      >
-                        {issue.title}
-                      </Link>
-                    </Typography>
-                    <CardContent sx={{ justifyContent: 'flex-end' }}>
-                      <Stack sx={{ height: '100px' }}>
-                        {issue.media?.thumb === undefined
-                          ? null
-                          : Array.isArray(issue.media?.thumb)
-                          ? issue.media?.thumb.map(
-                              (i: Key | null | undefined) => {
-                                return (
-                                  <>
-                                    <img
-                                      key={i}
-                                      src={`${i}?${sasToken}`}
-                                      alt={issue.title}
-                                      style={{ height: '75px', width: '75px' }}
-                                    />
-                                  </>
-                                )
-                              },
-                            )
-                          : null}
-                      </Stack>
-                      <Link
-                        href={`/dashboard/municipalities/${issue.municipalitySlug}`}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
-                      >
-                        <Typography
-                          startDecorator={<LocationOnRoundedIcon />}
-                          textColor="neutral.400"
-                        >
-                          {issue.municipality}
-                        </Typography>
-                      </Link>
-                    </CardContent>
-                  </Card>
+                  <ReportCard report={issue} sasToken={sasToken} />
                 </Grid>
               ))
             ) : (

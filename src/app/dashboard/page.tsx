@@ -1,4 +1,4 @@
-import { ImageAvatarsGroup } from '@/components/Avatar/ImageAvatarsGroup'
+import ReportCard from '@/components/Cards/ReportCard'
 import DataFromUser from '@/components/Experiment/DataFromUser'
 import { Pagination } from '@/components/Pagination/Pagination'
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
@@ -10,15 +10,11 @@ import {
 } from '@azure/storage-blob'
 import { auth } from '@clerk/nextjs'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
-import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded'
 import Person2RoundedIcon from '@mui/icons-material/Person2Rounded'
-import Card from '@mui/joy/Card'
-import CardContent from '@mui/joy/CardContent'
 import Grid from '@mui/joy/Grid'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
-import Link from 'next/link'
 
 async function generateSasToken() {
   const blobServiceClient = BlobServiceClient.fromConnectionString(
@@ -123,49 +119,7 @@ export default async function Dashboard({
             Array.isArray(response?.reports) ? (
               response?.reports.map((report: any) => (
                 <Grid key={report.id} sm={6} xs={12} sx={{ flexGrow: 1, p: 1 }}>
-                  <Card
-                    sx={{
-                      height: '100%',
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        height: '3rem',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        lineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        width: '80%',
-                      }}
-                      textColor={'primary.900'}
-                    >
-                      <Link
-                        href={`/dashboard/reports/${report.reportSlug}`}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
-                      >
-                        {report.title}
-                      </Link>
-                    </Typography>
-                    <CardContent sx={{ justifyContent: 'flex-end' }}>
-                      <ImageAvatarsGroup
-                        media={report.media.thumb}
-                        sasToken={sasToken}
-                      />
-                      <Link
-                        href={`/dashboard/municipalities/${report.municipalitySlug}`}
-                        style={{ textDecoration: 'none' }}
-                      >
-                        <Typography
-                          startDecorator={<LocationOnRoundedIcon />}
-                          textColor="neutral.400"
-                        >
-                          {report.municipality}
-                        </Typography>
-                      </Link>
-                    </CardContent>
-                  </Card>
+                  <ReportCard report={report} sasToken={sasToken} />
                 </Grid>
               ))
             ) : (

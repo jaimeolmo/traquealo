@@ -1,3 +1,4 @@
+import ReportCard from '@/components/Cards/ReportCard'
 import { Issue } from '@/models/Issue'
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
 import {
@@ -8,15 +9,10 @@ import {
 } from '@azure/storage-blob'
 import { auth } from '@clerk/nextjs'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
-import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded'
-import Card from '@mui/joy/Card'
-import CardContent from '@mui/joy/CardContent'
 import Grid from '@mui/joy/Grid'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
-import Link from 'next/link'
-import { Key } from 'react'
 
 async function generateSasToken() {
   const blobServiceClient = BlobServiceClient.fromConnectionString(
@@ -62,12 +58,6 @@ async function getIssuesByMunicipality(
   }
 }
 
-async function getAuthenticatedUserId() {
-  const { userId } = auth()
-
-  return userId
-}
-
 export default async function MunicipalityDashboard({
   params,
 }: {
@@ -75,13 +65,14 @@ export default async function MunicipalityDashboard({
 }) {
   const issues = await getIssuesByMunicipality(params.municipalitySlug)
   const sasToken = await generateSasToken()
-  const userId = await getAuthenticatedUserId()
 
   return (
     <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4 }}>
-      <h1>Reportes por Municipio</h1>
+      <Typography level="h2" sx={{ py: 4 }} textColor={'primary.900'}>
+        Reportes por Municipio
+      </Typography>
       <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
-        <Stack sx={{ width: '100%' }}>
+        <Stack sx={{ width: '100%', zIndex: 0 }}>
           <Typography
             level="h3"
             startDecorator={
@@ -95,65 +86,7 @@ export default async function MunicipalityDashboard({
             {typeof issues !== 'undefined' && Array.isArray(issues) ? (
               issues.map((issue: any) => (
                 <Grid key={issue.id} sm={6} xs={12} sx={{ flexGrow: 1, p: 1 }}>
-                  <Card
-                    sx={{
-                      height: '100%',
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        height: '3rem',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        lineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        width: '80%',
-                      }}
-                      textColor={'primary.900'}
-                    >
-                      <Link
-                        href={`/dashboard/reports/${issue.reportSlug}`}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
-                      >
-                        {issue.title}
-                      </Link>
-                    </Typography>
-                    <CardContent sx={{ justifyContent: 'flex-end' }}>
-                      <Stack sx={{ height: '100px' }}>
-                        {issue.media?.thumb === undefined
-                          ? null
-                          : Array.isArray(issue.media?.thumb)
-                          ? issue.media?.thumb.map(
-                              (i: Key | null | undefined) => {
-                                return (
-                                  <>
-                                    <img
-                                      key={i}
-                                      src={`${i}?${sasToken}`}
-                                      alt={issue.title}
-                                      style={{ height: '75px', width: '75px' }}
-                                    />
-                                  </>
-                                )
-                              },
-                            )
-                          : null}
-                      </Stack>
-                      <Link
-                        href={`/dashboard/municipalities`}
-                        style={{ textDecoration: 'none' }}
-                      >
-                        <Typography
-                          startDecorator={<LocationOnRoundedIcon />}
-                          textColor="neutral.400"
-                        >
-                          {issue.municipality}
-                        </Typography>
-                      </Link>
-                    </CardContent>
-                  </Card>
+                  <ReportCard report={issue} sasToken={sasToken} />
                 </Grid>
               ))
             ) : (
@@ -161,18 +94,6 @@ export default async function MunicipalityDashboard({
             )}
           </Grid>
         </Stack>
-        {/* <Stack spacing={2} sx={{ width: '290px' }}>
-          <Typography
-            level="h3"
-            startDecorator={
-              <Person2RoundedIcon sx={{ color: 'secondary.600' }} />
-            }
-            textColor={'primary.700'}
-          >
-            Mis Reportes
-          </Typography>
-          <DataFromUser sasToken={sasToken} userId={userId} />
-        </Stack> */}
       </Stack>
     </Sheet>
   )
