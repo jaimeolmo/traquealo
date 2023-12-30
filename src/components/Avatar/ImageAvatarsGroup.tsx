@@ -27,6 +27,7 @@ export function ImageAvatarsGroup({ media, sasToken }: ComponentProps) {
                     sx={{
                       height: '60px',
                       width: '60px',
+                      borderRadius: 8,
                     }}
                   />
                 </>
@@ -38,6 +39,7 @@ export function ImageAvatarsGroup({ media, sasToken }: ComponentProps) {
             sx={{
               height: '60px',
               width: '60px',
+              borderRadius: 8,
             }}
           >
             +{surplus}
