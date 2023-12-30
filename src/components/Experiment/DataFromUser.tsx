@@ -57,7 +57,7 @@ export default function DataFromUser({
       ) : (
         <p>There&apos;s currently no data available.</p>
       )}
-      {reportsToDisplay.length > 9 && (
+      {reportsToDisplay?.length > 9 && (
         <Link
           href={`/users/${userId}/reports`}
           style={{ textDecoration: 'none', color: 'inherit' }}
