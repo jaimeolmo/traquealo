@@ -48,7 +48,11 @@ export default function ReportCard({ report, sasToken }: ComponentProps) {
         </Typography>
       </CardContent>
       <CardContent sx={{ justifyContent: 'flex-end' }}>
-        <ImageAvatarsGroup media={report.media.thumb} sasToken={sasToken} />
+        <ImageAvatarsGroup
+          media={report.media.thumb}
+          sasToken={sasToken}
+          reportSlug={report.reportSlug}
+        />
       </CardContent>
       <Divider inset="context" />
       <CardCover
