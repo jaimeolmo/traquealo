@@ -81,6 +81,13 @@ export function HeaderBar() {
           </SignedIn>
           {pathname !== '/dashboard' ? <ButtonCreate /> : null}
           <SignInButton />
+          {pathname !== '/dashboard/municipalities' ? (
+            <Link prefetch={false} href="/dashboard/municipalities" passHref>
+              <Button variant="soft" color="secondary" fullWidth>
+                Municipios
+              </Button>
+            </Link>
+          ) : null}
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
           </SignedIn>

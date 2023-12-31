@@ -97,14 +97,21 @@ export default async function Dashboard({
   const userId = await getAuthenticatedUserId()
 
   return (
-    <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4, py: 2 }}>
+    <Sheet
+      sx={{
+        maxWidth: '1024px',
+        width: '100%',
+        px: 4,
+        py: 2,
+      }}
+    >
       <Typography level="h2" sx={{ py: 4 }} textColor={'primary.900'}>
         Construyendo un Futuro Mejor: Monitoreo y Registro de Desafíos
         Comunitarios
       </Typography>
 
       <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
-        <Stack sx={{ width: '100%', zIndex: 0 }}>
+        <Stack id="main" sx={{ zIndex: 0, minWidth: 0 }}>
           <Typography
             level="h3"
             startDecorator={
@@ -118,7 +125,7 @@ export default async function Dashboard({
             {typeof response?.reports !== 'undefined' &&
             Array.isArray(response?.reports) ? (
               response?.reports.map((report: any) => (
-                <Grid key={report.id} sm={6} xs={12} sx={{ flexGrow: 1, p: 1 }}>
+                <Grid key={report.id} md={6} xs={12} sx={{ flexGrow: 1, p: 1 }}>
                   <ReportCard report={report} sasToken={sasToken} />
                 </Grid>
               ))
@@ -128,7 +135,7 @@ export default async function Dashboard({
           </Grid>
           {response && <Pagination totalPages={response?.totalPages} />}
         </Stack>
-        <Stack spacing={2} sx={{ width: '290px' }}>
+        <Stack id="sidebar" spacing={2} sx={{ minWidth: '290px' }}>
           <Typography
             level="h3"
             startDecorator={

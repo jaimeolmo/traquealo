@@ -77,6 +77,17 @@ export default function MobileMenu() {
                     ) : null}
                   </SignedIn>
                   {pathname !== '/dashboard' ? <ButtonCreate /> : null}
+                  {pathname !== '/dashboard/municipalities' ? (
+                    <Link
+                      prefetch={false}
+                      href="/dashboard/municipalities"
+                      passHref
+                    >
+                      <Button variant="soft" color="secondary" fullWidth>
+                        Municipios
+                      </Button>
+                    </Link>
+                  ) : null}
                 </Stack>
               </Stack>
             </MenuList>

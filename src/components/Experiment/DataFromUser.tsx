@@ -22,7 +22,12 @@ export default function DataFromUser({
   )
 
   if (error) return <div>Problemas descargando los datos.</div>
-  if (isLoading) return <CircularProgress size="sm" variant="soft" />
+  if (isLoading)
+    return (
+      <Stack alignItems={'center'} sx={{ width: '100%' }}>
+        <CircularProgress size="sm" variant="soft" />
+      </Stack>
+    )
 
   const reportsToDisplay = data?.slice(0, 10)
 
@@ -60,14 +65,16 @@ export default function DataFromUser({
           ))
         : isValidating && <CircularProgress size="sm" variant="solid" />}
       {reportsToDisplay?.length > 9 && (
-        <Link
-          href={`/users/${userId}/reports`}
-          style={{ textDecoration: 'none', color: 'inherit' }}
-        >
-          <Button color="secondary" size="sm" variant="outlined" fullWidth>
-            Todos mis reportes
-          </Button>
-        </Link>
+        <Stack alignItems={'center'} sx={{ width: '100%' }}>
+          <Link
+            href={`/users/${userId}/reports`}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <Button color="secondary" variant="outlined">
+              Ver más...
+            </Button>
+          </Link>
+        </Stack>
       )}
     </>
   )
