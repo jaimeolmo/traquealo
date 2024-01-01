@@ -58,7 +58,7 @@ export default function DataFromUser({ userId }: { userId: string | null }) {
             </Stack>
           ))
         : isValidating && <CircularProgress size="sm" variant="solid" />}
-      {data?.length > reportsToDisplay.length && (
+      {data && data.length > reportsToDisplay.length && (
         <Stack alignItems={'center'} sx={{ width: '100%' }}>
           <Link
             href={`/users/${userId}/reports`}
