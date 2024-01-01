@@ -2,7 +2,6 @@ import ReportStatusIndicator from '@/components/ReportStatusIndicator'
 import { auth } from '@clerk/nextjs'
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
 import CategoryIcon from '@mui/icons-material/Category'
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import FactCheckRoundedIcon from '@mui/icons-material/FactCheckRounded'
@@ -16,6 +15,7 @@ import Chip from '@mui/joy/Chip'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import CategoriesMenu from '../CategoriesMenu'
+import DeleteButton from './DeleteButton'
 
 type ComponentProps = {
   createdOn: Date
@@ -198,14 +198,7 @@ export default function TrackingSideBar({
         </Stack>
         {reportOwner === userId ? (
           <Stack>
-            <Button
-              startDecorator={<DeleteRoundedIcon />}
-              aria-label="borrar reporte"
-              color="danger"
-              variant="plain"
-            >
-              Borrar
-            </Button>
+            <DeleteButton reportId={reportId} />
           </Stack>
         ) : null}
       </Stack>

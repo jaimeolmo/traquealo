@@ -58,6 +58,10 @@ export default class IssueCosmosClient extends BaseCosmosClient<Issue> {
     return await Promise.all(results.map((o: any) => o))
   }
 
+  public async deleteById(id: string, partitionKey: string): Promise<void> {
+    return await super.deleteById(id, partitionKey)
+  }
+
   public async pagination(pageNumber = 1): Promise<PaginationTypes | null> {
     // TODO: This should be a constant and an app setting
     const pageSize = 20

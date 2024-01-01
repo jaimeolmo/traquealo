@@ -9,13 +9,7 @@ import useSWR from 'swr'
 
 const fetcher = (url: RequestInfo | URL) => fetch(url).then((r) => r.json())
 
-export default function DataFromUser({
-  sasToken,
-  userId,
-}: {
-  sasToken: string
-  userId: string | null
-}) {
+export default function DataFromUser({ userId }: { userId: string | null }) {
   const { data, error, isLoading, isValidating } = useSWR(
     `/api/users/${userId}/reports`,
     fetcher,
@@ -64,7 +58,7 @@ export default function DataFromUser({
             </Stack>
           ))
         : isValidating && <CircularProgress size="sm" variant="solid" />}
-      {reportsToDisplay?.length > 9 && (
+      {data?.length > reportsToDisplay.length && (
         <Stack alignItems={'center'} sx={{ width: '100%' }}>
           <Link
             href={`/users/${userId}/reports`}
