@@ -145,7 +145,7 @@ export default async function Dashboard({
           >
             Mis Reportes
           </Typography>
-          <DataFromUser sasToken={sasToken} userId={userId} />
+          <DataFromUser userId={userId} />
         </Stack>
       </Stack>
     </Sheet>
