@@ -9,25 +9,15 @@ import Script from 'next/script'
 import './global.css'
 
 export const metadata = {
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Traquealo',
     description:
       'Construyendo un Futuro Mejor: Monitoreo y Registro de Desafíos Comunitarios',
-    url: 'https://traquealo.com',
     siteName: 'Traquealo',
-    images: [
-      {
-        url: 'https://traquealo.com/og.png', // Must be an absolute URL
-        width: 800,
-        height: 600,
-      },
-      {
-        url: 'https://traquealo.com/og-alt.png', // Must be an absolute URL
-        width: 1800,
-        height: 1600,
-        alt: 'Construyendo un Futuro Mejor',
-      },
-    ],
+    images: '/images/og-image.png',
     locale: 'es_US',
     type: 'website',
   },
