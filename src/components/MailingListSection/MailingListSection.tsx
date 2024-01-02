@@ -29,6 +29,7 @@ export function MailingListSection() {
             sx={{
               maxWidth: '600px',
             }}
+            alignItems={'center'}
           >
             <Typography level="h2">
               Déjanos saber tu dirección de email
@@ -39,7 +40,7 @@ export function MailingListSection() {
               component="a"
               href="https://dashboard.mailerlite.com/forms/589222/98767971802941294/share"
             >
-              Únete a nuestro newsletter
+              Únete al newsletter
             </Button>
           </Stack>
         </Stack>

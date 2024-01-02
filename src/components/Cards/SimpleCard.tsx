@@ -1,6 +1,5 @@
 import Card from '@mui/joy/Card'
 import CardContent from '@mui/joy/CardContent'
-import CardOverflow from '@mui/joy/CardOverflow'
 import Typography from '@mui/joy/Typography'
 
 type SimpleCardProps = {
@@ -22,12 +21,14 @@ export function SimpleCard({
         background: 'var(--joy-palette-common-white)',
       }}
     >
-      <CardOverflow>
-        <Typography level="h3" sx={{ fontWeight: 700 }}>
-          {cardTitle}
-        </Typography>
-      </CardOverflow>
-      <CardContent>{cardContent}</CardContent>
+      <CardContent>
+        <>
+          <Typography level="h3" sx={{ fontWeight: 700 }}>
+            {cardTitle}
+          </Typography>
+          {cardContent}
+        </>
+      </CardContent>
     </Card>
   )
 }
