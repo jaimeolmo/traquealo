@@ -9,6 +9,7 @@ import Script from 'next/script'
 import './global.css'
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL as string),
   alternates: {
     canonical: '/',
   },
@@ -17,7 +18,7 @@ export const metadata = {
     description:
       'Construyendo un Futuro Mejor: Monitoreo y Registro de Desafíos Comunitarios',
     siteName: 'Traquealo',
-    images: '/images/og-image.png',
+    images: '/images/og-image.jpg',
     locale: 'es_US',
     type: 'website',
   },
