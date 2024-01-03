@@ -1,5 +1,6 @@
 import ReportOwnerAndDateCreated from '@/components/ReportDetails'
 import { RichTextComponent } from '@/components/RichText'
+import ReportEventsTimeline from '@/components/Timeline/ReportEventsTimeline'
 import TrackingSideBar from '@/components/TrackingSystem'
 import { Issue } from '@/models/Issue'
 import ReportCosmosClient from '@/utilities/cosmosdb/ReportCosmosClient'
@@ -11,6 +12,7 @@ import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { chats } from '../../../../components/Timeline/data'
 
 type Report = {
   id: string
@@ -80,6 +82,14 @@ export default async function ReportDetails({
                 sx={{ p: 4, borderRadius: 8 }}
               >
                 Fotos and videos
+              </Sheet>
+              <Sheet
+                variant="outlined"
+                color="neutral"
+                sx={{ p: 4, borderRadius: 8 }}
+              >
+                <Typography>Timeline</Typography>
+                <ReportEventsTimeline chat={chats[0]} />
               </Sheet>
             </Stack>
           </Grid>

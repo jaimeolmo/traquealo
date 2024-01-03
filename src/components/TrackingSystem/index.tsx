@@ -15,6 +15,7 @@ import Chip from '@mui/joy/Chip'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import CategoriesMenu from '../CategoriesMenu'
+import CommunityButton, { PayloadItems } from './CommunituButton'
 import DeleteButton from './DeleteButton'
 
 type ComponentProps = {
@@ -195,6 +196,9 @@ export default function TrackingSideBar({
           >
             Sugerir Cambios
           </Button>
+          <CommunityButton
+            payload={payloadBuilder(reportId, userId as string)}
+          />
         </Stack>
         {reportOwner === userId ? (
           <Stack>
@@ -204,4 +208,13 @@ export default function TrackingSideBar({
       </Stack>
     </Box>
   )
+}
+
+function payloadBuilder(reportId: string, userId: string): PayloadItems {
+  return {
+    reportId: reportId,
+    userId: userId as string,
+    type: 'CommunityImpact',
+    description: `${userId} ha indicado que este evento impacta su comunidad.`,
+  }
 }
