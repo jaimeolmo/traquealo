@@ -6,7 +6,6 @@ import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import FactCheckRoundedIcon from '@mui/icons-material/FactCheckRounded'
 import FeedbackIcon from '@mui/icons-material/Feedback'
-import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
 import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded'
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import Box from '@mui/joy/Box'
@@ -15,20 +14,30 @@ import Chip from '@mui/joy/Chip'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import CategoriesMenu from '../CategoriesMenu'
+import CommunityButton from './CommunityButton'
 import DeleteButton from './DeleteButton'
+import { PayloadItems } from '@/utilities/actions/createTimelineEvent'
 
 type ComponentProps = {
   createdOn: Date
   reportId: string
+  reportSlug: string
   categories: Array<string>
   reportOwner: string
+  userDisplayName: string
+  userImageUrl: string | undefined
+  communityButtonDisableState: boolean
 }
 
 export default function TrackingSideBar({
   createdOn,
   reportId,
+  reportSlug,
   categories,
   reportOwner,
+  userDisplayName,
+  userImageUrl,
+  communityButtonDisableState,
 }: ComponentProps) {
   const { userId } = auth()
 
@@ -177,14 +186,16 @@ export default function TrackingSideBar({
           </Button>
         </Stack>
         <Stack>
-          <Button
-            startDecorator={<Groups2RoundedIcon />}
-            aria-label="resuelto"
-            color="neutral"
-            variant="soft"
-          >
-            ¿Impacta mi comunidad?
-          </Button>
+          <CommunityButton
+            payload={payloadBuilder(
+              reportId,
+              userId as string,
+              reportSlug,
+              userDisplayName,
+              userImageUrl,
+            )}
+            shouldBeDisable={communityButtonDisableState}
+          />
         </Stack>
         <Stack>
           <Button
@@ -204,4 +215,22 @@ export default function TrackingSideBar({
       </Stack>
     </Box>
   )
+}
+
+function payloadBuilder(
+  reportId: string,
+  userId: string,
+  reportSlug: string,
+  userDisplayName: string,
+  userImageUrl: string | undefined,
+): PayloadItems {
+  return {
+    reportId: reportId,
+    reportSlug: reportSlug,
+    userId: userId as string,
+    userDisplayName: userDisplayName,
+    userImageUrl: userImageUrl,
+    type: 'CommunityImpact',
+    description: `${userDisplayName} ha indicado que este evento impacta su comunidad.`,
+  }
 }
