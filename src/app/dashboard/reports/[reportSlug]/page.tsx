@@ -3,7 +3,9 @@ import { RichTextComponent } from '@/components/RichText'
 import ReportEventsTimeline from '@/components/Timeline/ReportEventsTimeline'
 import TrackingSideBar from '@/components/TrackingSystem'
 import { Issue } from '@/models/Issue'
+import { getUserDetails } from '@/utilities/actions/getUserDetails'
 import ReportCosmosClient from '@/utilities/cosmosdb/ReportCosmosClient'
+import ReportEventCosmosClient from '@/utilities/cosmosdb/ReportEventCosmosClient'
 import { auth } from '@clerk/nextjs'
 import PlaceIcon from '@mui/icons-material/Place'
 import Grid from '@mui/joy/Grid'
@@ -12,12 +14,6 @@ import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { chats } from '../../../../components/Timeline/data'
-
-type Report = {
-  id: string
-  reportSlug: string
-}
 
 async function getReportBySlug(reportSlug: string): Promise<Issue[] | null> {
   const { userId } = auth()
@@ -35,15 +31,49 @@ async function getReportBySlug(reportSlug: string): Promise<Issue[] | null> {
   return report || null
 }
 
+async function getAllReportEvents(reportSlug: string) {
+  const { userId } = auth()
+
+  if (!userId) {
+    return null
+  }
+
+  try {
+    const reportEventCosmosClient = new ReportEventCosmosClient()
+    const response = await reportEventCosmosClient.getByPropertyValue(
+      'reportSlug',
+      reportSlug,
+    )
+
+    return response || null
+  } catch (error) {
+    return null
+  }
+}
+
+async function getAuthenticatedUserId() {
+  const { userId } = auth()
+
+  return userId
+}
+
 export default async function ReportDetails({
   params,
 }: {
   params: { reportSlug: string }
 }) {
   const report = await getReportBySlug(params.reportSlug)
+  const timelineEvents = await getAllReportEvents(params.reportSlug)
+
+  const currentUserId = await getAuthenticatedUserId()
+
+  const communityButtonShouldBeDisable = timelineEvents?.some(
+    (item) => item.userId === currentUserId && item.type === 'CommunityImpact',
+  )
 
   if (!report) return notFound()
 
+  const userDetails = await getUserDetails(currentUserId)
   const reportCategories: string[] =
     report[0].categories &&
     Object.entries(report[0].categories)
@@ -88,8 +118,12 @@ export default async function ReportDetails({
                 color="neutral"
                 sx={{ p: 4, borderRadius: 8 }}
               >
-                <Typography>Timeline</Typography>
-                <ReportEventsTimeline chat={chats[0]} />
+                {timelineEvents && (
+                  <ReportEventsTimeline
+                    events={timelineEvents}
+                    currentUserId={currentUserId}
+                  />
+                )}
               </Sheet>
             </Stack>
           </Grid>
@@ -97,8 +131,14 @@ export default async function ReportDetails({
             <TrackingSideBar
               createdOn={new Date(report[0].createdOn)}
               reportId={report[0].id}
+              reportSlug={report[0].reportSlug}
               categories={reportCategories}
               reportOwner={report[0].userId}
+              userDisplayName={userDetails?.displayName ?? 'No disponible'}
+              userImageUrl={userDetails?.urlImage}
+              communityButtonDisableState={
+                communityButtonShouldBeDisable ?? false
+              }
             />
           </Grid>
         </Grid>
