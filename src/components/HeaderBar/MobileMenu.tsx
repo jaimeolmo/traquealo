@@ -9,7 +9,6 @@ import { styled } from '@mui/joy/styles'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRef, useState } from 'react'
-import { ButtonCreate } from '../ButtonCreate'
 
 const Popup = styled(Popper)({
   zIndex: 1000,
@@ -76,14 +75,20 @@ export default function MobileMenu() {
                       </Link>
                     ) : null}
                   </SignedIn>
-                  {pathname !== '/dashboard' ? <ButtonCreate /> : null}
+                  {pathname !== '/dashboard' ? (
+                    <Link prefetch={false} href="/dashboard" passHref>
+                      <Button variant="soft" color="secondary">
+                        Dashboard
+                      </Button>
+                    </Link>
+                  ) : null}
                   {pathname !== '/dashboard/municipalities' ? (
                     <Link
                       prefetch={false}
                       href="/dashboard/municipalities"
                       passHref
                     >
-                      <Button variant="soft" color="secondary" fullWidth>
+                      <Button variant="soft" color="secondary">
                         Municipios
                       </Button>
                     </Link>

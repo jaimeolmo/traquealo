@@ -6,7 +6,6 @@ import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ButtonCreate } from '../ButtonCreate'
 import { Logo } from '../Logo'
 import MobileMenu from './MobileMenu'
 import SignInButton from './SignInButton'
@@ -79,11 +78,17 @@ export function HeaderBar() {
               </Link>
             ) : null}
           </SignedIn>
-          {pathname !== '/dashboard' ? <ButtonCreate /> : null}
+          {pathname !== '/dashboard' ? (
+            <Link prefetch={false} href="/dashboard" passHref>
+              <Button variant="soft" color="secondary">
+                Dashboard
+              </Button>
+            </Link>
+          ) : null}
           <SignInButton />
           {pathname !== '/dashboard/municipalities' ? (
             <Link prefetch={false} href="/dashboard/municipalities" passHref>
-              <Button variant="soft" color="secondary" fullWidth>
+              <Button variant="soft" color="secondary">
                 Municipios
               </Button>
             </Link>
