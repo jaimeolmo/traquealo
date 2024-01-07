@@ -27,7 +27,7 @@ export async function updateReportCategory(
     return { error: 'Unable to patch' }
   }
 
-  revalidatePath(`/dashboard/reports/${reportSlug}`)
+  revalidatePath(`/dashboard/reports/${reportSlug}`, 'layout')
 
   return {
     message: 'Report category updated',
