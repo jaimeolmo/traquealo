@@ -10,7 +10,7 @@ export type PayloadItems = {
   userId: string
   userDisplayName: string
   userImageUrl: string | undefined
-  type: 'CommunityImpact' | 'OriginDate' | 'Updated' | 'Unsolved' | 'Solved'
+  type: ReportEventType
   description: string
 }
 
@@ -21,7 +21,7 @@ export async function createTimelineEvent(payload: PayloadItems) {
     payload.userImageUrl,
     payload.reportId,
     payload.reportSlug,
-    payload.type as ReportEventType,
+    payload.type,
     payload.description,
   )
 

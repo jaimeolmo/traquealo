@@ -1,8 +1,9 @@
 import ReportStatusIndicator from '@/components/ReportStatusIndicator'
+import { ReportEventType } from '@/models/ReportEvent'
+import { PayloadItems } from '@/utilities/actions/createTimelineEvent'
 import { auth } from '@clerk/nextjs'
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
 import CategoryIcon from '@mui/icons-material/Category'
-import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import FactCheckRoundedIcon from '@mui/icons-material/FactCheckRounded'
 import FeedbackIcon from '@mui/icons-material/Feedback'
@@ -16,7 +17,7 @@ import Typography from '@mui/joy/Typography'
 import CategoriesMenu from '../CategoriesMenu'
 import CommunityButton from './CommunityButton'
 import DeleteButton from './DeleteButton'
-import { PayloadItems } from '@/utilities/actions/createTimelineEvent'
+import ProgressUpdateButton from './ProgressUpdateButton'
 
 type ComponentProps = {
   createdOn: Date
@@ -167,13 +168,18 @@ export default function TrackingSideBar({
           </Button>
         </Stack>
         <Stack>
-          <Button
-            startDecorator={<EngineeringRoundedIcon />}
-            aria-label="resuelto"
-            color="secondary"
-          >
-            Reportar progreso
-          </Button>
+          <ProgressUpdateButton
+            payload={payloadBuilder(
+              reportId,
+              userId as string,
+              reportSlug,
+              userDisplayName,
+              userImageUrl,
+              ReportEventType.ProgressUpdate,
+              `Según ${userDisplayName}, este evento ha mostrado progreso favorable.`,
+            )}
+            shouldBeDisable={false}
+          />
         </Stack>
         <Stack>
           <Button
@@ -193,6 +199,8 @@ export default function TrackingSideBar({
               reportSlug,
               userDisplayName,
               userImageUrl,
+              ReportEventType.CommunityImpact,
+              `${userDisplayName} ha indicado que este evento impacta su comunidad.`,
             )}
             shouldBeDisable={communityButtonDisableState}
           />
@@ -223,6 +231,8 @@ function payloadBuilder(
   reportSlug: string,
   userDisplayName: string,
   userImageUrl: string | undefined,
+  type: ReportEventType,
+  description: string,
 ): PayloadItems {
   return {
     reportId: reportId,
@@ -230,7 +240,7 @@ function payloadBuilder(
     userId: userId as string,
     userDisplayName: userDisplayName,
     userImageUrl: userImageUrl,
-    type: 'CommunityImpact',
-    description: `${userDisplayName} ha indicado que este evento impacta su comunidad.`,
+    type: type,
+    description: description,
   }
 }

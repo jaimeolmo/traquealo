@@ -1,7 +1,7 @@
-const ReportEventType = {
+export const ReportEventType = {
   CommunityImpact: 'CommunityImpact',
   OriginDate: 'OriginDate',
-  Updated: 'Updated',
+  ProgressUpdate: 'ProgressUpdate',
   Unsolved: 'Unsolved',
   Solved: 'Solved',
 } as const

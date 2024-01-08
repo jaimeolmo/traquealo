@@ -14,6 +14,7 @@ export default function DeleteEventButton({
   return (
     <IconButton
       size="sm"
+      color="danger"
       onClick={() => {
         startTransition(async () => {
           try {

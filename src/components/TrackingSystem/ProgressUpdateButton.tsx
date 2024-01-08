@@ -3,7 +3,7 @@ import {
   PayloadItems,
   createTimelineEvent,
 } from '@/utilities/actions/createTimelineEvent'
-import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
+import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
 import Button from '@mui/joy/Button'
 import { useTransition } from 'react'
 
@@ -12,7 +12,10 @@ export type Payload = {
   shouldBeDisable: boolean
 }
 
-export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
+export default function ProgressUpdateButton({
+  payload,
+  shouldBeDisable,
+}: Payload) {
   const [pending, startTransition] = useTransition()
 
   return (
@@ -20,7 +23,7 @@ export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
       disabled={shouldBeDisable || pending}
       type="submit"
       fullWidth
-      startDecorator={<Groups2RoundedIcon />}
+      startDecorator={<EngineeringRoundedIcon />}
       onClick={() => {
         startTransition(async () => {
           try {
@@ -30,11 +33,10 @@ export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
           }
         })
       }}
-      aria-label="¿impacta mi comunidad?"
-      color="neutral"
-      variant="soft"
+      aria-label="reportar progreso"
+      color="secondary"
     >
-      ¿Impacta mi comunidad?
+      Reportar progreso
     </Button>
   )
 }
