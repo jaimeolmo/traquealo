@@ -77,25 +77,23 @@ export function HeaderBar() {
                 <Button variant="soft">Reportar</Button>
               </Link>
             ) : null}
-          </SignedIn>
-          {pathname !== '/dashboard' ? (
-            <Link prefetch={false} href="/dashboard" passHref>
-              <Button variant="soft" color="secondary">
-                Dashboard
-              </Button>
-            </Link>
-          ) : null}
-          <SignInButton />
-          {pathname !== '/dashboard/municipalities' ? (
-            <Link prefetch={false} href="/dashboard/municipalities" passHref>
-              <Button variant="soft" color="secondary">
-                Municipios
-              </Button>
-            </Link>
-          ) : null}
-          <SignedIn>
+            {pathname !== '/dashboard' ? (
+              <Link prefetch={false} href="/dashboard" passHref>
+                <Button variant="soft" color="secondary">
+                  Dashboard
+                </Button>
+              </Link>
+            ) : null}
+            {pathname !== '/dashboard/municipalities' ? (
+              <Link prefetch={false} href="/dashboard/municipalities" passHref>
+                <Button variant="soft" color="secondary">
+                  Municipios
+                </Button>
+              </Link>
+            ) : null}
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
+          <SignInButton />
         </Stack>
       </Stack>
     </Sheet>
