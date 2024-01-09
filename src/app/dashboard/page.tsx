@@ -68,23 +68,6 @@ async function getAuthenticatedUserId() {
   return userId
 }
 
-// TODO: This could be removed soon
-// async function getIssuesByUserId(): Promise<Issue[] | null> {
-//   const { userId } = auth()
-
-//   if (!userId) {
-//     return null
-//   }
-
-//   try {
-//     const issueCosmosClient = new IssueCosmosClient()
-//     const issues = await issueCosmosClient.getByPropertyValue('userId', userId)
-//     return issues || null
-//   } catch (error) {
-//     return null
-//   }
-// }
-
 export default async function Dashboard({
   searchParams,
 }: {

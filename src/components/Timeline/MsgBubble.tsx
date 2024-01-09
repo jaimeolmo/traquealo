@@ -1,4 +1,9 @@
 'use client'
+import { ReportEvent, ReportEventType } from '@/models/ReportEvent'
+import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
+import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
+import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded'
+import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import Box from '@mui/joy/Box'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
@@ -8,17 +13,10 @@ import { es } from 'date-fns/locale'
 import * as React from 'react'
 import DeleteEventButton from './DeleteEventButton'
 
-type MessageProps = {
-  id?: string
-  timestamp: Date
-  description: string
-  userDisplayName: string
-  currentUserId: string | null
-  userId: string
-}
-
-type MsgBubbleProps = MessageProps & {
+type MsgBubbleProps = ReportEvent & {
   variant: 'sent' | 'received'
+} & {
+  currentUserId: string | null
 }
 
 export default function MsgBubble(props: MsgBubbleProps) {
@@ -30,9 +28,12 @@ export default function MsgBubble(props: MsgBubbleProps) {
     userDisplayName,
     currentUserId,
     userId,
+    type,
   } = props
   const isSent = variant === 'sent'
   const [isHovered, setIsHovered] = React.useState<boolean>(false)
+
+  const iconAndColor = getEventTypeIconAndColor(type as ReportEventType)
 
   return (
     <Box sx={{ maxWidth: '60%', minWidth: 'auto' }}>
@@ -55,7 +56,7 @@ export default function MsgBubble(props: MsgBubbleProps) {
         onMouseLeave={() => setIsHovered(false)}
       >
         <Sheet
-          color={isSent ? 'primary' : 'neutral'}
+          color={isSent ? 'primary' : 'secondary'}
           variant={isSent ? 'solid' : 'soft'}
           sx={{
             p: 1.25,
@@ -64,10 +65,11 @@ export default function MsgBubble(props: MsgBubbleProps) {
             borderTopLeftRadius: isSent ? 'lg' : 0,
             backgroundColor: isSent
               ? 'var(--joy-palette-primary-solidBg)'
-              : 'background.body',
+              : iconAndColor.color,
           }}
         >
           <Typography
+            endDecorator={isSent ? null : iconAndColor.icon}
             level="body-sm"
             sx={{
               color: isSent
@@ -104,4 +106,32 @@ export default function MsgBubble(props: MsgBubbleProps) {
       </Box>
     </Box>
   )
+}
+
+function getEventTypeIconAndColor(type: ReportEventType) {
+  if (type === ReportEventType.ProgressUpdate) {
+    return {
+      icon: <EngineeringRoundedIcon color="secondary" />,
+      color: 'var(--joy-palette-secondary-softBg)',
+    }
+  }
+
+  if (type === ReportEventType.Unsolved) {
+    return {
+      icon: <ThumbDownRoundedIcon sx={{ color: 'danger.500' }} />,
+      color: 'var(--joy-palette-danger-softBg)',
+    }
+  }
+
+  if (type === ReportEventType.Solved) {
+    return {
+      icon: <ThumbUpRoundedIcon color="success" />,
+      color: 'var(--joy-palette-success-softBg)',
+    }
+  }
+
+  return {
+    icon: <Groups2RoundedIcon sx={{ color: 'neutral.500' }} />,
+    color: 'var(--joy-palette-neutral-softBg)',
+  }
 }

@@ -1,11 +1,11 @@
 'use client'
 import { createTimelineEvent } from '@/utilities/actions/createTimelineEvent'
 import { Payload } from '@/utilities/actions/payloadBuilder'
-import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
+import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import Button from '@mui/joy/Button'
 import { useTransition } from 'react'
 
-export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
+export default function SolvedButton({ payload, shouldBeDisable }: Payload) {
   const [pending, startTransition] = useTransition()
 
   return (
@@ -13,7 +13,7 @@ export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
       disabled={shouldBeDisable || pending}
       type="submit"
       fullWidth
-      startDecorator={<Groups2RoundedIcon />}
+      startDecorator={<ThumbUpRoundedIcon />}
       onClick={() => {
         startTransition(async () => {
           try {
@@ -23,11 +23,10 @@ export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
           }
         })
       }}
-      aria-label="¿impacta mi comunidad?"
-      color="neutral"
-      variant="soft"
+      aria-label="reportar resuelto"
+      color="success"
     >
-      ¿Impacta mi comunidad?
+      Reportar resuelto
     </Button>
   )
 }
