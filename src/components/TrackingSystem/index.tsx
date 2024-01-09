@@ -1,14 +1,12 @@
 import ReportStatusIndicator from '@/components/ReportStatusIndicator'
 import { ReportEventType } from '@/models/ReportEvent'
-import { PayloadItems } from '@/utilities/actions/createTimelineEvent'
+import { payloadBuilder } from '@/utilities/actions/payloadBuilder'
 import { auth } from '@clerk/nextjs'
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
 import CategoryIcon from '@mui/icons-material/Category'
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import FactCheckRoundedIcon from '@mui/icons-material/FactCheckRounded'
 import FeedbackIcon from '@mui/icons-material/Feedback'
-import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded'
-import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import Box from '@mui/joy/Box'
 import Button from '@mui/joy/Button'
 import Chip from '@mui/joy/Chip'
@@ -18,6 +16,8 @@ import CategoriesMenu from '../CategoriesMenu'
 import CommunityButton from './CommunityButton'
 import DeleteButton from './DeleteButton'
 import ProgressUpdateButton from './ProgressUpdateButton'
+import SolvedButton from './SolvedButton'
+import UnsolvedButton from './UnsolvedButton'
 
 type ComponentProps = {
   createdOn: Date
@@ -46,27 +46,6 @@ export default function TrackingSideBar({
     <Box>
       <Stack spacing={1}>
         <ReportStatusIndicator createdOn={createdOn} />
-        {/* TODO: This will be implemented during Season 2.
-        <Stack direction={'row'}>
-          <Typography
-            level="title-md"
-            startDecorator={<Groups3Icon sx={{ color: 'secondary.600' }} />}
-            sx={{ flex: 1 }}
-            textColor={'primary.700'}
-          >
-            Responsables
-          </Typography>
-          <Box>
-            <IconButton variant="plain">
-              <AddBoxRoundedIcon sx={{ color: 'primary.700' }} />
-            </IconButton>
-          </Box>
-          <AgenciesMenu />
-        </Stack> 
-        <Stack direction="row" spacing={2}>
-          Familia
-        </Stack>
-        */}
         <Stack direction={'row'}>
           <Typography
             level="title-md"
@@ -76,7 +55,6 @@ export default function TrackingSideBar({
           >
             Categorías
           </Typography>
-
           {reportOwner === userId ? (
             <CategoriesMenu reportId={reportId} reportCategories={categories} />
           ) : null}
@@ -148,24 +126,33 @@ export default function TrackingSideBar({
             Traquealo
           </Typography>
         </Stack>
-
         <Stack>
-          <Button
-            startDecorator={<ThumbUpRoundedIcon />}
-            aria-label="resuelto"
-            color="success"
-          >
-            Reportar resuelto
-          </Button>
+          <SolvedButton
+            payload={payloadBuilder(
+              reportId,
+              userId as string,
+              reportSlug,
+              userDisplayName,
+              userImageUrl,
+              ReportEventType.Solved,
+              `Según ${userDisplayName}, este evento puede ser considerado como resuelto.`,
+            )}
+            shouldBeDisable={false}
+          />
         </Stack>
         <Stack>
-          <Button
-            startDecorator={<ThumbDownRoundedIcon />}
-            aria-label="resuelto"
-            color="danger"
-          >
-            Reportar sin resolver
-          </Button>
+          <UnsolvedButton
+            payload={payloadBuilder(
+              reportId,
+              userId as string,
+              reportSlug,
+              userDisplayName,
+              userImageUrl,
+              ReportEventType.Unsolved,
+              `Según ${userDisplayName}, este evento aún continua sin ser atendido.`,
+            )}
+            shouldBeDisable={false}
+          />
         </Stack>
         <Stack>
           <ProgressUpdateButton
@@ -223,24 +210,4 @@ export default function TrackingSideBar({
       </Stack>
     </Box>
   )
-}
-
-function payloadBuilder(
-  reportId: string,
-  userId: string,
-  reportSlug: string,
-  userDisplayName: string,
-  userImageUrl: string | undefined,
-  type: ReportEventType,
-  description: string,
-): PayloadItems {
-  return {
-    reportId: reportId,
-    reportSlug: reportSlug,
-    userId: userId as string,
-    userDisplayName: userDisplayName,
-    userImageUrl: userImageUrl,
-    type: type,
-    description: description,
-  }
 }

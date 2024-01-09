@@ -1,16 +1,9 @@
 'use client'
-import {
-  PayloadItems,
-  createTimelineEvent,
-} from '@/utilities/actions/createTimelineEvent'
+import { createTimelineEvent } from '@/utilities/actions/createTimelineEvent'
+import { Payload } from '@/utilities/actions/payloadBuilder'
 import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
 import Button from '@mui/joy/Button'
 import { useTransition } from 'react'
-
-export type Payload = {
-  payload: PayloadItems
-  shouldBeDisable: boolean
-}
 
 export default function ProgressUpdateButton({
   payload,

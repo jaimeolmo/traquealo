@@ -2,6 +2,8 @@
 import { ReportEvent, ReportEventType } from '@/models/ReportEvent'
 import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
+import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded'
+import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import Box from '@mui/joy/Box'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
@@ -111,6 +113,20 @@ function getEventTypeIconAndColor(type: ReportEventType) {
     return {
       icon: <EngineeringRoundedIcon color="secondary" />,
       color: 'var(--joy-palette-secondary-softBg)',
+    }
+  }
+
+  if (type === ReportEventType.Unsolved) {
+    return {
+      icon: <ThumbDownRoundedIcon sx={{ color: 'danger.500' }} />,
+      color: 'var(--joy-palette-danger-softBg)',
+    }
+  }
+
+  if (type === ReportEventType.Solved) {
+    return {
+      icon: <ThumbUpRoundedIcon color="success" />,
+      color: 'var(--joy-palette-success-softBg)',
     }
   }
 
