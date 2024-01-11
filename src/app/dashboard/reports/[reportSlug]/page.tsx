@@ -1,4 +1,5 @@
 import ReportOwnerAndDateCreated from '@/components/ReportDetails'
+import ReportMultimedia from '@/components/ReportMultimedia/ReportMultimedia'
 import { RichTextComponent } from '@/components/RichText'
 import ReportEventsTimeline from '@/components/Timeline/ReportEventsTimeline'
 import TrackingSideBar from '@/components/TrackingSystem'
@@ -7,6 +8,7 @@ import { ReportEventType } from '@/models/ReportEvent'
 import { getUserDetails } from '@/utilities/actions/getUserDetails'
 import ReportCosmosClient from '@/utilities/cosmosdb/ReportCosmosClient'
 import ReportEventCosmosClient from '@/utilities/cosmosdb/ReportEventCosmosClient'
+import { generateSasToken } from '@/utilities/generateSasToken'
 import { auth } from '@clerk/nextjs'
 import PlaceIcon from '@mui/icons-material/Place'
 import Grid from '@mui/joy/Grid'
@@ -63,6 +65,7 @@ export default async function ReportDetails({
 }: {
   params: { reportSlug: string }
 }) {
+  const sasToken = await generateSasToken()
   const report = await getReportBySlug(params.reportSlug)
   const timelineEvents = await getAllReportEvents(params.reportSlug)
 
@@ -117,14 +120,19 @@ export default async function ReportDetails({
               <Sheet
                 variant="outlined"
                 color="neutral"
-                sx={{ p: 4, borderRadius: 8 }}
+                sx={{ p: 2, borderRadius: 8 }}
               >
-                Fotos and videos
+                <ReportMultimedia
+                  reportId={report[0].id}
+                  userId={currentUserId ?? 'no-user-id'}
+                  media={report[0].media.thumb}
+                  sasToken={sasToken}
+                />
               </Sheet>
               <Sheet
                 variant="outlined"
                 color="neutral"
-                sx={{ p: 4, borderRadius: 8 }}
+                sx={{ p: 2, borderRadius: 8 }}
               >
                 {timelineEvents && (
                   <ReportEventsTimeline
