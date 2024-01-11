@@ -26,7 +26,7 @@ export default function ReportCard({ report, sasToken }: ComponentProps) {
       <CardContent>
         <Typography
           sx={{
-            height: '3.1rem',
+            height: '3.55rem',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             display: '-webkit-box',
