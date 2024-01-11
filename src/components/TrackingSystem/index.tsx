@@ -2,7 +2,6 @@ import ReportStatusIndicator from '@/components/ReportStatusIndicator'
 import { ReportEventType } from '@/models/ReportEvent'
 import { payloadBuilder } from '@/utilities/actions/payloadBuilder'
 import { auth } from '@clerk/nextjs'
-import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
 import CategoryIcon from '@mui/icons-material/Category'
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import FactCheckRoundedIcon from '@mui/icons-material/FactCheckRounded'
@@ -17,6 +16,7 @@ import CommunityButton from './CommunityButton'
 import DeleteButton from './DeleteButton'
 import ProgressUpdateButton from './ProgressUpdateButton'
 import SolvedButton from './SolvedButton'
+import StartDateButton from './StartDateButton'
 import UnsolvedButton from './UnsolvedButton'
 
 type ComponentProps = {
@@ -28,6 +28,7 @@ type ComponentProps = {
   userDisplayName: string
   userImageUrl: string | undefined
   communityButtonDisableState: boolean
+  startDateButtonDisableState: boolean
 }
 
 export default function TrackingSideBar({
@@ -39,6 +40,7 @@ export default function TrackingSideBar({
   userDisplayName,
   userImageUrl,
   communityButtonDisableState,
+  startDateButtonDisableState,
 }: ComponentProps) {
   const { userId } = auth()
 
@@ -169,14 +171,18 @@ export default function TrackingSideBar({
           />
         </Stack>
         <Stack>
-          <Button
-            startDecorator={<CalendarMonthRoundedIcon />}
-            aria-label="resuelto"
-            color="neutral"
-            variant="soft"
-          >
-            ¿Inicio del problema?
-          </Button>
+          <StartDateButton
+            payload={payloadBuilder(
+              reportId,
+              userId as string,
+              reportSlug,
+              userDisplayName,
+              userImageUrl,
+              ReportEventType.OriginDate,
+              'Date here',
+            )}
+            shouldBeDisable={startDateButtonDisableState}
+          />
         </Stack>
         <Stack>
           <CommunityButton

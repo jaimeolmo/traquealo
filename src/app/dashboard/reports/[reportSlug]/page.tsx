@@ -3,6 +3,7 @@ import { RichTextComponent } from '@/components/RichText'
 import ReportEventsTimeline from '@/components/Timeline/ReportEventsTimeline'
 import TrackingSideBar from '@/components/TrackingSystem'
 import { Issue } from '@/models/Issue'
+import { ReportEventType } from '@/models/ReportEvent'
 import { getUserDetails } from '@/utilities/actions/getUserDetails'
 import ReportCosmosClient from '@/utilities/cosmosdb/ReportCosmosClient'
 import ReportEventCosmosClient from '@/utilities/cosmosdb/ReportEventCosmosClient'
@@ -68,7 +69,14 @@ export default async function ReportDetails({
   const currentUserId = await getAuthenticatedUserId()
 
   const communityButtonShouldBeDisable = timelineEvents?.some(
-    (item) => item.userId === currentUserId && item.type === 'CommunityImpact',
+    (item) =>
+      item.userId === currentUserId &&
+      item.type === ReportEventType.CommunityImpact,
+  )
+
+  const startDateButtonShouldBeDisable = timelineEvents?.some(
+    (item) =>
+      item.userId === currentUserId && item.type === ReportEventType.OriginDate,
   )
 
   if (!report) return notFound()
@@ -138,6 +146,9 @@ export default async function ReportDetails({
               userImageUrl={userDetails?.urlImage}
               communityButtonDisableState={
                 communityButtonShouldBeDisable ?? false
+              }
+              startDateButtonDisableState={
+                startDateButtonShouldBeDisable ?? false
               }
             />
           </Grid>
