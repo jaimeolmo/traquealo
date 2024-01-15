@@ -6,6 +6,7 @@ import CategoryIcon from '@mui/icons-material/Category'
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import FactCheckRoundedIcon from '@mui/icons-material/FactCheckRounded'
 import FeedbackIcon from '@mui/icons-material/Feedback'
+import SummarizeRoundedIcon from '@mui/icons-material/SummarizeRounded'
 import Box from '@mui/joy/Box'
 import Button from '@mui/joy/Button'
 import Chip from '@mui/joy/Chip'
@@ -120,12 +121,52 @@ export default function TrackingSideBar({
           <Typography
             level="title-md"
             startDecorator={
+              <SummarizeRoundedIcon sx={{ color: 'secondary.600' }} />
+            }
+            sx={{ flex: 1 }}
+            textColor={'primary.700'}
+          >
+            Repórtalo
+          </Typography>
+        </Stack>
+        <Stack>
+          <StartDateButton
+            payload={payloadBuilder(
+              reportId,
+              userId as string,
+              reportSlug,
+              userDisplayName,
+              userImageUrl,
+              ReportEventType.OriginDate,
+              'Date here',
+            )}
+            shouldBeDisable={startDateButtonDisableState}
+          />
+        </Stack>
+        <Stack>
+          <CommunityButton
+            payload={payloadBuilder(
+              reportId,
+              userId as string,
+              reportSlug,
+              userDisplayName,
+              userImageUrl,
+              ReportEventType.CommunityImpact,
+              `${userDisplayName} ha indicado que este evento impacta su comunidad.`,
+            )}
+            shouldBeDisable={communityButtonDisableState}
+          />
+        </Stack>
+        <Stack direction={'row'}>
+          <Typography
+            level="title-md"
+            startDecorator={
               <FactCheckRoundedIcon sx={{ color: 'secondary.600' }} />
             }
             sx={{ flex: 1 }}
             textColor={'primary.700'}
           >
-            Traquealo
+            Traquéalo
           </Typography>
         </Stack>
         <Stack>
@@ -168,34 +209,6 @@ export default function TrackingSideBar({
               `Según ${userDisplayName}, este evento ha mostrado progreso favorable.`,
             )}
             shouldBeDisable={false}
-          />
-        </Stack>
-        <Stack>
-          <StartDateButton
-            payload={payloadBuilder(
-              reportId,
-              userId as string,
-              reportSlug,
-              userDisplayName,
-              userImageUrl,
-              ReportEventType.OriginDate,
-              'Date here',
-            )}
-            shouldBeDisable={startDateButtonDisableState}
-          />
-        </Stack>
-        <Stack>
-          <CommunityButton
-            payload={payloadBuilder(
-              reportId,
-              userId as string,
-              reportSlug,
-              userDisplayName,
-              userImageUrl,
-              ReportEventType.CommunityImpact,
-              `${userDisplayName} ha indicado que este evento impacta su comunidad.`,
-            )}
-            shouldBeDisable={communityButtonDisableState}
           />
         </Stack>
         <Stack>

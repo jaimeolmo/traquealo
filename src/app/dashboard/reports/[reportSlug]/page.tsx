@@ -1,3 +1,4 @@
+import EditableTitle from '@/components/EditableTitle/EditableTitle'
 import ReportOwnerAndDateCreated from '@/components/ReportDetails'
 import ReportMultimedia from '@/components/ReportMultimedia/ReportMultimedia'
 import { RichTextComponent } from '@/components/RichText'
@@ -94,9 +95,14 @@ export default async function ReportDetails({
   return (
     <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4, py: 2 }}>
       <Stack spacing={1}>
-        <Typography level="h2" textColor={'primary.900'}>
-          {report[0].title}
-        </Typography>
+        <EditableTitle
+          reportId={report[0].id}
+          userDisplayName={userDetails?.displayName ?? 'No disponible'}
+          userImageUrl={userDetails?.urlImage}
+          currentTitle={report[0].title}
+          currentUserId={currentUserId ?? 'unknown'}
+          reportOwnerId={report[0].userId}
+        />
         <Typography startDecorator={<PlaceIcon />}>
           <Link
             href={`/dashboard/municipalities/${report[0].municipalitySlug}`}

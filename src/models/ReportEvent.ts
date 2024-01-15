@@ -4,6 +4,7 @@ export const ReportEventType = {
   ProgressUpdate: 'ProgressUpdate',
   Unsolved: 'Unsolved',
   Solved: 'Solved',
+  InformationUpdated:'InformationUpdated'
 } as const
 export type ReportEventType = keyof typeof ReportEventType
 

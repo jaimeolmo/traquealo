@@ -24,7 +24,6 @@ export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
         })
       }}
       aria-label="¿impacta mi comunidad?"
-      color="neutral"
       variant="soft"
     >
       ¿Impacta mi comunidad?

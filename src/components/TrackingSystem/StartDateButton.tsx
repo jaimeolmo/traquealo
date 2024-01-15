@@ -30,10 +30,9 @@ export default function StartDateButton({ payload, shouldBeDisable }: Payload) {
         startDecorator={<CalendarMonthRoundedIcon />}
         onClick={() => setOpen(true)}
         aria-label="¿Inicio del problema?"
-        color="neutral"
         variant="soft"
       >
-        ¿Inicio del problema?
+        ¿Cuándo inició el evento?
       </Button>
       <Modal
         aria-labelledby="modal-title"
@@ -61,7 +60,7 @@ export default function StartDateButton({ payload, shouldBeDisable }: Payload) {
               fontWeight="lg"
               mb={1}
             >
-              ¿Inicio del problema?
+              ¿Cuándo inició el evento?
             </Typography>
             <Typography id="modal-desc" textColor="text.tertiary">
               Favor escoger el mes que más cercano este al origen del evento. El

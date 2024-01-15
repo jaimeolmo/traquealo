@@ -1,6 +1,7 @@
 'use client'
 import { ReportEvent, ReportEventType } from '@/models/ReportEvent'
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
+import CampaignRoundedIcon from '@mui/icons-material/CampaignRounded'
 import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
 import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded'
@@ -135,6 +136,13 @@ function getEventTypeIconAndColor(type: ReportEventType) {
     return {
       icon: <CalendarMonthRoundedIcon sx={{ color: 'neutral.500' }} />,
       color: 'var(--joy-palette-neutral-softBg)',
+    }
+  }
+
+  if (type === ReportEventType.InformationUpdated) {
+    return {
+      icon: <CampaignRoundedIcon sx={{ color: 'primary.500' }} />,
+      color: 'var(--joy-palette-primary-softBg)',
     }
   }
 

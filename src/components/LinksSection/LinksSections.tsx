@@ -13,7 +13,7 @@ export function LinksSection() {
         direction={{ xs: 'column', sm: 'row' }}
         justifyContent="space-evenly"
         alignItems={{ xs: 'center', sm: 'stretch' }}
-        sx={{ maxWidth: '1024px', margin: 'auto', px: 4 }}
+        sx={{ maxWidth: '1024px', margin: 'auto', px: 2 }}
         spacing={2}
       >
         <SectionList

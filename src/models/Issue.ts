@@ -1,6 +1,13 @@
 const IssueState = { Draft: 'Draft', Public: 'Public' } as const
 export type IssueState = keyof typeof IssueState
 
+export const ReportEditableRootProperty = {
+  title: 'title',
+  content: 'content',
+  updatedOn: 'updatedOn',
+} as const
+export type ReportEditableRootProperty = keyof typeof ReportEditableRootProperty
+
 export class Issue {
   public id = ''
   public title = ''

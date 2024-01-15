@@ -84,7 +84,7 @@ export default async function Dashboard({
       sx={{
         maxWidth: '1024px',
         width: '100%',
-        px: 4,
+        px: 2,
         py: 2,
       }}
     >
