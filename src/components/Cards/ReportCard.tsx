@@ -78,7 +78,10 @@ export default function ReportCard({ report, sasToken }: ComponentProps) {
           </Stack>
           <Stack sx={{ width: '50%' }}>
             <Box sx={{ textAlign: 'right' }}>
-              <ReportStatusIndicator createdOn={report.createdOn} />
+              <ReportStatusIndicator
+                createdOn={report.createdOn}
+                updatedOn={report.updatedOn}
+              />
             </Box>
           </Stack>
         </Stack>
