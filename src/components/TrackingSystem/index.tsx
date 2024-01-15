@@ -22,6 +22,7 @@ import UnsolvedButton from './UnsolvedButton'
 
 type ComponentProps = {
   createdOn: Date
+  updatedOn: Date
   reportId: string
   reportSlug: string
   categories: Array<string>
@@ -34,6 +35,7 @@ type ComponentProps = {
 
 export default function TrackingSideBar({
   createdOn,
+  updatedOn,
   reportId,
   reportSlug,
   categories,
@@ -48,7 +50,7 @@ export default function TrackingSideBar({
   return (
     <Box>
       <Stack spacing={1}>
-        <ReportStatusIndicator createdOn={createdOn} />
+        <ReportStatusIndicator createdOn={createdOn} updatedOn={updatedOn} />
         <Stack direction={'row'}>
           <Typography
             level="title-md"

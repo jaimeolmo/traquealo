@@ -32,16 +32,27 @@ export async function editReportRootData(payload: PayloadForRootEditable) {
   let reportUpdated
 
   try {
-    const operation = {
-      op: 'add' as const,
+    let operations: {
+      op: 'replace' | 'add' | 'remove' | 'set' | 'incr'
+      path: string
+      value: any
+    }[] = []
+    operations.push({
+      op: 'add',
       path: `/${payload.editableProperty}`,
       value: payload.newTitle,
-    }
+    })
+
+    operations.push({
+      op: 'add',
+      path: `/${ReportEditableRootProperty.updatedOn}`,
+      value: new Date(),
+    })
 
     reportUpdated = await reportCosmosClient.partialUpdate({
       id: payload.reportId,
       partitionKey: payload.reportId,
-      operations: [operation],
+      operations: operations,
     })
 
     console.log(reportUpdated.resource)

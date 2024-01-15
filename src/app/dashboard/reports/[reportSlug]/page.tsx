@@ -152,6 +152,7 @@ export default async function ReportDetails({
           <Grid sm={4} xs={12}>
             <TrackingSideBar
               createdOn={new Date(report[0].createdOn)}
+              updatedOn={new Date(report[0].updatedOn)}
               reportId={report[0].id}
               reportSlug={report[0].reportSlug}
               categories={reportCategories}
