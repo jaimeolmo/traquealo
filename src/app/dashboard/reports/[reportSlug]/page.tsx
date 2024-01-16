@@ -92,6 +92,8 @@ export default async function ReportDetails({
       .filter(([key, value]) => value)
       .map(([key, value]) => key)
 
+  const photosAndVideos = [...report[0].media.thumb, ...report[0].media.vthumb]
+
   return (
     <Sheet sx={{ maxWidth: '1024px', width: '100%', px: 4, py: 2 }}>
       <Stack spacing={1}>
@@ -131,7 +133,7 @@ export default async function ReportDetails({
                 <ReportMultimedia
                   reportId={report[0].id}
                   userId={currentUserId ?? 'no-user-id'}
-                  media={report[0].media.thumb}
+                  media={photosAndVideos}
                   sasToken={sasToken}
                 />
               </Sheet>

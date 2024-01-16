@@ -17,6 +17,8 @@ type ComponentProps = {
 }
 
 export default function ReportCard({ report, sasToken }: ComponentProps) {
+  const photosAndVideos = [...report.media.thumb, ...report.media.vthumb]
+
   return (
     <Card
       sx={{
@@ -49,7 +51,7 @@ export default function ReportCard({ report, sasToken }: ComponentProps) {
       </CardContent>
       <CardContent sx={{ justifyContent: 'flex-end' }}>
         <ImageAvatarsGroup
-          media={report.media.thumb}
+          media={photosAndVideos}
           sasToken={sasToken}
           reportSlug={report.reportSlug}
         />

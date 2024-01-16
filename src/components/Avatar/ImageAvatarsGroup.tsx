@@ -18,7 +18,7 @@ export function ImageAvatarsGroup({
   const { avatars, surplus } = clampAvatars(media)
 
   return (
-    <Stack direction={'row'} sx={{ height: '100px' }}>
+    <Stack direction={'row'}>
       <Link
         href={`/dashboard/reports/${reportSlug}`}
         style={{ textDecoration: 'none', color: 'inherit' }}
