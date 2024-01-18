@@ -8,15 +8,12 @@ import { revalidatePath } from 'next/cache'
 import ReportEventCosmosClient from '../cosmosdb/ReportEventCosmosClient'
 
 export type PayloadForRootEditable = {
-  newTitle: string
-  currentTitle: string
+  newValue: string
+  originalValue: string
   reportId: string
   currentUserId: string
-  // userId: string
   userDisplayName: string
   userImageUrl: string | undefined
-  // type: ReportEventType
-  // description: string
   editableProperty: ReportEditableRootProperty
 }
 
@@ -40,7 +37,7 @@ export async function editReportRootData(payload: PayloadForRootEditable) {
     operations.push({
       op: 'add',
       path: `/${payload.editableProperty}`,
-      value: payload.newTitle,
+      value: payload.newValue,
     })
 
     operations.push({
@@ -54,10 +51,8 @@ export async function editReportRootData(payload: PayloadForRootEditable) {
       partitionKey: payload.reportId,
       operations: operations,
     })
-
-    console.log(reportUpdated.resource)
   } catch (e) {
-    return { error: 'Unable to patch' }
+    return { error: `Unable to patch ${payload.reportId}` }
   }
 
   const event = ReportEvent.CreateNew(
@@ -66,8 +61,12 @@ export async function editReportRootData(payload: PayloadForRootEditable) {
     payload.userImageUrl,
     payload.reportId,
     reportUpdated.resource.reportSlug,
-    ReportEventType.InformationUpdated,
-    `El título del reporte, "${payload.currentTitle}" ha sido actualizado. Ahora el nuevo título es "${payload.newTitle}".`,
+    getEventType(payload.editableProperty),
+    getEventDescription(
+      payload.editableProperty,
+      payload.originalValue,
+      payload.newValue,
+    ),
   )
 
   const reportEventCosmosClient = new ReportEventCosmosClient()
@@ -80,6 +79,35 @@ export async function editReportRootData(payload: PayloadForRootEditable) {
   )
 
   return {
-    message: 'Report title updated',
+    message: `Report ${payload.reportId} was updated`,
   }
+}
+
+function getEventType(eventType: ReportEditableRootProperty) {
+  if (eventType === ReportEditableRootProperty.title)
+    return ReportEventType.TitleUpdated
+
+  if (eventType === ReportEditableRootProperty.content)
+    return ReportEventType.DescriptionUpdated
+
+  if (eventType === ReportEditableRootProperty.updatedOn)
+    return ReportEventType.UpdatedOnDateUpdated
+
+  return ReportEventType.Unknown
+}
+
+function getEventDescription(
+  eventType: ReportEditableRootProperty,
+  newValue: string,
+  originalValue: string,
+) {
+  if (eventType === ReportEditableRootProperty.title) {
+    return `El título del reporte, "${originalValue}" ha sido actualizado. Ahora el nuevo título es "${newValue}".`
+  }
+
+  if (eventType === ReportEditableRootProperty.content) {
+    return `El contenido en la descripción del reporte ha sido actualizado.`
+  }
+
+  return 'unknown'
 }

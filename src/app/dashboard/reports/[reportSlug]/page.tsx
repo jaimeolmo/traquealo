@@ -66,26 +66,23 @@ export default async function ReportDetails({
 }: {
   params: { reportSlug: string }
 }) {
-  const sasToken = await generateSasToken()
   const report = await getReportBySlug(params.reportSlug)
+  if (!report) return notFound()
+
+  const sasToken = await generateSasToken()
   const timelineEvents = await getAllReportEvents(params.reportSlug)
-
   const currentUserId = await getAuthenticatedUserId()
-
   const communityButtonShouldBeDisable = timelineEvents?.some(
     (item) =>
       item.userId === currentUserId &&
       item.type === ReportEventType.CommunityImpact,
   )
-
   const startDateButtonShouldBeDisable = timelineEvents?.some(
     (item) =>
       item.userId === currentUserId && item.type === ReportEventType.OriginDate,
   )
-
-  if (!report) return notFound()
-
   const userDetails = await getUserDetails(currentUserId)
+  const isReportOwner = currentUserId === report[0].userId
   const reportCategories: string[] =
     report[0].categories &&
     Object.entries(report[0].categories)
@@ -117,7 +114,14 @@ export default async function ReportDetails({
           <Grid sm={8} xs={12}>
             <Stack spacing={2}>
               <Stack sx={{ width: '100%' }}>
-                <RichTextComponent initialValue={report[0].content} />
+                <RichTextComponent
+                  initialValue={report[0].content}
+                  isReportOwner={isReportOwner}
+                  reportId={report[0].id}
+                  currentUserId={currentUserId ?? 'unknown'}
+                  userDisplayName={userDetails?.displayName ?? 'No disponible'}
+                  userImageUrl={userDetails?.urlImage ?? 'unknown'}
+                />
               </Stack>
               <Stack>
                 <ReportOwnerAndDateCreated
@@ -142,6 +146,13 @@ export default async function ReportDetails({
                 color="neutral"
                 sx={{ p: 2, borderRadius: 8 }}
               >
+                {!timelineEvents || timelineEvents.length === 0 ? (
+                  <Stack alignItems={'center'}>
+                    <Typography level="body-lg">
+                      Hasta el momento, no hay eventos documentados.
+                    </Typography>
+                  </Stack>
+                ) : null}
                 {timelineEvents && (
                   <ReportEventsTimeline
                     events={timelineEvents}

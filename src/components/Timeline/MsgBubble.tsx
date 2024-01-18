@@ -1,9 +1,9 @@
 'use client'
 import { ReportEvent, ReportEventType } from '@/models/ReportEvent'
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
-import CampaignRoundedIcon from '@mui/icons-material/CampaignRounded'
 import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
+import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded'
 import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded'
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import Box from '@mui/joy/Box'
@@ -12,7 +12,6 @@ import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import * as React from 'react'
 import DeleteEventButton from './DeleteEventButton'
 
 type MsgBubbleProps = ReportEvent & {
@@ -33,16 +32,15 @@ export default function MsgBubble(props: MsgBubbleProps) {
     type,
   } = props
   const isSent = variant === 'sent'
-  const [isHovered, setIsHovered] = React.useState<boolean>(false)
 
   const iconAndColor = getEventTypeIconAndColor(type as ReportEventType)
 
   return (
-    <Box sx={{ maxWidth: '60%', minWidth: 'auto' }}>
+    <Box sx={{ maxWidth: '100%', minWidth: 'auto' }}>
       <Stack
         direction="row"
         justifyContent="space-between"
-        spacing={2}
+        spacing={1}
         sx={{ mb: 0.25 }}
       >
         <Typography level="body-xs">{userDisplayName}</Typography>
@@ -52,59 +50,55 @@ export default function MsgBubble(props: MsgBubbleProps) {
           })}
         </Typography>
       </Stack>
-      <Box
-        sx={{ position: 'relative' }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <Sheet
-          color={isSent ? 'primary' : 'secondary'}
-          variant={isSent ? 'solid' : 'soft'}
-          sx={{
-            p: 1.25,
-            borderRadius: 'lg',
-            borderTopRightRadius: isSent ? 0 : 'lg',
-            borderTopLeftRadius: isSent ? 'lg' : 0,
-            backgroundColor: isSent
-              ? 'var(--joy-palette-primary-solidBg)'
-              : iconAndColor.color,
-          }}
+      <Box>
+        <Stack
+          direction="row"
+          alignContent={'center'}
+          justifyContent={'center'}
+          alignItems={'center'}
         >
-          <Typography
-            endDecorator={isSent ? null : iconAndColor.icon}
-            level="body-sm"
+          <Sheet
+            color={isSent ? 'primary' : 'secondary'}
+            variant={isSent ? 'solid' : 'soft'}
             sx={{
-              color: isSent
-                ? 'var(--joy-palette-common-white)'
-                : 'var(--joy-palette-text-primary)',
+              p: 1.25,
+              borde: '1px solid red',
+              borderRadius: 'lg',
+              borderTopRightRadius: isSent ? 0 : 'lg',
+              borderTopLeftRadius: isSent ? 'lg' : 0,
+              backgroundColor: isSent
+                ? 'var(--joy-palette-primary-solidBg)'
+                : iconAndColor.color,
             }}
           >
-            {description}
-          </Typography>
-        </Sheet>
-        {isHovered && !isSent && currentUserId === userId && (
-          <Stack
-            direction="row"
-            justifyContent={isSent ? 'flex-end' : 'flex-start'}
-            spacing={0.5}
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              p: 1.5,
-              ...(isSent
-                ? {
-                    left: 0,
-                    transform: 'translate(-100%, -50%)',
-                  }
-                : {
-                    right: 0,
-                    transform: 'translate(100%, -50%)',
-                  }),
-            }}
-          >
-            <DeleteEventButton eventId={id} />
-          </Stack>
-        )}
+            <Typography
+              endDecorator={isSent ? null : iconAndColor.icon}
+              level="body-sm"
+              sx={{
+                color: isSent
+                  ? 'var(--joy-palette-common-white)'
+                  : 'var(--joy-palette-text-primary)',
+              }}
+            >
+              {description}
+            </Typography>
+          </Sheet>
+          {!isSent && currentUserId === userId && (
+            <Box>
+              <Stack
+                direction="row"
+                justifyContent={isSent ? 'flex-end' : 'flex-start'}
+                spacing={0.5}
+                sx={{
+                  p: 1,
+                  pr: 0,
+                }}
+              >
+                <DeleteEventButton eventId={id} />
+              </Stack>
+            </Box>
+          )}
+        </Stack>
       </Box>
     </Box>
   )
@@ -139,9 +133,12 @@ function getEventTypeIconAndColor(type: ReportEventType) {
     }
   }
 
-  if (type === ReportEventType.InformationUpdated) {
+  if (
+    type === ReportEventType.TitleUpdated ||
+    type === ReportEventType.DescriptionUpdated
+  ) {
     return {
-      icon: <CampaignRoundedIcon sx={{ color: 'primary.500' }} />,
+      icon: <ListAltRoundedIcon sx={{ color: 'primary.500' }} />,
       color: 'var(--joy-palette-primary-softBg)',
     }
   }

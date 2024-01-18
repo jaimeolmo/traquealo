@@ -58,7 +58,7 @@ export default async function ReportOwnerAndDateCreated({
           &nbsp;por&nbsp;
           {ownerName === 'Colaborador Registrado' ? (
             <Tooltip
-              title="Nombre genérico cuando no se ha seleccionado un username o nombres en el registro."
+              title="Nombre genérico cuando no se ha completado el registro."
               color="neutral"
               variant="outlined"
             >

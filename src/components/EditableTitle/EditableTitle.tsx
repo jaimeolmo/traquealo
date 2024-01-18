@@ -45,8 +45,8 @@ export default function EditableTitle({
     startTransition(async () => {
       try {
         await editReportRootData({
-          newTitle: title,
-          currentTitle: currentTitle,
+          newValue: title,
+          originalValue: currentTitle,
           reportId: reportId,
           currentUserId: currentUserId,
           userDisplayName: userDisplayName,
