@@ -71,6 +71,8 @@ export default function StartDateButton({ payload, shouldBeDisable }: Payload) {
               <DatePicker
                 selected={startDate}
                 onChange={(date: Date) => setStartDate(date)}
+                locale={es}
+                maxDate={new Date()}
                 dateFormat="MM/yyyy"
                 showMonthYearPicker
                 inline
