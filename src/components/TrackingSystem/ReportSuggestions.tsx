@@ -54,6 +54,7 @@ export default function ReportSuggestions({
           content: e.message,
         }
         openSnackbar(message)
+        return
       }
       const message = {
         type: SnackbarMessageType.success,
