@@ -1,4 +1,5 @@
 'use client'
+import { SnackbarMessageType, useSnackbar } from '@/app/store/ui/SnackbarContext'
 import { createTimelineEvent } from '@/utilities/actions/createTimelineEvent'
 import { Payload } from '@/utilities/actions/payloadBuilder'
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
@@ -7,6 +8,7 @@ import { useTransition } from 'react'
 
 export default function SolvedButton({ payload, shouldBeDisable }: Payload) {
   const [pending, startTransition] = useTransition()
+  const { openSnackbar } = useSnackbar()
 
   return (
     <Button
@@ -18,8 +20,12 @@ export default function SolvedButton({ payload, shouldBeDisable }: Payload) {
         startTransition(async () => {
           try {
             await createTimelineEvent(payload)
-          } catch (e) {
-            alert('error')
+          } catch (e: any) {
+            const message = {
+              type: SnackbarMessageType.danger,
+              content: e.message,
+            }
+            openSnackbar(message)
           }
         })
       }}

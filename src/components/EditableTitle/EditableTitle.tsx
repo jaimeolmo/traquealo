@@ -1,4 +1,5 @@
 'use client'
+import { SnackbarMessageType, useSnackbar } from '@/app/store/ui/SnackbarContext'
 import { ReportEditableRootProperty } from '@/models/Issue'
 import { editReportRootData } from '@/utilities/actions/editReportRootData'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
@@ -32,6 +33,7 @@ export default function EditableTitle({
   const [title, setTitle] = useState(currentTitle)
   const [isEditing, setIsEditing] = useState(false)
   const [error, setError] = useState(false)
+  const { openSnackbar } = useSnackbar()
 
   const handleEditClick = () => {
     setIsEditing(true)
@@ -53,8 +55,12 @@ export default function EditableTitle({
           userImageUrl: userImageUrl,
           editableProperty: ReportEditableRootProperty.title,
         })
-      } catch (e) {
-        alert('error')
+      } catch (e: any) {
+        const message = {
+          type: SnackbarMessageType.danger,
+          content: e.message,
+        }
+        openSnackbar(message)
       } finally {
         setIsEditing(false)
       }

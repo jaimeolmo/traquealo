@@ -4,8 +4,10 @@ import ReportMultimedia from '@/components/ReportMultimedia/ReportMultimedia'
 import { RichTextComponent } from '@/components/RichText'
 import ReportEventsTimeline from '@/components/Timeline/ReportEventsTimeline'
 import TrackingSideBar from '@/components/TrackingSystem'
+import ReportSuggestions from '@/components/TrackingSystem/ReportSuggestions'
 import { Issue } from '@/models/Issue'
 import { ReportEventType } from '@/models/ReportEvent'
+import { ReportSuggestionType } from '@/models/ReportSuggestion'
 import { getUserDetails } from '@/utilities/actions/getUserDetails'
 import ReportCosmosClient from '@/utilities/cosmosdb/ReportCosmosClient'
 import ReportEventCosmosClient from '@/utilities/cosmosdb/ReportEventCosmosClient'
@@ -18,6 +20,7 @@ import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import DeleteButton from '../../../../components/TrackingSystem/DeleteButton'
 
 async function getReportBySlug(reportSlug: string): Promise<Issue[] | null> {
   const { userId } = auth()
@@ -179,6 +182,23 @@ export default async function ReportDetails({
                 startDateButtonShouldBeDisable ?? false
               }
             />
+            <Stack spacing={1} sx={{ pt: 1 }}>
+              <Stack>
+                <ReportSuggestions
+                  payload={{
+                    reportId: report[0].id,
+                    userId: currentUserId ?? 'unknown',
+                    type: ReportSuggestionType.Unknown,
+                    reportTitle: report[0].title,
+                  }}
+                />
+              </Stack>
+              {isReportOwner ? (
+                <Stack>
+                  <DeleteButton reportId={report[0].id} />
+                </Stack>
+              ) : null}
+            </Stack>
           </Grid>
         </Grid>
       </Stack>

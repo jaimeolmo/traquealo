@@ -1,4 +1,8 @@
 'use client'
+import {
+  SnackbarMessageType,
+  useSnackbar,
+} from '@/app/store/ui/SnackbarContext'
 import { createTimelineEvent } from '@/utilities/actions/createTimelineEvent'
 import { Payload } from '@/utilities/actions/payloadBuilder'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
@@ -7,6 +11,7 @@ import { useTransition } from 'react'
 
 export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
   const [pending, startTransition] = useTransition()
+  const { openSnackbar } = useSnackbar()
 
   return (
     <Button
@@ -18,8 +23,12 @@ export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
         startTransition(async () => {
           try {
             await createTimelineEvent(payload)
-          } catch (e) {
-            alert('error')
+          } catch (e: any) {
+            const message = {
+              type: SnackbarMessageType.danger,
+              content: e.message,
+            }
+            openSnackbar(message)
           }
         })
       }}

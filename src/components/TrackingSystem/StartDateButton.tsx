@@ -1,4 +1,8 @@
 'use client'
+import {
+  SnackbarMessageType,
+  useSnackbar,
+} from '@/app/store/ui/SnackbarContext'
 import { createTimelineEvent } from '@/utilities/actions/createTimelineEvent'
 import { Payload } from '@/utilities/actions/payloadBuilder'
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded'
@@ -20,6 +24,7 @@ export default function StartDateButton({ payload, shouldBeDisable }: Payload) {
   const [pending, startTransition] = useTransition()
   const [open, setOpen] = useState<boolean>(false)
   const [startDate, setStartDate] = useState(new Date())
+  const { openSnackbar } = useSnackbar()
 
   return (
     <>
@@ -94,8 +99,12 @@ export default function StartDateButton({ payload, shouldBeDisable }: Payload) {
                 startTransition(async () => {
                   try {
                     await createTimelineEvent(payload)
-                  } catch (e) {
-                    alert('error')
+                  } catch (e: any) {
+                    const message = {
+                      type: SnackbarMessageType.danger,
+                      content: e.message,
+                    }
+                    openSnackbar(message)
                   } finally {
                     setOpen(false)
                   }

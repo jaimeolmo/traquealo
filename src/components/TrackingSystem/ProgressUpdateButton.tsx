@@ -1,4 +1,5 @@
 'use client'
+import { SnackbarMessageType, useSnackbar } from '@/app/store/ui/SnackbarContext'
 import { createTimelineEvent } from '@/utilities/actions/createTimelineEvent'
 import { Payload } from '@/utilities/actions/payloadBuilder'
 import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded'
@@ -10,6 +11,7 @@ export default function ProgressUpdateButton({
   shouldBeDisable,
 }: Payload) {
   const [pending, startTransition] = useTransition()
+  const { openSnackbar } = useSnackbar()
 
   return (
     <Button
@@ -21,8 +23,12 @@ export default function ProgressUpdateButton({
         startTransition(async () => {
           try {
             await createTimelineEvent(payload)
-          } catch (e) {
-            alert('error')
+          } catch (e: any) {
+            const message = {
+              type: SnackbarMessageType.danger,
+              content: e.message,
+            }
+            openSnackbar(message)
           }
         })
       }}

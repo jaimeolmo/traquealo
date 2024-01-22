@@ -24,7 +24,7 @@ export async function updateReportCategory(
       operations: [operation],
     })
   } catch (e) {
-    return { error: 'Unable to patch' }
+    throw new Error('No se pudo completar la actualización de las categorías.')
   }
 
   revalidatePath(`/dashboard/reports/${reportSlug}`, 'layout')

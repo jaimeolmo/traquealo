@@ -1,5 +1,5 @@
 'use client'
-import { updateReportCategory } from '@/app/actions/updateReportCategory'
+import { updateReportCategory } from '@/utilities/actions/updateReportCategory'
 import CheckIcon from '@mui/icons-material/Check'
 import Box from '@mui/joy/Box'
 import Checkbox from '@mui/joy/Checkbox'

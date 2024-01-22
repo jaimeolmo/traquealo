@@ -1,4 +1,8 @@
 'use client'
+import {
+  SnackbarMessageType,
+  useSnackbar,
+} from '@/app/store/ui/SnackbarContext'
 import { ReportEditableRootProperty } from '@/models/Issue'
 import { editReportRootData } from '@/utilities/actions/editReportRootData'
 import { Button, Stack } from '@mui/joy'
@@ -28,7 +32,7 @@ export function RichTextComponent({
   const editorRef = useRef<TinyMCEEditor | null>(null)
   const [loading, setLoading] = useState(true)
   const [pending, startTransition] = useTransition()
-  const [error, setError] = useState(false)
+  const { openSnackbar } = useSnackbar()
 
   const handleSaveClick = () => {
     if (!editorRef.current) return
@@ -48,8 +52,12 @@ export function RichTextComponent({
           userImageUrl: userImageUrl,
           editableProperty: ReportEditableRootProperty.content,
         })
-      } catch (e) {
-        alert('error')
+      } catch (e: any) {
+        const message = {
+          type: SnackbarMessageType.danger,
+          content: e.message,
+        }
+        openSnackbar(message)
       }
     })
   }
