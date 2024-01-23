@@ -58,6 +58,7 @@ export function RichTextComponent({
           content: 'Problemas actualizando el reporte. Favor trate más tarde.',
         }
         openSnackbar(message)
+        return
       }
     })
   }

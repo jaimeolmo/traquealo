@@ -26,6 +26,7 @@ export default function SolvedButton({ payload, shouldBeDisable }: Payload) {
               content: "No se pudo actualizar el reporte como resuelto.",
             }
             openSnackbar(message)
+            return
           }
         })
       }}

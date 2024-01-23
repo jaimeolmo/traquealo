@@ -29,6 +29,7 @@ export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
               content: 'No se pudo actualizar impacto a la comunidad.',
             }
             openSnackbar(message)
+            return
           }
         })
       }}

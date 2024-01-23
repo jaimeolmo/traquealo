@@ -29,6 +29,7 @@ export default function ProgressUpdateButton({
               content: 'No se pudo actualizar el reporte.',
             }
             openSnackbar(message)
+            return
           }
         })
       }}

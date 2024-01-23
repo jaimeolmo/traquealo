@@ -105,6 +105,7 @@ export default function StartDateButton({ payload, shouldBeDisable }: Payload) {
                       content: `No se pudo actuliazar`,
                     }
                     openSnackbar(message)
+                    return
                   } finally {
                     setOpen(false)
                   }

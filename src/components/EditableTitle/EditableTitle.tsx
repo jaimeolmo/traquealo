@@ -64,6 +64,7 @@ export default function EditableTitle({
           content: 'Problemas actualizando el reporte. Favor trate más tarde.',
         }
         openSnackbar(message)
+        return
       } finally {
         setIsEditing(false)
       }

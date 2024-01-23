@@ -29,6 +29,7 @@ export default function UnsolvedButton({ payload, shouldBeDisable }: Payload) {
               content: `Fallas en la actualización.`,
             }
             openSnackbar(message)
+            return
           }
         })
       }}

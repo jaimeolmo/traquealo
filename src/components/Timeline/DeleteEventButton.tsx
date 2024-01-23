@@ -31,6 +31,7 @@ export default function DeleteEventButton({
                 'Problemas eliminando el reporte. Favor trate más tarde.',
             }
             openSnackbar(message)
+            return
           }
         })
       }}
