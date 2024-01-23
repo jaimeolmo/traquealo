@@ -5,6 +5,7 @@ import {
 } from '@/app/store/ui/SnackbarContext'
 import { ReportEditableRootProperty } from '@/models/Issue'
 import { editReportRootData } from '@/utilities/actions/editReportRootData'
+import { ClickAwayListener } from '@mui/base/ClickAwayListener'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded'
 import Box from '@mui/joy/Box'
@@ -47,6 +48,10 @@ export default function EditableTitle({
       setError(true)
       return
     }
+    if (title === currentTitle) {
+      setIsEditing(false)
+      return
+    }
     startTransition(async () => {
       try {
         await editReportRootData({
@@ -77,45 +82,51 @@ export default function EditableTitle({
     setTitle(event.target.value)
   }
 
+  const handleClickAway = () => {
+    setIsEditing(false)
+  }
+
   return (
-    <Stack direction="row" spacing={2} alignItems={'center'}>
-      {isEditing ? (
-        <Textarea
-          minRows={2}
-          value={title}
-          error={error}
-          variant="outlined"
-          size="lg"
-          onChange={handleTitleChange}
-          onFocus={() => {
-            setError(false)
-          }}
-          sx={{
-            fontWeight: 700,
-            lineHeight: '1.33334',
-            fontSize: '1.875rem',
-            width: '100%',
-            color: 'primary.900',
-            '& textarea': {
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <Stack direction="row" spacing={2} alignItems={'center'}>
+        {isEditing ? (
+          <Textarea
+            minRows={2}
+            value={title}
+            error={error}
+            variant="outlined"
+            size="lg"
+            onChange={handleTitleChange}
+            onFocus={() => {
+              setError(false)
+            }}
+            sx={{
+              fontWeight: 700,
               lineHeight: '1.33334',
-              letterSpacing: '-0.025em',
-            },
-          }}
-        />
-      ) : (
-        <Typography level="h2" textColor={'primary.900'}>
-          {title}
-        </Typography>
-      )}
-      {currentUserId === reportOwnerId
-        ? renderActionButtons(
-            isEditing,
-            pending,
-            handleEditClick,
-            handleSaveClick,
-          )
-        : null}
-    </Stack>
+              fontSize: '1.875rem',
+              width: '100%',
+              color: 'primary.900',
+              '& textarea': {
+                lineHeight: '1.33334',
+                letterSpacing: '-0.025em',
+              },
+            }}
+          />
+        ) : (
+          <Typography level="h2" textColor={'primary.900'}>
+            {title}
+          </Typography>
+        )}
+        {currentUserId === reportOwnerId
+          ? renderActionButtons(
+              isEditing,
+              pending,
+              handleEditClick,
+              handleSaveClick,
+            )
+          : null}
+      </Stack>
+    </ClickAwayListener>
   )
 }
 
