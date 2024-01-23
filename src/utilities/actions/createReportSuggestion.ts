@@ -15,20 +15,16 @@ export type SuggestionPayload = {
 }
 
 export async function createReportSuggestion(payload: SuggestionPayload) {
-  try {
-    const suggestion = ReportSuggestion.CreateNew(
-      payload.reportId,
-      payload.userId,
-      payload.type,
-      payload.description,
-    )
+  const suggestion = ReportSuggestion.CreateNew(
+    payload.reportId,
+    payload.userId,
+    payload.type,
+    payload.description,
+  )
 
-    const reportSuggestionCosmosClient = new ReportSuggestionCosmosClient()
+  const reportSuggestionCosmosClient = new ReportSuggestionCosmosClient()
 
-    await reportSuggestionCosmosClient.createOrUpdate(suggestion)
+  await reportSuggestionCosmosClient.createOrUpdate(suggestion)
 
-    revalidatePath('/dashboard/report/[reportSlug]', 'layout')
-  } catch (e) {
-    throw new Error('No se pudo enviar la sugerencia.')
-  }
+  revalidatePath('/dashboard/report/[reportSlug]', 'layout')
 }

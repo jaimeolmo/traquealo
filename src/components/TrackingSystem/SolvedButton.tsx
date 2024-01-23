@@ -23,7 +23,7 @@ export default function SolvedButton({ payload, shouldBeDisable }: Payload) {
           } catch (e: any) {
             const message = {
               type: SnackbarMessageType.danger,
-              content: e.message,
+              content: "No se pudo actualizar el reporte como resuelto.",
             }
             openSnackbar(message)
           }

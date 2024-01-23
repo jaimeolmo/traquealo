@@ -23,10 +23,10 @@ export default function UnsolvedButton({ payload, shouldBeDisable }: Payload) {
         startTransition(async () => {
           try {
             await createTimelineEvent(payload)
-          } catch (e: any) {
+          } catch (e) {
             const message = {
               type: SnackbarMessageType.danger,
-              content: e.message,
+              content: `Fallas en la actualización.`,
             }
             openSnackbar(message)
           }

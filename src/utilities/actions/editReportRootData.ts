@@ -28,32 +28,28 @@ export async function editReportRootData(payload: PayloadForRootEditable) {
 
   let reportUpdated
 
-  try {
-    let operations: {
-      op: 'replace' | 'add' | 'remove' | 'set' | 'incr'
-      path: string
-      value: any
-    }[] = []
-    operations.push({
-      op: 'add',
-      path: `/${payload.editableProperty}`,
-      value: payload.newValue,
-    })
+  let operations: {
+    op: 'replace' | 'add' | 'remove' | 'set' | 'incr'
+    path: string
+    value: any
+  }[] = []
+  operations.push({
+    op: 'add',
+    path: `/${payload.editableProperty}`,
+    value: payload.newValue,
+  })
 
-    operations.push({
-      op: 'add',
-      path: `/${ReportEditableRootProperty.updatedOn}`,
-      value: new Date(),
-    })
+  operations.push({
+    op: 'add',
+    path: `/${ReportEditableRootProperty.updatedOn}`,
+    value: new Date(),
+  })
 
-    reportUpdated = await reportCosmosClient.partialUpdate({
-      id: payload.reportId,
-      partitionKey: payload.reportId,
-      operations: operations,
-    })
-  } catch (e) {
-    return { error: `Unable to patch ${payload.reportId}` }
-  }
+  reportUpdated = await reportCosmosClient.partialUpdate({
+    id: payload.reportId,
+    partitionKey: payload.reportId,
+    operations: operations,
+  })
 
   const event = ReportEvent.CreateNew(
     payload.currentUserId,

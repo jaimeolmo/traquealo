@@ -102,7 +102,7 @@ export default function StartDateButton({ payload, shouldBeDisable }: Payload) {
                   } catch (e: any) {
                     const message = {
                       type: SnackbarMessageType.danger,
-                      content: e.message,
+                      content: `No se pudo actuliazar`,
                     }
                     openSnackbar(message)
                   } finally {

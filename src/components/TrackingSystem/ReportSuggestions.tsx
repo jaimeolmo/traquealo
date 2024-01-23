@@ -51,7 +51,7 @@ export default function ReportSuggestions({
       } catch (e: any) {
         const message = {
           type: SnackbarMessageType.danger,
-          content: e.message,
+          content:'Problemas enviando la sugerencia. Favor trate más tarde.',
         }
         openSnackbar(message)
         return

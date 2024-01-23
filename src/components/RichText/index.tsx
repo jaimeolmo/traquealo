@@ -55,7 +55,7 @@ export function RichTextComponent({
       } catch (e: any) {
         const message = {
           type: SnackbarMessageType.danger,
-          content: e.message,
+          content: 'Problemas actualizando el reporte. Favor trate más tarde.',
         }
         openSnackbar(message)
       }

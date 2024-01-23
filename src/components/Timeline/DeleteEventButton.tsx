@@ -27,7 +27,8 @@ export default function DeleteEventButton({
           } catch (e: any) {
             const message = {
               type: SnackbarMessageType.danger,
-              content: e.message,
+              content:
+                'Problemas eliminando el reporte. Favor trate más tarde.',
             }
             openSnackbar(message)
           }

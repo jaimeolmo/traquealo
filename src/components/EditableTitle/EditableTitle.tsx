@@ -1,5 +1,8 @@
 'use client'
-import { SnackbarMessageType, useSnackbar } from '@/app/store/ui/SnackbarContext'
+import {
+  SnackbarMessageType,
+  useSnackbar,
+} from '@/app/store/ui/SnackbarContext'
 import { ReportEditableRootProperty } from '@/models/Issue'
 import { editReportRootData } from '@/utilities/actions/editReportRootData'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
@@ -58,7 +61,7 @@ export default function EditableTitle({
       } catch (e: any) {
         const message = {
           type: SnackbarMessageType.danger,
-          content: e.message,
+          content: 'Problemas actualizando el reporte. Favor trate más tarde.',
         }
         openSnackbar(message)
       } finally {

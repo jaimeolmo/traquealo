@@ -11,21 +11,17 @@ export async function updateReportCategory(
 ) {
   const issueCosmosClient = new IssueCosmosClient()
 
-  try {
-    const operation = {
-      op: 'add' as const,
-      path: `/categories/${name}`,
-      value: status,
-    }
-
-    await issueCosmosClient.partialUpdate({
-      id: reportId,
-      partitionKey: reportId,
-      operations: [operation],
-    })
-  } catch (e) {
-    throw new Error('No se pudo completar la actualización de las categorías.')
+  const operation = {
+    op: 'add' as const,
+    path: `/categories/${name}`,
+    value: status,
   }
+
+  await issueCosmosClient.partialUpdate({
+    id: reportId,
+    partitionKey: reportId,
+    operations: [operation],
+  })
 
   revalidatePath(`/dashboard/reports/${reportSlug}`, 'layout')
 

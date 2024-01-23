@@ -26,7 +26,7 @@ export default function ProgressUpdateButton({
           } catch (e: any) {
             const message = {
               type: SnackbarMessageType.danger,
-              content: e.message,
+              content: 'No se pudo actualizar el reporte.',
             }
             openSnackbar(message)
           }

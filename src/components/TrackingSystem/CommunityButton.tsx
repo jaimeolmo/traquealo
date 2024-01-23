@@ -26,7 +26,7 @@ export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
           } catch (e: any) {
             const message = {
               type: SnackbarMessageType.danger,
-              content: e.message,
+              content: 'No se pudo actualizar impacto a la comunidad.',
             }
             openSnackbar(message)
           }
