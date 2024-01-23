@@ -19,6 +19,7 @@ import Tab from '@mui/joy/Tab'
 import TabList from '@mui/joy/TabList'
 import TabPanel from '@mui/joy/TabPanel'
 import Tabs from '@mui/joy/Tabs'
+import Textarea from '@mui/joy/Textarea'
 import Typography from '@mui/joy/Typography'
 import { useState, useTransition } from 'react'
 
@@ -37,21 +38,45 @@ export default function ReportSuggestions({
 }) {
   const [pending, startTransition] = useTransition()
   const [open, setOpen] = useState<boolean>(false)
+  const [title, setTitle] = useState(payload.reportTitle)
+  const [type, setType] = useState<ReportSuggestionType>(
+    ReportSuggestionType.TitleChange,
+  )
+  const [error, setError] = useState(false)
   const { openSnackbar } = useSnackbar()
 
+  const handleTitleChange = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target
+    setTitle(value)
+  }
+
   const handleSuggestionSubmit = () => {
+    console.log(title.length)
+    if (title.length === 0) {
+      setError(true)
+      return
+    }
+    if (payload.reportTitle === title) {
+      const message = {
+        type: SnackbarMessageType.warning,
+        content: `Al parecer al título es el mismo.`,
+      }
+      openSnackbar(message)
+      return
+    }
+
     startTransition(async () => {
       try {
         await createReportSuggestion({
           reportId: payload.reportId,
           userId: payload.userId,
-          type: payload.type,
-          description: '',
+          type: type,
+          description: `El usuario ${payload.userId} ha recomendado actualizar el título de "${payload.reportTitle}" a "${title}"`,
         })
       } catch (e: any) {
         const message = {
           type: SnackbarMessageType.danger,
-          content:'Problemas enviando sugerencia. Favor trate más tarde.',
+          content: 'Problemas enviando sugerencia. Favor trate más tarde.',
         }
         openSnackbar(message)
         return
@@ -82,7 +107,11 @@ export default function ReportSuggestions({
         aria-labelledby="modal-title"
         aria-describedby="modal-desc"
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setOpen(false)
+          setTitle(payload.reportTitle)
+          setError(false)
+        }}
         sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
       >
         <Sheet
@@ -106,7 +135,16 @@ export default function ReportSuggestions({
             >
               Sugerir Cambios
             </Typography>
-            <Tabs aria-label="Basic tabs" defaultValue={0} sx={{ zIndex: 0 }}>
+            <Tabs
+              aria-label="Basic tabs"
+              defaultValue={0}
+              sx={{ zIndex: 0 }}
+              onChange={(event, value) => {
+                if (value === 0) setType(ReportSuggestionType.TitleChange)
+                if (value === 1) setType(ReportSuggestionType.CategoriesChange)
+                if (value === 2) setType(ReportSuggestionType.Flagged)
+              }}
+            >
               <TabList disableUnderline>
                 <Tab>
                   <ListItemDecorator>
@@ -128,10 +166,38 @@ export default function ReportSuggestions({
                 </Tab>
               </TabList>
               <TabPanel value={0}>
-                Mejorar Título {payload.reportTitle}
-                <Button type="submit" onClick={handleSuggestionSubmit}>
-                  Enviar
-                </Button>
+                <Stack spacing={1}>
+                  <Typography level="title-lg">Título actual</Typography>
+                  <Typography level="h3" textColor={'neutral.500'}>
+                    {payload.reportTitle}
+                  </Typography>
+                  <Typography level="title-lg">Recomendación</Typography>
+                  <Textarea
+                    minRows={2}
+                    value={title}
+                    error={error}
+                    variant="outlined"
+                    size="lg"
+                    onChange={handleTitleChange}
+                    onFocus={() => {
+                      setError(false)
+                    }}
+                    sx={{
+                      fontWeight: 500,
+                      fontSize: '1.5rem',
+                      width: '100%',
+                      color: 'primary.900',
+                      '& textarea': {
+                        lineHeight: '1.35',
+                        letterSpacing: '-0.025em',
+                      },
+                    }}
+                  />
+
+                  <Button type="submit" onClick={handleSuggestionSubmit}>
+                    Enviar
+                  </Button>
+                </Stack>
               </TabPanel>
               <TabPanel value={1}>Añadir categorías</TabPanel>
               <TabPanel value={2}>Reportar como abuso</TabPanel>
