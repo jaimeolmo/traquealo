@@ -22,7 +22,9 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import DeleteButton from '../../../../components/TrackingSystem/DeleteButton'
 
-async function getReportBySlug(reportSlug: string): Promise<Issue[] | null> {
+async function getReportBySlug(
+  reportSlug: string,
+): Promise<Array<Issue> | null> {
   const { userId } = auth()
 
   if (!userId) {
@@ -86,11 +88,11 @@ export default async function ReportDetails({
   )
   const userDetails = await getUserDetails(currentUserId)
   const isReportOwner = currentUserId === report[0].userId
-  const reportCategories: string[] =
+  const reportCategories: Array<string> =
     report[0].categories &&
     Object.entries(report[0].categories)
-      .filter(([key, value]) => value)
-      .map(([key, value]) => key)
+      .filter(([, value]) => value)
+      .map(([key]) => key)
 
   const photosAndVideos = [...report[0].media.thumb, ...report[0].media.vthumb]
 

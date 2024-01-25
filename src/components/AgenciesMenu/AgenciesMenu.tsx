@@ -12,7 +12,7 @@ import Stack from '@mui/joy/Stack'
 import * as React from 'react'
 
 export default function AgenciesMenu() {
-  const [selected, setSelected] = React.useState<string[]>([])
+  const [selected, setSelected] = React.useState<Array<string>>([])
 
   return (
     <Dropdown>

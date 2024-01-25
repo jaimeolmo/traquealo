@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       fromClient.userId,
       reportSlug,
       fromClient.municipality,
-      fromClient.municipalitySlug
+      fromClient.municipalitySlug,
     )
 
     const fullIssue = {
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       ...{ title: fromClient.title, content: fromClient.content },
     }
 
-    const created = await issueCosmosClient.createOrUpdate(fullIssue)
+    await issueCosmosClient.createOrUpdate(fullIssue)
   } catch (error) {
     console.error('Error handling POST request:', error)
     return new Response('Internal Server Error', { status: 500 })

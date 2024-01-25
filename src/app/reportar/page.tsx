@@ -81,7 +81,7 @@ export default function IssueReportPage() {
     }
   }
 
-  const handleTitleChange = (e: { target: { name: any; value: any } }) => {
+  const handleTitleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
   }

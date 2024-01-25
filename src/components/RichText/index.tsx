@@ -52,7 +52,7 @@ export function RichTextComponent({
           userImageUrl: userImageUrl,
           editableProperty: ReportEditableRootProperty.content,
         })
-      } catch (e: any) {
+      } catch (e) {
         const message = {
           type: SnackbarMessageType.danger,
           content: 'Problemas actualizando el reporte. Favor trate más tarde.',

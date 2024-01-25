@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Key } from 'react'
 
 type ComponentProps = {
-  media: [] | never[]
+  media: [] | Array<never>
   sasToken: string
   reportSlug: string
 }

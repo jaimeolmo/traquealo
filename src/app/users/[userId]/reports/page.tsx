@@ -48,7 +48,7 @@ async function getAuthenticatedUserId() {
   return userId
 }
 
-async function getIssuesByUserId(): Promise<Issue[] | null> {
+async function getIssuesByUserId(): Promise<Array<Issue> | null> {
   const { userId } = auth()
 
   if (!userId) {
@@ -89,7 +89,7 @@ export default async function UserReports({
           <Grid container justifyContent="flex-start">
             {typeof issuesFromUser !== 'undefined' &&
             Array.isArray(issuesFromUser) ? (
-              issuesFromUser.map((issue: any) => (
+              issuesFromUser.map((issue) => (
                 <Grid
                   key={issue.id}
                   sm={6}

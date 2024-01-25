@@ -8,11 +8,7 @@ type SimpleCardProps = {
   arialLabelDescription: string
 }
 
-export function SimpleCard({
-  cardTitle,
-  cardContent,
-  arialLabelDescription,
-}: SimpleCardProps) {
+export function SimpleCard({ cardTitle, cardContent }: SimpleCardProps) {
   return (
     <Card
       sx={{

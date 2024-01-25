@@ -1,5 +1,8 @@
 'use client'
-import { SnackbarMessageType, useSnackbar } from '@/app/store/ui/SnackbarContext'
+import {
+  SnackbarMessageType,
+  useSnackbar,
+} from '@/app/store/ui/SnackbarContext'
 import { createTimelineEvent } from '@/utilities/actions/createTimelineEvent'
 import { Payload } from '@/utilities/actions/payloadBuilder'
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
@@ -20,10 +23,10 @@ export default function SolvedButton({ payload, shouldBeDisable }: Payload) {
         startTransition(async () => {
           try {
             await createTimelineEvent(payload)
-          } catch (e: any) {
+          } catch (e) {
             const message = {
               type: SnackbarMessageType.danger,
-              content: "No se pudo actualizar el reporte como resuelto.",
+              content: 'No se pudo actualizar el reporte como resuelto.',
             }
             openSnackbar(message)
             return

@@ -9,7 +9,9 @@ import { useState } from 'react'
 import { CategoriesProps } from './types'
 
 export function MenuItems({ reportId, reportCategories }: CategoriesProps) {
-  const [selected, setSelected] = useState<string[]>(reportCategories || [])
+  const [selected, setSelected] = useState<Array<string>>(
+    reportCategories || [],
+  )
   const reportSlug = usePathname().split('/').pop()
 
   return (

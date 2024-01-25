@@ -1,3 +1,4 @@
+import { Issue } from '@/models/Issue'
 import { CosmosClient, ItemResponse } from '@azure/cosmos'
 import { appCosmosClient } from './AppCosmosClient'
 
@@ -37,14 +38,14 @@ export default abstract class BaseCosmosClient<TEntity> {
     return result as TEntity
   }
 
-  public async getById(id: string): Promise<TEntity | TEntity[] | null> {
+  public async getById(id: string): Promise<TEntity | Array<TEntity> | null> {
     return this.getByPropertyValue('id', id)
   }
 
   public async getByPropertyValue(
     propertyName: string,
     value: string,
-  ): Promise<TEntity[] | null> {
+  ): Promise<Array<TEntity> | null> {
     const querySpec = {
       query: `SELECT * FROM c WHERE c.${propertyName}=@val order by c.updatedOn desc`,
       parameters: [{ name: '@val', value: value }],
@@ -65,7 +66,7 @@ export default abstract class BaseCosmosClient<TEntity> {
   public async getAllByPropertyValue(
     propertyName: string,
     value: string,
-  ): Promise<TEntity[]> {
+  ): Promise<Array<TEntity>> {
     const querySpec = {
       query: `SELECT * FROM c WHERE c.${propertyName}=@val order by c.updatedOn desc`,
       parameters: [{ name: '@val', value: value }],
@@ -79,7 +80,7 @@ export default abstract class BaseCosmosClient<TEntity> {
     return results.map((i) => i)
   }
 
-  public async getAll(): Promise<TEntity[]> {
+  public async getAll(): Promise<Array<TEntity>> {
     const querySpec = {
       query: `Select * from c order by c.updatedOn desc`,
     }
@@ -102,7 +103,7 @@ export default abstract class BaseCosmosClient<TEntity> {
 
   public async partialUpdate(
     payload: UpdatePayload,
-  ): Promise<ItemResponse<any>> {
+  ): Promise<ItemResponse<Issue> | Issue> {
     try {
       const response = await this.client
         .database(this.databaseId)
@@ -116,7 +117,7 @@ export default abstract class BaseCosmosClient<TEntity> {
         )
       }
 
-      return response
+      return response.resource
     } catch (error) {
       console.error('Error while updating document:', error)
       throw error

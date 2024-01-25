@@ -28,7 +28,7 @@ export default function DataFromUser({ userId }: { userId: string | null }) {
   return (
     <>
       {reportsToDisplay && Array.isArray(reportsToDisplay)
-        ? reportsToDisplay.map((issue: any) => (
+        ? reportsToDisplay.map((issue) => (
             <Stack key={issue.id} direction={'row'}>
               <Stack>
                 <Link

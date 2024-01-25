@@ -107,7 +107,7 @@ export default async function Dashboard({
           <Grid container justifyContent="flex-start">
             {typeof response?.reports !== 'undefined' &&
             Array.isArray(response?.reports) ? (
-              response?.reports.map((report: any) => (
+              response?.reports.map((report) => (
                 <Grid key={report.id} md={6} xs={12} sx={{ flexGrow: 1, p: 1 }}>
                   <ReportCard report={report} sasToken={sasToken} />
                 </Grid>

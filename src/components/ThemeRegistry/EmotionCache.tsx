@@ -29,7 +29,7 @@ export function NextAppDirEmotionCacheProvider(
     const cache = createCache(options)
     cache.compat = true
     const prevInsert = cache.insert
-    let inserted: { name: string; isGlobal: boolean }[] = []
+    let inserted: Array<{ name: string; isGlobal: boolean }> = []
     cache.insert = (...args) => {
       const [selector, serialized] = args
       if (cache.inserted[serialized.name] === undefined) {
@@ -56,10 +56,10 @@ export function NextAppDirEmotionCacheProvider(
     let styles = ''
     let dataEmotionAttribute = registry.cache.key
 
-    const globals: {
+    const globals: Array<{
       name: string
       style: string
-    }[] = []
+    }> = []
 
     inserted.forEach(({ name, isGlobal }) => {
       const style = registry.cache.inserted[name]

@@ -26,13 +26,11 @@ export async function editReportRootData(payload: PayloadForRootEditable) {
 
   const reportCosmosClient = new IssueCosmosClient()
 
-  let reportUpdated
-
-  let operations: {
+  const operations: Array<{
     op: 'replace' | 'add' | 'remove' | 'set' | 'incr'
     path: string
-    value: any
-  }[] = []
+    value: string | boolean
+  }> = []
   operations.push({
     op: 'add',
     path: `/${payload.editableProperty}`,
@@ -42,21 +40,24 @@ export async function editReportRootData(payload: PayloadForRootEditable) {
   operations.push({
     op: 'add',
     path: `/${ReportEditableRootProperty.updatedOn}`,
-    value: new Date(),
+    value: new Date().toString(),
   })
 
-  reportUpdated = await reportCosmosClient.partialUpdate({
+  const reportUpdated = await reportCosmosClient.partialUpdate({
     id: payload.reportId,
     partitionKey: payload.reportId,
     operations: operations,
   })
+
+  if (!('resource' in reportUpdated) || reportUpdated.resource === undefined)
+    return
 
   const event = ReportEvent.CreateNew(
     payload.currentUserId,
     payload.userDisplayName,
     payload.userImageUrl,
     payload.reportId,
-    reportUpdated.resource.reportSlug,
+    reportUpdated.resource.reportSlug ?? 'unknown',
     getEventType(payload.editableProperty),
     getEventDescription(
       payload.editableProperty,

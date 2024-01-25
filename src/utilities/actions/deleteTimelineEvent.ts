@@ -1,6 +1,5 @@
 'use server'
 
-import { ReportEvent } from '@/models/ReportEvent'
 import { auth } from '@clerk/nextjs'
 import { revalidatePath } from 'next/cache'
 import ReportEventCosmosClient from '../cosmosdb/ReportEventCosmosClient'
@@ -14,7 +13,7 @@ export async function deleteTimelineEvent(eventId: string | undefined) {
 
   const eventCosmosClient = new ReportEventCosmosClient()
 
-  const event = (await eventCosmosClient.getById(eventId)) as ReportEvent[]
+  const event = await eventCosmosClient.getById(eventId)
 
   if (!event || !Array.isArray(event)) return
 

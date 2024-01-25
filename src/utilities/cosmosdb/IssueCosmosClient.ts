@@ -12,7 +12,7 @@ export default class IssueCosmosClient extends BaseCosmosClient<Issue> {
     this.containerName = process.env.COSMOSDB_ISSUES_CONTAINER
   }
 
-  public async getById(id: string): Promise<Issue | Issue[] | null> {
+  public async getById(id: string): Promise<Issue | Array<Issue> | null> {
     const issue = await super.getById(id)
     if (issue === null) return null
     return issue
@@ -21,7 +21,7 @@ export default class IssueCosmosClient extends BaseCosmosClient<Issue> {
   public async getByPropertyValue(
     propertyName: string,
     value: string,
-  ): Promise<Issue[] | null> {
+  ): Promise<Array<Issue> | null> {
     const issue = await super.getByPropertyValue(propertyName, value)
     if (issue === null) return null
     return issue
@@ -30,17 +30,17 @@ export default class IssueCosmosClient extends BaseCosmosClient<Issue> {
   public async getAllByPropertyValue(
     propertyName: string,
     value: string,
-  ): Promise<Issue[]> {
+  ): Promise<Array<Issue>> {
     return await Promise.all(
       (await super.getAllByPropertyValue(propertyName, value)).map((o) => o),
     )
   }
 
-  public async getAll(): Promise<Issue[]> {
+  public async getAll(): Promise<Array<Issue>> {
     return await Promise.all((await super.getAll()).map((o) => o))
   }
 
-  public async getMultipleById(ids: string[]): Promise<Issue[]> {
+  public async getMultipleById(ids: Array<string>): Promise<Array<Issue>> {
     if (ids.length === 0) return []
     const parameters = ids.map((id, i) => {
       return { name: `@id${i}`, value: id }
@@ -55,7 +55,7 @@ export default class IssueCosmosClient extends BaseCosmosClient<Issue> {
       .container(this.containerName)
       .items.query(querySpec)
       .fetchAll()
-    return await Promise.all(results.map((o: any) => o))
+    return await Promise.all(results.map((o) => o))
   }
 
   public async deleteById(id: string, partitionKey: string): Promise<void> {

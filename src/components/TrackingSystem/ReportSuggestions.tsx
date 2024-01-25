@@ -45,8 +45,10 @@ export default function ReportSuggestions({
   const [error, setError] = useState(false)
   const { openSnackbar } = useSnackbar()
 
-  const handleTitleChange = (e: { target: { name: any; value: any } }) => {
-    const { name, value } = e.target
+  const handleTitleChange = (e: {
+    target: { name: string; value: string }
+  }) => {
+    const { value } = e.target
     setTitle(value)
   }
 
@@ -73,7 +75,7 @@ export default function ReportSuggestions({
           type: type,
           description: `El usuario ${payload.userId} ha recomendado actualizar el título de "${payload.reportTitle}" a "${title}"`,
         })
-      } catch (e: any) {
+      } catch (e) {
         const message = {
           type: SnackbarMessageType.danger,
           content: 'Problemas enviando sugerencia. Favor trate más tarde.',

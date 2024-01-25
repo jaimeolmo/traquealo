@@ -9,6 +9,7 @@ import Divider from '@mui/joy/Divider'
 import Modal from '@mui/joy/Modal'
 import ModalDialog from '@mui/joy/ModalDialog'
 import Typography from '@mui/joy/Typography'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -70,7 +71,7 @@ export default function DeleteButton({ reportId }: { reportId: string }) {
   )
 }
 
-async function deleteReport(reportId: string, router: any) {
+async function deleteReport(reportId: string, router: AppRouterInstance) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_ISSUE_API_URL}/${reportId}` as string,
     {

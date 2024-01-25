@@ -31,13 +31,13 @@ export default class ReportEventCosmosClient extends BaseCosmosClient<ReportEven
   public async getAllByPropertyValue(
     propertyName: string,
     value: string,
-  ): Promise<ReportEvent[]> {
+  ): Promise<Array<ReportEvent>> {
     return await Promise.all(
       (await super.getAllByPropertyValue(propertyName, value)).map((o) => o),
     )
   }
 
-  public async getAll(): Promise<ReportEvent[]> {
+  public async getAll(): Promise<Array<ReportEvent>> {
     return await Promise.all((await super.getAll()).map((o) => o))
   }
 

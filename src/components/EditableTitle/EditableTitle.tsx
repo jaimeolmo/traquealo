@@ -63,7 +63,7 @@ export default function EditableTitle({
           userImageUrl: userImageUrl,
           editableProperty: ReportEditableRootProperty.title,
         })
-      } catch (e: any) {
+      } catch (e) {
         const message = {
           type: SnackbarMessageType.danger,
           content: 'Problemas actualizando el reporte. Favor trate más tarde.',

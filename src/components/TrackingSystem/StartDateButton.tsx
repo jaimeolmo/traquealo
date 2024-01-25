@@ -99,7 +99,7 @@ export default function StartDateButton({ payload, shouldBeDisable }: Payload) {
                 startTransition(async () => {
                   try {
                     await createTimelineEvent(payload)
-                  } catch (e: any) {
+                  } catch (e) {
                     const message = {
                       type: SnackbarMessageType.danger,
                       content: `No se pudo actuliazar`,

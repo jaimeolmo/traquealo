@@ -20,11 +20,12 @@ export default function DeleteEventButton({
     <IconButton
       size="sm"
       color="danger"
+      disabled={pending}
       onClick={() => {
         startTransition(async () => {
           try {
             await deleteTimelineEvent(eventId)
-          } catch (e: any) {
+          } catch (e) {
             const message = {
               type: SnackbarMessageType.danger,
               content:

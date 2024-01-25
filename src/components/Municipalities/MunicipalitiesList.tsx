@@ -19,7 +19,7 @@ type ComponentProps = {
 export default function MunicipalitiesList({ municipalities }: ComponentProps) {
   const [searchTerm, setSearchTerm] = useState('')
 
-  const handleSearchChange = (event: { target: { value: any } }) => {
+  const handleSearchChange = (event: { target: { value: string } }) => {
     setSearchTerm(event.target.value)
   }
 

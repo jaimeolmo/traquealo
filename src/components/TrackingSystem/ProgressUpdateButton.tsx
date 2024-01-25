@@ -23,7 +23,7 @@ export default function ProgressUpdateButton({
         startTransition(async () => {
           try {
             await createTimelineEvent(payload)
-          } catch (e: any) {
+          } catch (e) {
             const message = {
               type: SnackbarMessageType.danger,
               content: 'No se pudo actualizar el reporte.',

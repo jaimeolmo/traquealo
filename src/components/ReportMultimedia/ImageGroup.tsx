@@ -9,7 +9,7 @@ import Video from 'yet-another-react-lightbox/plugins/video'
 import 'yet-another-react-lightbox/styles.css'
 
 type ComponentProps = {
-  media: [] | never[]
+  media: [] | Array<never>
   sasToken: string
 }
 
@@ -52,7 +52,7 @@ export function ImageGroup({ media, sasToken }: ComponentProps) {
     } else {
       return { src: `${i.replace('/thumb/', '/lg/')}?${sasToken}` }
     }
-  }) as unknown as Slide[]
+  }) as unknown as Array<Slide>
 
   if (!mediaWithToken) return null
 

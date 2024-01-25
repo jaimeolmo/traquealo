@@ -39,7 +39,7 @@ async function generateSasToken() {
 
 async function getIssuesByMunicipality(
   municipality: string,
-): Promise<Issue[] | null> {
+): Promise<Array<Issue> | null> {
   const { userId } = auth()
 
   if (!userId) {
@@ -84,7 +84,7 @@ export default async function MunicipalityDashboard({
           </Typography>
           <Grid container justifyContent="flex-start">
             {typeof issues !== 'undefined' && Array.isArray(issues) ? (
-              issues.map((issue: any) => (
+              issues.map((issue) => (
                 <Grid key={issue.id} sm={6} xs={12} sx={{ flexGrow: 1, p: 1 }}>
                   <ReportCard report={issue} sasToken={sasToken} />
                 </Grid>
@@ -99,7 +99,7 @@ export default async function MunicipalityDashboard({
   )
 }
 
-function getMunicipalityDisplay(issues: { municipality: string }[] | null) {
+function getMunicipalityDisplay(issues: Array<{ municipality: string }> | null) {
   if (!issues || !issues[0]) {
     return 'No reportes disponibles'
   }

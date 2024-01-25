@@ -21,10 +21,10 @@ type MessageProps = {
 export type ChatProps = {
   id: string
   sender: UserProps
-  messages: MessageProps[]
+  messages: Array<MessageProps>
 }
 
-export const users: UserProps[] = [
+export const users: Array<UserProps> = [
   {
     name: 'Steve E.',
     username: '@steveEberger',
@@ -69,7 +69,7 @@ export const users: UserProps[] = [
   },
 ]
 
-export const chats: ChatProps[] = [
+export const chats: Array<ChatProps> = [
   {
     id: '1',
     sender: users[0],

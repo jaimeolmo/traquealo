@@ -11,7 +11,7 @@ import UploadSection from './UploadSection'
 type ComponentProps = {
   userId: string
   reportId: string
-  media: [] | never[]
+  media: [] | Array<never>
   sasToken: string
 }
 

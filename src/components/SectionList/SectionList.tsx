@@ -29,6 +29,7 @@ export function SectionList({
         {sectionList.map((item) => (
           <ListItem key={item.sectionTitle} sx={{ pl: 0 }}>
             <Link
+              aria-label={arialLabelDescription}
               className={styles.linkItem}
               href={item.sectionUrl as unknown as UrlObject}
               passHref

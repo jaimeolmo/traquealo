@@ -23,7 +23,7 @@ export default function CommunityButton({ payload, shouldBeDisable }: Payload) {
         startTransition(async () => {
           try {
             await createTimelineEvent(payload)
-          } catch (e: any) {
+          } catch (e) {
             const message = {
               type: SnackbarMessageType.danger,
               content: 'No se pudo actualizar impacto a la comunidad.',
