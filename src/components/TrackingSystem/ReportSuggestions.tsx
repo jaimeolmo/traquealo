@@ -26,6 +26,7 @@ import { useState, useTransition } from 'react'
 import Box from '@mui/joy/Box'
 import 'react-datepicker/dist/react-datepicker.css'
 import { SuggestCategoriesMenu } from '../CategoriesMenu/SuggestCategoriesMenu'
+import { SuggestAbuse } from '../ReportDetails/SuggestAbuse'
 
 type PayloadForSuggestion = {
   reportId: string
@@ -122,7 +123,8 @@ export default function ReportSuggestions({
         <Sheet
           variant="outlined"
           sx={{
-            maxWidth: 500,
+            width: 500,
+            minWidth: 290,
             borderRadius: 'md',
             p: 3,
             boxShadow: 'lg',
@@ -213,7 +215,13 @@ export default function ReportSuggestions({
                   type={type}
                 />
               </TabPanel>
-              <TabPanel value={2}>Reportar como abuso</TabPanel>
+              <TabPanel value={2}>
+                <SuggestAbuse
+                  reportId={payload.reportId}
+                  userId={payload.userId}
+                  type={type}
+                />
+              </TabPanel>
             </Tabs>
           </Stack>
         </Sheet>

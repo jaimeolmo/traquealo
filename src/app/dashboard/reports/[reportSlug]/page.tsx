@@ -185,17 +185,19 @@ export default async function ReportDetails({
               }
             />
             <Stack spacing={1} sx={{ pt: 1 }}>
-              <Stack>
-                <ReportSuggestions
-                  payload={{
-                    reportId: report[0].id,
-                    userId: currentUserId ?? 'unknown',
-                    type: ReportSuggestionType.Unknown,
-                    reportTitle: report[0].title,
-                    categories: reportCategories,
-                  }}
-                />
-              </Stack>
+              {!isReportOwner ? (
+                <Stack>
+                  <ReportSuggestions
+                    payload={{
+                      reportId: report[0].id,
+                      userId: currentUserId ?? 'unknown',
+                      type: ReportSuggestionType.Unknown,
+                      reportTitle: report[0].title,
+                      categories: reportCategories,
+                    }}
+                  />
+                </Stack>
+              ) : null}
               {isReportOwner ? (
                 <Stack>
                   <DeleteButton reportId={report[0].id} />
