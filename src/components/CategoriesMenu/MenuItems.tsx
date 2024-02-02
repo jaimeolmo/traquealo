@@ -6,7 +6,7 @@ import Checkbox from '@mui/joy/Checkbox'
 import Chip from '@mui/joy/Chip'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { CategoriesProps } from './types'
+import { Categories, CategoriesProps } from './types'
 
 export function MenuItems({ reportId, reportCategories }: CategoriesProps) {
   const [selected, setSelected] = useState<Array<string>>(
@@ -19,20 +19,7 @@ export function MenuItems({ reportId, reportCategories }: CategoriesProps) {
       aria-labelledby="report-categories"
       sx={{ width: 290, p: 2, display: 'flex', flexWrap: 'wrap', gap: 1 }}
     >
-      {[
-        'vivienda',
-        'recursos naturales',
-        'salud',
-        'transportación',
-        'cultura',
-        'energía',
-        'agua',
-        'edificio público',
-        'ornato',
-        'infraestructura',
-        'estorbo público',
-        'rotulación',
-      ].map((name) => {
+      {Categories.map((name) => {
         const checked = selected?.includes(name)
         return (
           <Chip

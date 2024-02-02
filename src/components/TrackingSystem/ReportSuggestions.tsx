@@ -23,13 +23,16 @@ import Textarea from '@mui/joy/Textarea'
 import Typography from '@mui/joy/Typography'
 import { useState, useTransition } from 'react'
 
+import Box from '@mui/joy/Box'
 import 'react-datepicker/dist/react-datepicker.css'
+import { SuggestCategoriesMenu } from '../CategoriesMenu/SuggestCategoriesMenu'
 
 type PayloadForSuggestion = {
   reportId: string
   userId: string
   type: ReportSuggestionType
   reportTitle: string
+  categories: Array<string>
 }
 export default function ReportSuggestions({
   payload,
@@ -143,7 +146,7 @@ export default function ReportSuggestions({
               sx={{ zIndex: 0 }}
               onChange={(event, value) => {
                 if (value === 0) setType(ReportSuggestionType.TitleChange)
-                if (value === 1) setType(ReportSuggestionType.CategoriesChange)
+                if (value === 1) setType(ReportSuggestionType.CategoriesUpdate)
                 if (value === 2) setType(ReportSuggestionType.Flagged)
               }}
             >
@@ -195,13 +198,21 @@ export default function ReportSuggestions({
                       },
                     }}
                   />
-
-                  <Button type="submit" onClick={handleSuggestionSubmit}>
-                    Enviar
-                  </Button>
+                  <Box sx={{ textAlign: 'right' }}>
+                    <Button type="submit" onClick={handleSuggestionSubmit}>
+                      Enviar
+                    </Button>
+                  </Box>
                 </Stack>
               </TabPanel>
-              <TabPanel value={1}>Añadir categorías</TabPanel>
+              <TabPanel value={1}>
+                <SuggestCategoriesMenu
+                  reportId={payload.reportId}
+                  reportCategories={payload.categories}
+                  userId={payload.userId}
+                  type={type}
+                />
+              </TabPanel>
               <TabPanel value={2}>Reportar como abuso</TabPanel>
             </Tabs>
           </Stack>

@@ -1,6 +1,6 @@
 export const ReportSuggestionType = {
   Flagged: 'Flagged',
-  CategoriesChange: 'CategoriesChange',
+  CategoriesUpdate: 'CategoriesUpdate',
   TitleChange: 'TitleChange',
   DescriptionChange: 'DescriptionChange',
   Unknown: 'Unknown',

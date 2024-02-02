@@ -192,6 +192,7 @@ export default async function ReportDetails({
                     userId: currentUserId ?? 'unknown',
                     type: ReportSuggestionType.Unknown,
                     reportTitle: report[0].title,
+                    categories: reportCategories,
                   }}
                 />
               </Stack>

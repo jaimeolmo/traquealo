@@ -4,7 +4,6 @@ import {
   ReportSuggestion,
   ReportSuggestionType,
 } from '@/models/ReportSuggestion'
-import { revalidatePath } from 'next/cache'
 import ReportSuggestionCosmosClient from '../cosmosdb/ReportSuggestionCosmosClient'
 
 export type SuggestionPayload = {
@@ -25,6 +24,4 @@ export async function createReportSuggestion(payload: SuggestionPayload) {
   const reportSuggestionCosmosClient = new ReportSuggestionCosmosClient()
 
   await reportSuggestionCosmosClient.createOrUpdate(suggestion)
-
-  revalidatePath('/dashboard/report/[reportSlug]', 'layout')
 }
