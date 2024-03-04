@@ -52,7 +52,6 @@ export default async function InvitationPage() {
     !('publicBeta' in user.privateMetadata)
       ? true
       : false
-  console.log(showPublicAlert)
 
   return (
     <Sheet sx={{ maxWidth: '1024px', width: '100%', py: 2, px: 4 }}>
