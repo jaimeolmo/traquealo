@@ -1,6 +1,11 @@
 import { User } from '@/models/User'
 import BaseCosmosClient from './BaseCosmosClient'
 
+type Invitation = {
+  email: string
+  status?: string
+}
+
 export default class UserCosmosClient extends BaseCosmosClient<User> {
   protected containerName: string
 
@@ -54,6 +59,21 @@ export default class UserCosmosClient extends BaseCosmosClient<User> {
       .container(this.containerName)
       .items.query(querySpec)
       .fetchAll()
+    return await Promise.all(results.map((o) => o))
+  }
+
+  public async getInvitationsByUserId(
+    userId: string,
+  ): Promise<Array<Invitation>> {
+    const querySpec = {
+      query: `SELECT c.invitations FROM c WHERE c.userId ='${userId}'`,
+    }
+    const { resources: results } = await this.client
+      .database(this.databaseId)
+      .container(this.containerName)
+      .items.query(querySpec)
+      .fetchAll()
+
     return await Promise.all(results.map((o) => o))
   }
 }

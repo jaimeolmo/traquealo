@@ -52,13 +52,45 @@ export async function POST(req: Request) {
 
   // Get the ID and type
   const { id } = evt.data
-  // const eventType = evt.type
+  console.log(id)
+  console.log(JSON.stringify(evt, null, 2))
 
-  const userCosmosClient = new UserCosmosClient()
+  /* If "type": "session.created" 
+  Verify that the user exists in db
+  Verify if the user is allow to private beta
+  Verify if the is redeeming an invitation
+  */
 
-  const newUser = User.CreateNew(id as string)
+  if (evt.type === 'session.created') {
+    console.log('check invitation')
 
-  await userCosmosClient.createOrUpdate(newUser)
+    // await clerkClient.users.updateUserMetadata(evt.data.user_id, {
+    //   privateMetadata: {
+    //     publicBeta: true,
+    //   },
+    // })
+    const userCosmosClient = new UserCosmosClient()
+    const user = await userCosmosClient.getByPropertyValue(
+      'userId',
+      evt.data.user_id,
+    )
+    if (!user) {
+      const newUser = User.CreateNew(evt.data.user_id as string)
+      await userCosmosClient.createOrUpdate(newUser)
+    }
 
-  return new Response('', { status: 201 })
+    return new Response('', { status: 201 })
+  }
+
+  /* If "type": "user.created" 
+  Create user in db
+  Verify if the is redeeming an invitation
+  */
+
+  if (evt.type === 'user.created') {
+    const userCosmosClient = new UserCosmosClient()
+    const newUser = User.CreateNew(id as string)
+    await userCosmosClient.createOrUpdate(newUser)
+    return new Response('', { status: 201 })
+  }
 }

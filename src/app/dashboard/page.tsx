@@ -1,5 +1,7 @@
+import CustomAlert from '@/components/Alert/CustomAlert'
 import ReportCard from '@/components/Cards/ReportCard'
 import DataFromUser from '@/components/Experiment/DataFromUser'
+import InvitationTracking from '@/components/InvitationTracking/InvitationSidebard'
 import { Pagination } from '@/components/Pagination/Pagination'
 import IssueCosmosClient from '@/utilities/cosmosdb/IssueCosmosClient'
 import {
@@ -8,7 +10,7 @@ import {
   StorageSharedKeyCredential,
   generateBlobSASQueryParameters,
 } from '@azure/storage-blob'
-import { auth } from '@clerk/nextjs'
+import { auth, currentUser } from '@clerk/nextjs'
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded'
 import Person2RoundedIcon from '@mui/icons-material/Person2Rounded'
 import Grid from '@mui/joy/Grid'
@@ -79,6 +81,20 @@ export default async function Dashboard({
   const sasToken = await generateSasToken()
   const userId = await getAuthenticatedUserId()
 
+  console.log('Maybe is undefined maybe is with some data')
+  const user = await currentUser()
+  console.log(user?.privateMetadata)
+
+  // if user?.privateMetadata is undefined, the user is not part of the public beta therefore all should be disabled.
+
+  const showPublicAlert =
+    user?.privateMetadata === null ||
+    user?.privateMetadata === undefined ||
+    !('publicBeta' in user.privateMetadata)
+      ? true
+      : false
+  console.log(showPublicAlert)
+
   return (
     <Sheet
       sx={{
@@ -88,11 +104,11 @@ export default async function Dashboard({
         py: 2,
       }}
     >
+      {showPublicAlert ? <CustomAlert /> : null}
       <Typography level="h2" sx={{ py: 4 }} textColor={'primary.900'}>
         Construyendo un Futuro Mejor: Monitoreo y Registro de Desafíos
         Comunitarios
       </Typography>
-
       <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
         <Stack id="main" sx={{ zIndex: 0, minWidth: 0 }}>
           <Typography
@@ -129,6 +145,7 @@ export default async function Dashboard({
             Mis Reportes
           </Typography>
           <DataFromUser userId={userId} />
+          <InvitationTracking />
         </Stack>
       </Stack>
     </Sheet>

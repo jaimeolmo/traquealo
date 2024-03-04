@@ -1,0 +1,27 @@
+import { generateInvitationCode } from '../utilities/generateInvitationCode'
+
+export type SixDigitNumber<N extends number> =
+  `${N}` extends `${infer D1}${infer D2}${infer D3}${infer D4}${infer D5}${infer D6}`
+    ? `${D1 | D2 | D3 | D4 | D5 | D6}` extends `${number}`
+      ? N
+      : never
+    : never
+
+export class Invitation {
+  public id: string
+  public inviterId: string
+  public inviteeEmail: string
+  public code: string
+  public createdOn: Date
+
+  public static CreateNew(inviterId: string, inviteeEmail: string) {
+    const invitation = new Invitation()
+
+    invitation.inviterId = inviterId
+    invitation.inviteeEmail = inviteeEmail
+    invitation.code = generateInvitationCode()
+    invitation.createdOn = new Date()
+
+    return invitation
+  }
+}
