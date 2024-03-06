@@ -14,6 +14,6 @@ it('App Router: Works with Server Components', () => {
   ).toBeInTheDocument()
 
   expect(
-    screen.getByText('© 2023 Traquéalo — Hecho en Puerto Rico'),
+    screen.getByText('© 2024 Traquéalo — Hecho en Puerto Rico'),
   ).toBeInTheDocument()
 })

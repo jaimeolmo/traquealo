@@ -1,14 +1,9 @@
 'use client'
-import { SignedIn, UserButton } from '@clerk/nextjs'
-import Box from '@mui/joy/Box'
-import Button from '@mui/joy/Button'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Logo } from '../Logo'
-import MobileMenu from './MobileMenu'
-import SignInButton from './SignInButton'
 
 export function HeaderBar() {
   const pathname = usePathname()
@@ -55,10 +50,10 @@ export function HeaderBar() {
             display: { xs: 'block', sm: 'none' },
           }}
         >
-          <SignInButton />
+          {/* <SignInButton />
           <Box>
             <MobileMenu />
-          </Box>
+          </Box> */}
         </Stack>
         <Stack
           id="DesktopNavigationArea"
@@ -71,7 +66,7 @@ export function HeaderBar() {
           justifyContent="flex-end"
           alignItems="center"
         >
-          <SignedIn>
+          {/* <SignedIn>
             {pathname !== '/reportar' ? (
               <Link prefetch={false} href="/reportar" passHref>
                 <Button variant="soft">Reportar</Button>
@@ -93,7 +88,7 @@ export function HeaderBar() {
             ) : null}
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
-          <SignInButton />
+          <SignInButton /> */}
         </Stack>
       </Stack>
     </Sheet>
