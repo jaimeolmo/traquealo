@@ -1,4 +1,13 @@
 config:
-  Traquealo:location: East US
   Traquealo:environment: stage
+  Traquealo:location: East US
+  azure-native:clientId:
+    secure: AAABABaEtKXpyVQkQ9s+/itlfuH24ZOYHIs+F9wdcBtpxj8kD5UHRyDQpgfbUBP72Ti/RPRP0RxItVV41+E65cjdZAE=
+  azure-native:clientSecret:
+    secure: AAABAD+4KqSIJ9n3rek/xinOzd2a5fBLRQPZHUvlRR4p77fLOiHQREVhnoLmaeeljdbLCdpCgji1Kq3MQfvNAmDSKxQ=
+  azure-native:subscriptionId:
+    secure: AAABAG9Fl3wLrNmTopFhjCtGOO6QziHmjpwi9wV+6hxJrxB7Oa9PG++mhk9nwAoG56iKE6YdPZmSGuW7RAzxsm7lvY0=
+  azure-native:tenantId:
+    secure: AAABAA7+l7FDvbbvZSdncLB4OUkHfBSyrJA6U6IDJtMi9wzqdAgpKdYcaQumU4vGHU7Ekgkpt7eathLTRnky3oKfdcI=
+  azure-native:useOidc: "true"
   pulumi:template: azure-typescript
