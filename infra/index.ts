@@ -29,4 +29,6 @@ const storageAccountKeys = storage.listStorageAccountKeysOutput({
   accountName: storageAccount.name,
 })
 
+// CosmosDb
+
 export const primaryStorageKey = storageAccountKeys.keys[0].value
