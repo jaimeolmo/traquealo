@@ -23,6 +23,13 @@ const storageAccount = new storage.StorageAccount(`traquealo${environment}sa`, {
   kind: storage.Kind.StorageV2,
 })
 
+// **Create the new container**
+const mediaContainer = new storage.BlobContainer('media', {
+  resourceGroupName: resourceGroup.name,
+  accountName: storageAccount.name,
+  publicAccess: storage.PublicAccess.None, // Or other access level if needed
+})
+
 // Export the primary key of the Storage Account
 const storageAccountKeys = storage.listStorageAccountKeysOutput({
   resourceGroupName: resourceGroup.name,
