@@ -54,10 +54,7 @@ const cosmosDbAccount = new documentdb.DatabaseAccount('databaseAccount', {
       failoverPriority: 0,
     },
   ],
-  ...(environment === 'prod' ? { enableFreeTier: true } : {}),
-  ...(environment === 'stage'
-    ? { capabilities: [{ name: 'EnableServerless' }] }
-    : {}),
+  capabilities: [{ name: 'EnableServerless' }],
 })
 
 // Cosmos DB Database
