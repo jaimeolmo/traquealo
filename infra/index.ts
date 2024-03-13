@@ -55,7 +55,7 @@ const cosmosDbAccount = new documentdb.DatabaseAccount('databaseAccount', {
     },
   ],
   ...(environment === 'prod' ? { enableFreeTier: true } : {}),
-  ...(environment === 'staging'
+  ...(environment === 'stage'
     ? { capabilities: [{ name: 'EnableServerless' }] }
     : {}),
 })
