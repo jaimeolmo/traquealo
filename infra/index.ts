@@ -54,7 +54,16 @@ const cosmosDbAccount = new documentdb.DatabaseAccount('databaseAccount', {
       failoverPriority: 0,
     },
   ],
-  capabilities: [{ name: 'EnableServerless' }],
+  backupPolicy: {
+    continuousModeProperties: {
+      tier: 'Continuous7Days',
+    },
+    type: 'Continuous',
+  },
+  ...(environment === 'prod' ? { enableFreeTier: true } : {}),
+  ...(environment === 'stage'
+    ? { capabilities: [{ name: 'EnableServerless' }] }
+    : {}),
 })
 
 // Cosmos DB Database
@@ -72,7 +81,7 @@ const cosmosdbDatabase = new documentdb.SqlResourceSqlDatabase(
 
 // Cosmos DB Containers
 const issuesContainer = new documentdb.SqlResourceSqlContainer(
-  'sqlResourceSqlContainer',
+  'issuesContainer',
   {
     accountName: cosmosDbAccount.name,
     containerName: 'issues',
@@ -80,6 +89,57 @@ const issuesContainer = new documentdb.SqlResourceSqlContainer(
     databaseName: cosmosdbDatabase.name,
     resource: {
       id: 'issues',
+      partitionKey: {
+        kind: 'Hash',
+        paths: ['/id'], // Define your partition key path
+      },
+    },
+  },
+)
+
+const reportEventsContainer = new documentdb.SqlResourceSqlContainer(
+  'reportEventsContainer',
+  {
+    accountName: cosmosDbAccount.name,
+    containerName: 'reportEvents',
+    resourceGroupName: resourceGroup.name,
+    databaseName: cosmosdbDatabase.name,
+    resource: {
+      id: 'reportEvents',
+      partitionKey: {
+        kind: 'Hash',
+        paths: ['/reportId'], // Define your partition key path
+      },
+    },
+  },
+)
+
+const reportSuggestionsContainer = new documentdb.SqlResourceSqlContainer(
+  'reportSuggestionsContainer',
+  {
+    accountName: cosmosDbAccount.name,
+    containerName: 'reportSuggestions',
+    resourceGroupName: resourceGroup.name,
+    databaseName: cosmosdbDatabase.name,
+    resource: {
+      id: 'reportSuggestions',
+      partitionKey: {
+        kind: 'Hash',
+        paths: ['/timestamp'], // Define your partition key path
+      },
+    },
+  },
+)
+
+const usersContainer = new documentdb.SqlResourceSqlContainer(
+  'usersContainer',
+  {
+    accountName: cosmosDbAccount.name,
+    containerName: 'users',
+    resourceGroupName: resourceGroup.name,
+    databaseName: cosmosdbDatabase.name,
+    resource: {
+      id: 'users',
       partitionKey: {
         kind: 'Hash',
         paths: ['/id'], // Define your partition key path
