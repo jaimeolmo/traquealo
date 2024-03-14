@@ -1,0 +1,4 @@
+config:
+  Traquealo:environment: prod
+  Traquealo:location: East US
+  pulumi:template: azure-typescript
