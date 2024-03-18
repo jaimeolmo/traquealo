@@ -57,7 +57,6 @@ export default function ReportSuggestions({
   }
 
   const handleSuggestionSubmit = () => {
-    console.log(title.length)
     if (title.length === 0) {
       setError(true)
       return

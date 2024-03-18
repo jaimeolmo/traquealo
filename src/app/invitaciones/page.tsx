@@ -1,5 +1,7 @@
 import CustomAlert from '@/components/Alert/CustomAlert'
-import UserCosmosClient from '@/utilities/cosmosdb/UserCosmosClient'
+import UserCosmosClient, {
+  Invitations,
+} from '@/utilities/cosmosdb/UserCosmosClient'
 import { auth, currentUser } from '@clerk/nextjs'
 import MailIcon from '@mui/icons-material/Mail'
 import Button from '@mui/joy/Button'
@@ -7,14 +9,15 @@ import Input from '@mui/joy/Input'
 import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/joy/Stack'
 import Typography from '@mui/joy/Typography'
+import { notFound } from 'next/navigation'
 
-async function getAuthenticatedUserId() {
-  const { userId } = auth()
+// async function getAuthenticatedUserId() {
+//   const { userId } = auth()
 
-  return userId
-}
+//   return userId
+// }
 
-async function getInvitationsAssignedToUserId() {
+async function getInvitationsAssignedToUserId(): Promise<Invitations | null> {
   const { userId } = auth()
 
   if (!userId) {
@@ -27,22 +30,26 @@ async function getInvitationsAssignedToUserId() {
 
     const response = await userCosmosClient.getInvitationsByUserId(userId)
 
-    return response || null
+    if (
+      response &&
+      response.length === 1 &&
+      response[0] !== undefined &&
+      'invitations' in response[0]
+    ) {
+      return response[0].invitations as Invitations
+    }
+
+    return null
   } catch (error) {
     return null
   }
 }
 
 export default async function InvitationPage() {
-  const userId = await getAuthenticatedUserId()
-  console.log('Maybe is undefined maybe is with some data')
   const user = await currentUser()
-  console.log(user?.privateMetadata)
-  console.log(userId)
-
   const invitations = await getInvitationsAssignedToUserId()
 
-  console.log(invitations[0].invitations)
+  if (!invitations) return notFound()
 
   // if user?.privateMetadata is undefined, the user is not part of the public beta therefore all should be disabled.
 
@@ -52,7 +59,6 @@ export default async function InvitationPage() {
     !('publicBeta' in user.privateMetadata)
       ? true
       : false
-  console.log(showPublicAlert)
 
   return (
     <Sheet sx={{ maxWidth: '1024px', width: '100%', py: 2, px: 4 }}>
@@ -61,7 +67,7 @@ export default async function InvitationPage() {
         Manejar Invitaciones
       </Typography>
       <Stack spacing={2}>
-        {invitations[0].invitations.map((item, index) => (
+        {invitations.map((item, index) => (
           <Stack key={index}>
             <Input
               startDecorator={<MailIcon />}

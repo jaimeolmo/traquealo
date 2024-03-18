@@ -72,7 +72,7 @@ export default async function ReportDetails({
   params: { reportSlug: string }
 }) {
   const report = await getReportBySlug(params.reportSlug)
-  if (!report) return notFound()
+  if (!report || report[0] === undefined) return notFound()
 
   const sasToken = await generateSasToken()
   const timelineEvents = await getAllReportEvents(params.reportSlug)

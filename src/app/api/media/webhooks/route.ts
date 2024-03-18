@@ -129,7 +129,7 @@ function extractUrls(payload: PayloadType) {
   }
 
   Object.keys(payload).forEach((key) => {
-    payload[key].forEach((item: { ssl_url: string }) => {
+    payload[key]?.forEach((item: { ssl_url: string }) => {
       if (item.ssl_url) {
         result.push({ op: 'add', path: `/media/${key}/-`, value: item.ssl_url })
       }

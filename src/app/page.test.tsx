@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import Home from './page'
 
@@ -14,6 +15,6 @@ it('App Router: Works with Server Components', () => {
   ).toBeInTheDocument()
 
   expect(
-    screen.getByText('© 2023 Traquéalo — Hecho en Puerto Rico'),
+    screen.getByText('© 2024 Traquéalo — Hecho en Puerto Rico'),
   ).toBeInTheDocument()
 })

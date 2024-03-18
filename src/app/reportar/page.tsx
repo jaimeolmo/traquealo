@@ -12,9 +12,7 @@ async function getAuthenticatedUserId() {
 
 export default async function ReportingPage() {
   const userId = await getAuthenticatedUserId()
-  console.log('Maybe is undefined maybe is with some data')
   const user = await currentUser()
-  console.log(user?.privateMetadata)
 
   // if user?.privateMetadata is undefined, the user is not part of the public beta therefore all should be disabled.
 
@@ -24,7 +22,6 @@ export default async function ReportingPage() {
     !('publicBeta' in user.privateMetadata)
       ? true
       : false
-  console.log(showPublicAlert)
 
   return (
     <Sheet sx={{ maxWidth: '1024px', width: '100%', py: 2, px: 4 }}>

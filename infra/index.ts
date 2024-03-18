@@ -178,4 +178,4 @@ const primaryCosmosDbConnectionDetails = cosmosDbConnectionStrings.apply(
 export const primaryConnectionString =
   primaryCosmosDbConnectionDetails.connectionString
 
-export const primaryStorageKey = storageAccountKeys.keys[0].value
+export const primaryStorageKey = storageAccountKeys.keys[0]?.value

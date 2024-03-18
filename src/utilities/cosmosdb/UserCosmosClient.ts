@@ -6,6 +6,8 @@ type Invitation = {
   status?: string
 }
 
+export type Invitations = Array<Invitation>
+
 export default class UserCosmosClient extends BaseCosmosClient<User> {
   protected containerName: string
 
@@ -62,9 +64,7 @@ export default class UserCosmosClient extends BaseCosmosClient<User> {
     return await Promise.all(results.map((o) => o))
   }
 
-  public async getInvitationsByUserId(
-    userId: string,
-  ): Promise<Array<Invitation>> {
+  public async getInvitationsByUserId(userId: string): Promise<Invitations> {
     const querySpec = {
       query: `SELECT c.invitations FROM c WHERE c.userId ='${userId}'`,
     }

@@ -15,7 +15,7 @@ export async function deleteTimelineEvent(eventId: string | undefined) {
 
   const event = await eventCosmosClient.getById(eventId)
 
-  if (!event || !Array.isArray(event)) return
+  if (!event || !Array.isArray(event) || event[0] === undefined) return
 
   if (userId !== event[0].userId) {
     return new Response('Unauthorized', { status: 401 })

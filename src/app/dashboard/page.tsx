@@ -81,9 +81,7 @@ export default async function Dashboard({
   const sasToken = await generateSasToken()
   const userId = await getAuthenticatedUserId()
 
-  console.log('Maybe is undefined maybe is with some data')
   const user = await currentUser()
-  console.log(user?.privateMetadata)
 
   // if user?.privateMetadata is undefined, the user is not part of the public beta therefore all should be disabled.
 
@@ -93,7 +91,6 @@ export default async function Dashboard({
     !('publicBeta' in user.privateMetadata)
       ? true
       : false
-  console.log(showPublicAlert)
 
   return (
     <Sheet
@@ -110,7 +107,7 @@ export default async function Dashboard({
         Comunitarios
       </Typography>
       <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
-        <Stack id="main" sx={{ zIndex: 0, minWidth: 0 }}>
+        <Stack id="main" sx={{ zIndex: 0, minWidth: 0, flex: 1 }}>
           <Typography
             level="h3"
             startDecorator={
